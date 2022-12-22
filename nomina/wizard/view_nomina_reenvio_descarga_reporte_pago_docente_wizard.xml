@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--START [configuraicones de pagos adicionales]-->
+    <record id="view_nomina_reenvio_descarga_reporte_pago_docente_wizard_form" model="ir.ui.view">
+        <field name="name">nomina.reenvio.descarga.reporte.pago.docente.wizard.form</field>
+        <field name="model">nomina.reenvio.descarga.reporte.pago.docente.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Reenvio y Descarga de Reporte de Pago Docente">
+                <group class="oe_title">
+                    <group string="Info general">
+                        <field name="planillaCuatrimestre_id"/>
+                        <field name="docente_id" domain="[('department_id', '=', 'Docentes')]"/>
+                    </group>
+                    <group>
+
+                    </group>
+                </group>
+                <footer>
+                    <button name="reenviar_reporte" string="Reenviar" type="object" class="btn-primary"/>
+                    <button name="descargar_reporte" string="Descargar" type="object" class="btn-primary"/>
+                    <button string="Cancelar" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="action_nomina_reenvio_descarga_reporte_pago_docente_wizard" model="ir.actions.act_window">
+        <field name="name">Reenvio y Descarga de Reporte de Pago Docente</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">nomina.reenvio.descarga.reporte.pago.docente.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_nomina_reenvio_descarga_reporte_pago_docente_wizard_form"/>
+        <field name="target">new</field>
+    </record>
+    <!--    END [configuraicones de pagos adicionales]-->
+</odoo>

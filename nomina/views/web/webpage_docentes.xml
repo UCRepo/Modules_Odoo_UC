@@ -1,0 +1,15 @@
+<odoo>
+    <data>
+        <template id="web_docente_home">
+            <head>
+                <t t-call-assets="nomina.docente_frontend" t-js="false"/>
+                <t t-call-assets="nomina.docente_frontend" t-css="false"/>
+            </head>
+            <t t-call="website.layout">
+                <t t-set="title">Cuenta</t>
+                <div class="container" id="web_nomina_docente_home">
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

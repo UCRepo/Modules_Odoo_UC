@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="email_notificacion_saldo_moroso" model="mail.template">
+            <field name="name">Estado de Cuenta</field>
+            <field name="model_id" ref="cobros.model_cobros_periodo_pago"/>
+            <field name="body_html" type="html" >
+                <div style="margin: 0px; padding: 0px;">
+                    % set datosCorreo = ctx.get('datosCorreo', {})
+                    <div>
+                        <img src="https://uc.ac.cr/wp-content/uploads/2022/09/MicrosoftTeams-image-1.png" width="150" height="100"/>
+                    </div>
+                    <div style="text-align:center;">
+                        <img src="https://uc.ac.cr/wp-content/uploads/2022/09/MicrosoftTeams-image.png" width="300" height="100"/>
+                    </div>
+                    <div style="text-align:center;">
+                        <h1>Estado de Cuenta</h1>
+
+                        <p>Buenas tardes estimado(a) ${datosCorreo['nombreEstudiante']},</p>
+
+                        <p>En nuestros registros nos aparece un saldo moroso a su nombre, la cual venció el ${datosCorreo['fechaVencimiento']} y siguen acumulando intereses moratorios por lo cual requerimos coordinar una fecha de pago y así poder evitar inconvenientes con los servicios que brinda la universidad.</p>
+
+                        <table style="margin-left:auto;margin-right:auto;" class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Letra</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                % for line in datosCorreo['letras']:
+                                <tr>
+                                    <td>
+                                        <t>${line['letra']}</t>
+                                    </td>
+                                </tr>
+                                % endfor
+                            </tbody>
+                        </table>
+
+                        <p>Para mayor información comunicarse con el agente asignado</p>
+                        <p>Telefono: ${datosCorreo['extension']}</p>
+                        <p>Correo: ${datosCorreo['correo']}</p>
+
+                        <h2>Números de cuenta</h2>
+                        <p>Nombre:</p>
+                        <p>Grupo Educativo Calpuli SA. </p>
+                        <p>CÉDULA JURÍDICA: 3-101-774530</p>
+                        <h2>CUENTA DEL BANCO DE COSTA RICA</h2>
+                        <p>CUENTA EN COLONES:</p>
+                        <p>CR36015201001047982361 </p>
+                        <h2>CUENTA DEL BAC SAN JOSE</h2>
+                        <p>CUENTA EN COLONES:</p>
+                        <p>CR26010200009393538351</p>
+                        <h2>CUENTA DEL BANCO NACIONAL</h2>
+                        <p>CUENTA EN COLONES:</p>
+                        <p>CR33015117210010004979  </p>
+                    </div>
+                    <div style="text-align:right;">
+                        <img src="https://uc.ac.cr/wp-content/uploads/2022/09/MicrosoftTeams-image-2.png" width="250" height="100"/>
+                    </div>
+                </div>
+            </field>
+        </record>
+
+        <record id="email_notificacion_incumplimineto_arreglo" model="mail.template">
+            <field name="name">Incumplimiento de Arreglo</field>
+            <field name="model_id" ref="cobros.model_cobros_periodo_pago"/>
+            <field name="body_html" type="html" >
+                <div style="margin: 0px; padding: 0px;">
+                    % set datosCorreo = ctx.get('datosCorreo', {})
+                    <div>
+                        <img src="https://uc.ac.cr/wp-content/uploads/2022/09/MicrosoftTeams-image-1.png" width="150" height="100"/>
+                    </div>
+                    <div style="text-align:center;">
+                        <img src="https://uc.ac.cr/wp-content/uploads/2022/09/MicrosoftTeams-image.png" width="300" height="100"/>
+                    </div>
+                    <div style="text-align:center;">
+                        <p>Buenas estimado(a) ${datosCorreo['nombreEstudiante']},</p>
+
+                        <p>Anteriormente se había establecido un arreglo de pago para el día ${datosCorreo['nombreEstudiante']} para la cancelación de la primera cuota,
+                            la cual venció el ${datosCorreo['fechaVencimiento']}</p>
+
+                        <p>¿Pudo realizar el pago?</p>
+
+                        <p>Para mayor información comunicarse con el asesor asignado</p>
+                        <p>Telefono: ${datosCorreo['extension']}</p>
+                        <p>Correo: ${datosCorreo['correo']}</p>
+                    </div>
+                    <div style="text-align:right;">
+                        <img src="https://uc.ac.cr/wp-content/uploads/2022/09/MicrosoftTeams-image-2.png" width="250" height="100"/>
+                    </div>
+                </div>
+            </field>
+        </record>
+    </data>
+
+</odoo>
+
+

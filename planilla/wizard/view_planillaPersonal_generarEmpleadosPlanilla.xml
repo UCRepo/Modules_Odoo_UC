@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <!--START [configuraicones de pagos adicionales]-->
+    <record id="view_planilla_personal_generar_docentes_planilla_wizard_form" model="ir.ui.view">
+        <field name="name">planilla.personal.generar.docentes.planilla.wizard.form</field>
+        <field name="model">planilla.personal.generar.docentes.planilla.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Generar Empleados Planilla">
+                <group class="oe_title">
+                    <field name="periodoPago_id"/>
+                </group>
+                <footer>
+                    <button name="generar_planilla" string="Generar" type="object" class="btn-primary"/>
+                    <button string="Cancelar" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_planilla_personal_generar_docentes_planilla_wizard" model="ir.actions.act_window">
+        <field name="name">Generar Empleados Planilla</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">planilla.personal.generar.docentes.planilla.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_planilla_personal_generar_docentes_planilla_wizard_form"/>
+        <field name="target">new</field>
+    </record>
+<!--    END [configuraicones de pagos adicionales]-->
+</odoo>

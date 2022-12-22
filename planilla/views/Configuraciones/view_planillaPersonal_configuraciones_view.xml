@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--START [configuraicones de menu principal]-->
+    <menuitem id="planillaPersonal_configuraciones_root"
+              name="Configuraciones"
+              parent="planillaPersonal_root"
+              sequence="100"/>
+    <!--END [configuraicones de menu principal]-->
+
+    <!--START [configuraicones de pagos adicionales]-->
+    <record id="view_planillaPersonal_configuraciones_form" model="ir.ui.view">
+        <field name="name">planilla.personal.configuraciones.form</field>
+        <field name="model">planilla.personal.configuraciones</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <field name="currency_id" invisible="1"/>
+                    <notebook>
+                        <page string="Renta">
+                            <group>
+                                <group>
+                                    <field name="desde0" widget="monetary" options="{'currency_field': 'currency_id'}" decoration-bf="True"/>
+                                    <field name="hasta0" widget="monetary" options="{'currency_field': 'currency_id'}" decoration-bf="True"/>
+                                    <field name="porciento0" widget="percentage"/>
+                                </group>
+                                <group>
+                                    <field name="desde1" widget="monetary" options="{'currency_field': 'currency_id'}" decoration-bf="True"/>
+                                    <field name="hasta1" widget="monetary" options="{'currency_field': 'currency_id'}" decoration-bf="True"/>
+                                    <field name="porciento1" widget="percentage"/>
+                                </group>
+                                <group>
+                                    <field name="desde2" widget="monetary" options="{'currency_field': 'currency_id'}" decoration-bf="True"/>
+                                    <field name="hasta2" widget="monetary" options="{'currency_field': 'currency_id'}" decoration-bf="True"/>
+                                    <field name="porciento2" widget="percentage"/>
+                                </group>
+                                <group>
+                                    <field name="desde3" widget="monetary" options="{'currency_field': 'currency_id'}" decoration-bf="True"/>
+                                    <field name="hasta3" widget="monetary" options="{'currency_field': 'currency_id'}" decoration-bf="True"/>
+                                    <field name="porciento3" widget="percentage"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Embargo">
+                            <group>
+                                <group>
+                                    <field name="salarioBase" widget="monetary" options="{'currency_field': 'currency_id'}" decoration-bf="True"/>
+                                    <field name="porcientoRebajoEmbargo" widget="percentage"/>
+                                </group>
+                                <group>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="CCSS">
+                            <group>
+                                <group>
+                                    <field name="CCSSNormal" widget="percentage"/>
+                                    <field name="CCSSPensionado" widget="percentage"/>
+                                </group>
+                                <group>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Prestaciones">
+                            <group>
+                                <group>
+                                    <field name="aguinaldo" widget="percentage"/>
+                                    <field name="cesantia" widget="percentage"/>
+                                </group>
+                                <group>
+                                    <field name="preaviso" widget="percentage"/>
+                                    <field name="vacaciones" widget="percentage"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="action_planillaPersonal_configuraciones" model="ir.actions.act_window">
+        <field name="name">Deducciones</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">planilla.personal.configuraciones</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Crea una configuracion!
+            </p>
+        </field>
+    </record>
+    <menuitem id="planillaPersonal_configuraciones_deducciones"
+              name="Deducciones"
+              parent="planillaPersonal_configuraciones_root"
+              action="action_planillaPersonal_configuraciones"
+              sequence="-20"/>
+
+    <menuitem id="planillaPersonal_reporteria_wizard"
+              name="Reporteria"
+              parent="planillaPersonal_configuraciones_root"
+              action="action_planilla_administrativa_reporteria_wizard"
+              sequence="-10"/>
+    <!--END [configuraicones de pagos adicionales]-->
+
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.planilla.administrativa</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="10"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('settings')]" position="inside">
+                <div class="app_settings_block" data-string="Planilla" string="Planilla Administrativa" data-key="planilla">
+                    <h2>Nomina</h2>
+                    <div class="row mt16 o_settings_container">
+                        <div class="o_settings_left_pane">
+                            <label string="Direccion de correo maviso para administrativos" for="correoEnvioAdministrativos"/>
+                            <field name="correoEnvioAdministrativos"/>
+                            <label string="Correo de envio de nofiticacion de cumpleaños" for="correoEnvioCumple"/>
+                            <field name="correoEnvioCumple"/>
+                            <label string="API" for="planillaAPI"/>
+                            <field name="planillaAPI"/>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+    <record id="action_planilla_configuraciones_config" model="ir.actions.act_window">
+        <field name="name">Ajustes de Planilla Administrativa</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_id" ref="res_config_settings_view_form"/>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+        <field name="context">{'module' : 'planilla'}</field>
+    </record>
+    <menuitem id="planilla_configuraciones_modulo"
+              name="Configuraciones de modulo"
+              parent="planillaPersonal_root"
+              action="action_planilla_configuraciones_config"
+              sequence="60"/>
+
+
+
+</odoo>

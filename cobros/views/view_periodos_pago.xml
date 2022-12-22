@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_cobros_periodo_pago_tree" model="ir.ui.view">
+        <field name="name">cobros.periodo.pago.tree</field>
+        <field name="model">cobros.periodo.pago</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="fechaPago"/>
+                <field name="fechaInicioBloqueo"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_cobros_periodo_pago_form" model="ir.ui.view">
+        <field name="name">cobros.periodo.pago.form</field>
+        <field name="model">cobros.periodo.pago</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="get_datos_cobros" string="Cargar" class="btn-primary" type="object" attrs="{'invisible': [('readonlyCobros','=',True)]}"/>
+                    <button name="get_datos_cobros_actualizados" string="Actualizar" class="btn-primary" type="object" attrs="{'invisible': [('readonlyCobros','=',True)]}"/>
+                    <button name="generar_excel_asignacion" string="Excel Asignación" class="btn-primary" type="object" attrs="{'invisible': [('readonlyCobros','=',True)]}"/>
+                    <button name="send_notificaciones" string="Enviar Notificaciones" class="btn-primary" type="object" attrs="{'invisible': [('readonlyCobros','=',True)]}"/>
+                    <button name="generar_excel_reporte_estado_pago" string="Reporte Estado de Letra" class="btn-primary" type="object"/>
+<!--                    <button name="set_bloqueo_estudiantes" string="Bloqueo General Moodle" class="btn-primary" type="object"/>-->
+<!--                    <button name="set_desbloqueo_estudiantes" string="Desbloqueo General Moodle" class="btn-primary" type="object"/>-->
+                </header>
+                <sheet>
+                    <group>
+                        <group string="Datos generales">
+                            <field name="readonlyCobros" invisible="1"/>
+                            <field name="activo" widget="boolean_toggle" attrs="{'readonly': [('readonlyCobros','=',True)]}"/>
+                            <field name="cuatrimestrePlanilla_id" attrs="{'readonly': [('readonlyCobros','=',True)]}" options="{'no_create': True, 'no_create_edit':True}"/>
+                            <field name="fechaPago" attrs="{'readonly': [('readonlyCobros','=',True)]}"/>
+                            <field name="fechaInicioBloqueo" attrs="{'readonly': [('readonlyCobros','=',True)]}"/>
+                            <field name="porcientoNoBloqueo" widget="percentage" attrs="{'readonly': [('readonlyCobros','=',True)]}"/>
+                        </group>
+                        <group string="Visualizar Otras Letras">
+                            <field name="miembrosEquipo"/>
+                            <button name="set_ver_lista" string="Ver" class="btn-primary" type="object"/>
+                            <button name="set_dejar_ver_lista" string="Dejar de Ver" class="btn-primary" type="object"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Estudiantes">
+                            <group>
+                                <group string="Estudiantes">
+                                    <field name="estudiantesSearch" widget="many2many_tags" options="{'no_create': True, 'no_create_edit':True}"/>
+                                    <button name="ope_form_view_letra" string="Editar" class="btn-primary" type="object"/>
+                                </group>
+                                <group string="">
+                                    <group>
+                                        <button name="send_notificaciones" string="Enviar Notificación de Vencimiento" class="btn-primary" type="object"/>
+                                        <button name="notificacion_incumplimiento_arreglo" string="Enviar Notificación de Incumplimiento" class="btn-primary" type="object"/>
+                                    </group>
+                                    <group>
+                                        <button name="set_bloqueo_estudiantes" string="Bloquear Usuarios Moodle" class="btn-primary" type="object"/>
+                                        <button name="set_desbloqueo_estudiantes" string="Desbloqueo Usuarios Moodle" class="btn-primary" type="object"/>
+                                    </group>
+                                </group>
+                            </group>
+                            <field name="estudiantesCobro_ids" widget="one2many_search">
+                                <tree editable="bottom" create="0" edit="false">
+                                    <field name="envioNotificacion" widget="boolean_toggle"/>
+                                    <field name="estudianteBloqueado" widget="boolean_toggle"/>
+                                    <field name="empleadoAsignadoInicial"/>
+                                    <field name="nombreEstudiante"/>
+                                    <field name="carnetEstudiante" />
+                                    <field name="numeroLetra" />
+                                    <field name="correoEstudiante" />
+                                    <field name="correoInstitucionalEstudiante" optional="hide"/>
+                                    <field name="telefonoPrimarioEstudiante" />
+                                    <field name="telefonoSecundarioEstudiante" optional="hide"/>
+                                    <field name="telefonoPrimarioTrabajoEstudiante" optional="hide"/>
+                                    <field name="telefonoSecundarioTrabajoEstudiante" optional="hide"/>
+                                    <field name="montoPagar" />
+                                    <field name="montoPagado" />
+                                    <field name="montoDiferencia" />
+                                    <field name="porcientoPago"  />
+                                    <field name="estado" />
+                                    <field name="justificacion" />
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Excepciones">
+                            <field name="estudiantesExcepcion" >
+                                <tree editable="bottom" create="0" edit="false">
+                                    <field name="envioNotificacion" widget="boolean_toggle"/>
+                                    <field name="estudianteBloqueado" widget="boolean_toggle"/>
+                                    <field name="nombreEstudiante"/>
+                                    <field name="carnetEstudiante" />
+                                    <field name="cedulaEstudiante" />
+                                    <field name="correoEstudiante" />
+                                    <field name="correoInstitucionalEstudiante" optional="hide"/>
+                                    <field name="telefonoPrimarioEstudiante" />
+                                    <field name="telefonoSecundarioEstudiante" optional="hide"/>
+                                    <field name="telefonoPrimarioTrabajoEstudiante" optional="hide"/>
+                                    <field name="telefonoSecundarioTrabajoEstudiante" optional="hide"/>
+                                    <field name="montoPagar" />
+                                    <field name="montoPagado" />
+                                    <field name="montoDiferencia" />
+                                    <field name="porcientoPago"  />
+                                    <field name="estado" />
+                                    <field name="justificacion" />
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_cobros_periodo_pago" model="ir.actions.act_window">
+        <field name="name">Periodos</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">cobros.periodo.pago</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+            </p>
+        </field>
+    </record>
+
+    <record id="view_cobros_periodo_pago_line_form" model="ir.ui.view">
+        <field name="name">cobros.periodo.pago.line.form</field>
+        <field name="model">cobros.periodo.pago.line</field>
+        <field name="arch" type="xml">
+            <form create="false" edit="true">
+                <sheet>
+                    <group>
+                        <group string="Datos generales">
+                            <field name="envioNotificacion" widget="boolean_toggle"/>
+                            <field name="nombreEstudiante" readonly="1" force_save="1"/>
+                            <field name="carnetEstudiante" readonly="1" force_save="1"/>
+                            <field name="cedulaEstudiante" readonly="1" force_save="1"/>
+                            <field name="correoEstudiante" readonly="1" force_save="1"/>
+                            <field name="correoInstitucionalEstudiante" optional="hide" readonly="1" force_save="1"/>
+                            <field name="telefonoPrimarioEstudiante" readonly="1" force_save="1"/>
+                            <field name="telefonoSecundarioEstudiante" optional="hide" readonly="1" force_save="1"/>
+                            <field name="telefonoPrimarioTrabajoEstudiante" optional="hide" readonly="1" force_save="1"/>
+                            <field name="telefonoSecundarioTrabajoEstudiante" optional="hide" readonly="1" force_save="1"/>
+                            <field name="montoPagar" readonly="1" force_save="1"/>
+                            <field name="montoPagado" readonly="1" force_save="1"/>
+                            <field name="montoDiferencia" readonly="1" force_save="1"/>
+                            <field name="porcientoPago" readonly="1" force_save="1" />
+                            <field name="estado" />
+                            <field name="estadoPago" />
+                            <field name="fechaFinArreglo" />
+                            <field name="justificacion" />
+                        </group>
+                        <group>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+</odoo>

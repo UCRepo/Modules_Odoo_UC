@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="f6781d5c-b90c-4716-975b-f46641b6eb52" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/controllers/aceptaciones_docente.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/src/cssload.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/src/js/aceptaciones_docente.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/src/jsload.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/views/web/web_nomina_planilla_cuatrimestre.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/views/web/webpage_nomina_aceptacion_planilla_docente.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/views/web/website_aceptacion_planilla_docente.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/__manifest__.py" beforeDir="false" afterPath="$PROJECT_DIR$/__manifest__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/cursos_docente.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/cursos_docente.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/mail_template.xml" beforeDir="false" afterPath="$PROJECT_DIR$/data/mail_template.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/configuraciones.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/configuraciones.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/cursos_docente.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/cursos_docente.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/planilla_cuatrimestre.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/planilla_cuatrimestre.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/planilla_docente_report.py" beforeDir="false" afterPath="$PROJECT_DIR$/report/planilla_docente_report.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/report/report_detalle_pago_docente.xml" beforeDir="false" afterPath="$PROJECT_DIR$/report/report_detalle_pago_docente.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/security/ir.model.access.csv" beforeDir="false" afterPath="$PROJECT_DIR$/security/ir.model.access.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/nomina_configuraciones_view.xml" beforeDir="false" afterPath="$PROJECT_DIR$/views/nomina_configuraciones_view.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/nomina_cursos_docente_view.xml" beforeDir="false" afterPath="$PROJECT_DIR$/views/nomina_cursos_docente_view.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/nomina_planilla_cuatrimestre.xml" beforeDir="false" afterPath="$PROJECT_DIR$/views/nomina_planilla_cuatrimestre.xml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="1xuhYtp3ZVCwjrX11ltAq4gGUFA" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f6781d5c-b90c-4716-975b-f46641b6eb52" name="Changes" comment="" />
+      <created>1631210933463</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1631210933463</updated>
+    </task>
+    <servers />
+  </component>
+</project>

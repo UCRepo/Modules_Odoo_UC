@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="menu_aceptacion_planilla_docente" model="website.menu">
+            <field name="name">Aceptar Planilla</field>
+            <field name="url">/aceptacionesdocentes</field>
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence" type="int">30</field>
+        </record>
+
+        <template id="pre_aceptar_planilla" name="Pre Aceptar Planilla">
+            <t t-call="website.layout">
+                <div id="wrap">
+                    <div class="oe_structure">
+                        <div class="container">
+                            <form role="form" action="/set_aceptacion_docente_si" method="POST">
+                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                <input t-set="docenteID" t-value="docenteID" name="docenteID" t-att-value="docenteID" id="docenteID" type="hidden"/>
+                                <input t-set="cuatriID" t-value="cuatriID" name="cuatriID" t-att-value="cuatriID" id="cuatriID" type="hidden"/>
+                                <div class="form-group">
+                                    <div class="clearfix oe_login_buttons">
+                                        <button type="submit" class="btn btn-primary pull-left">Si acepto</button>
+                                    </div>
+                                </div>
+                            </form>
+                            <form role="form" action="/set_aceptacion_docente_no" method="POST">
+                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                <input t-set="docenteID" t-value="docenteID" name="docenteID" t-att-value="docenteID" id="docenteID" type="hidden"/>
+                                <input t-set="cuatriID" t-value="cuatriID" name="cuatriID" t-att-value="cuatriID" id="cuatriID" type="hidden"/>
+                                <div class="form-group">
+                                    <div class="clearfix oe_login_buttons">
+                                        <button type="submit" class="btn btn-primary pull-left">No acepto</button>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+        <template id="aceptar_planilla" name="Aceptar Planilla">
+            <t t-call="website.layout">
+                <div id="wrap">
+                    <div class="oe_structure">
+                        <div class="container">
+                            <form role="form" action="/set_aceptacion_docente" method="POST">
+                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                <input t-set="docenteID" t-value="docenteID" name="docenteID" t-att-value="docenteID" id="docenteID" type="hidden"/>
+                                <input t-set="cuatriID" t-value="cuatriID" name="cuatriID" t-att-value="cuatriID" id="cuatriID" type="hidden"/>
+                                <div class="form-group">
+                                    <input type="checkbox" name="acep" value="1">Acepto</input>
+                                </div>
+                                <div class="form-group">
+                                    <input type="checkbox" name="acep" value="2">No Acepto</input>
+                                </div>
+                                <div class="form-group">
+                                    <label for="patient_name" class="control-label">label</label>
+                                    <textarea  type="text" name="observaciones" t-att-value="observaciones" id="observaciones"
+                                               class="form-control" placeholder="si no esta deacuerdo con la planilla porfavor escriba.."/>
+                                </div>
+                                <div class="clearfix oe_login_buttons">
+                                    <button type="submit" class="btn btn-primary pull-left">Enviar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+        <template id="aceptar_planilla" name="Aceptar Planilla">
+            <t t-call="website.layout">
+                <div id="wrap">
+                    <div class="oe_structure">
+                        <div class="container">
+                            <form role="form" action="/set_aceptacion_docente" method="POST">
+                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                <input t-set="docenteID" t-value="docenteID" name="docenteID" t-att-value="docenteID" id="docenteID" type="hidden"/>
+                                <input t-set="cuatriID" t-value="cuatriID" name="cuatriID" t-att-value="cuatriID" id="cuatriID" type="hidden"/>
+                                <div class="form-group">
+                                    <input type="checkbox" name="acep" value="1">Acepto</input>
+                                </div>
+                                <div class="form-group">
+                                    <input type="checkbox" name="acep" value="2">No Acepto</input>
+                                </div>
+                                <div class="form-group">
+                                    <label for="patient_name" class="control-label">label</label>
+                                    <textarea  type="text" name="observaciones" t-att-value="observaciones" id="observaciones"
+                                               class="form-control" placeholder="si no esta deacuerdo con la planilla porfavor escriba.."/>
+                                </div>
+                                <div class="clearfix oe_login_buttons">
+                                    <button type="submit" class="btn btn-primary pull-left">Enviar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

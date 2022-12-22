@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--START [Planilla Rechazados]-->
+    <record id="view_planilla_cuatrimestre_rechazados_form" model="ir.ui.view">
+        <field name="name">nomina.planilla.cuatrimestre.rechazados.form</field>
+        <field name="model">planilla.cuatrimestre.rechazados</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="planilla_cuatrimestre_id" />
+                            <field name="docentes" readonly="1" force_save="1"/>
+                        </group>
+
+                        <group>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Docentes Pago Rechazado ">
+                            <field name="planila_cuatrimestre_lines_ids" domain="[('cuatrimestre_id', '=', planilla_cuatrimestre_id),('prePlanillaAceptada', '=', True)]">
+                                <tree create="0" >
+                                    <field name="nombreDocente"/>
+                                    <field name="correoDocente"/>
+                                    <field name="cedulaDocente"/>
+                                    <field name="telefonoDocente"/>
+                                    <field name="horasDocente"/>
+                                    <field name="horasSemanaContratoDocente"/>
+                                    <field name="horasContratoDocente"/>
+                                    <field name="tarifaDocente"/>
+                                    <field name="cantidadCursosDocente"/>
+                                    <field name="totalDocente"/>
+                                    <field name="CCSSDocente" />
+                                    <field name="rentaDocente"/>
+                                    <field name="totalDeduccionDocente"/>
+                                    <field name="adicionales"/>
+                                    <field name="aguinaldoDocente"/>
+                                    <field name="cesantiaDocente"/>
+                                    <field name="preavisoDocente"/>
+                                    <field name="vacacionesDocente"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="view_planilla_cuatrimestre_rechazados_tree" model="ir.ui.view">
+        <field name="name">nomina.planilla.cuatrimestre.rechazados.tree</field>
+        <field name="model">planilla.cuatrimestre.rechazados</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="planilla_cuatrimestre_id"/>
+                <field name="planila_cuatrimestre_lines_ids"/>
+            </tree>
+        </field>
+    </record>
+    <record id="action_planilla_cuatrimestre_rechazados" model="ir.actions.act_window">
+        <field name="name">Planilla Cuatrimestre Rechazados</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">planilla.cuatrimestre.rechazados</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+            </p>
+        </field>
+    </record>
+    <menuitem id="nomina_planilla_cuatrimestre_rechazados"
+              name="Planilla Cuatrimestre Rechazados"
+              parent="nomina_planilla_root"
+              action="action_planilla_cuatrimestre_rechazados"
+              sequence="30"/>
+    <!--END [Planilla Rechazados]-->
+</odoo>

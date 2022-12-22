@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_contrato_empleado_kanban" model="ir.ui.view">
+        <field name="name">contrato.empleado.kanban</field>
+        <field name="model">contrato.empleado</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="empleado_id"/>
+                <field name="salario"/>
+                <field name="fechaContratacion"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click o_kanban_record_has_image_fill o_hr_kanban_record">
+                            <div class="oe_kanban_details">
+                                <div class="o_kanban_record_top">
+                                    <div class="o_kanban_record_headings">
+                                        <strong class="o_kanban_record_title">
+                                            <div class="float-right" name="presence_present">
+                                                <!-- Employee is present/connected and it is normal according to his work schedule  -->
+                                                <span class="fa fa-circle text-success" role="img" aria-label="Present" title="Present" name="presence_present">
+                                                </span>
+                                            </div>
+                                            <field name="empleado_id" placeholder="Employee's Name"/>
+                                        </strong>
+                                        <span  class="o_kanban_record_subtitle"><field name="salario"/></span>
+                                    </div>
+                                </div>
+                                <ul>
+                                    <li id="last_login"/>
+                                    <li  class="o_text_overflow"><field name="fechaContratacion"/></li>
+                                </ul>
+                                <div class="oe_kanban_content">
+                                    <div class="o_kanban_record_bottom">
+                                        <div class="oe_kanban_bottom_left"/>
+                                        <div class="oe_kanban_bottom_right">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_contrato_empleado_form" model="ir.ui.view">
+        <field name="name">contrato.empleado.form</field>
+        <field name="model">contrato.empleado</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group string="Datos de contratación">
+                            <field name="currency_id" invisible="1"/>
+                            <field name="puestoTrabajo"/>
+                            <field name="empleado_id"/>
+                            <field name="jefaturaInmediata_id" domain="[('department_id', '!=', 'Docentes')]" options="{'no_create': True, 'no_create_edit':True}"/>
+                            <field name="jefaturaInmediataDelegado_id" domain="[('department_id', '!=', 'Docentes')]" options="{'no_create': True, 'no_create_edit':True}"/>
+                            <field name="jefaturaRH_id" domain="[('department_id', '!=', 'Docentes')]" options="{'no_create': True, 'no_create_edit':True}"/>
+                            <field name="salario" widget="monetary" options="{'currency_field': 'currency_id'}" decoration-bf="True"/>
+                            <field name="otrosCargos"  widget="monetary"/>
+                            <field name="jornadaLaboral"/>
+                            <field name="tiempoAlmuerzo"/>
+                            <field name="fechaContratacion" />
+                            <field name="cuentaBac" />
+                        </group>
+                        <group string="Datos de Vacaciones">
+                            <field name="totalVacaciones"  readonly="1" force_save="1"/>
+                            <field name="vacacionesTomadas" />
+                            <field name="vacacionesRestantes"  readonly="1" force_save="1"/>
+                        </group>
+                        <group string="Datos Extra">
+                            <field name="codigoMarca"/>
+                            <field name="marca"/>
+                            <field name="almuerzo"/>
+                            <field name="pensionado"/>
+                            <field name="embargo"/>
+                            <field name="pensionAlimenticia"/>
+                            <field name="cuentaBacActiva"/>
+                            <field name="justificaMarca"/>
+                            <field name="cargaAdicionales"/>
+                            <field name="cargaAjustes"/>
+                        </group>
+                        <group string="Datos de Tiempo Acumulado">
+                            <field name="tiempoAcumuladoTotal"  readonly="1" force_save="1"/>
+                            <field name="tiempoAcumuladoTomado" />
+                            <field name="tiempoAcumuladoRestante"  readonly="1" force_save="1"/>
+                        </group>
+                        <group string="Datos de Salida">
+                            <field name="fechaSalida" />
+                            <field name="condicionSalida" />
+                            <field name="comentarioSalida" />
+                        </group>
+
+                    </group>
+                    <notebook>
+                        <page string="Movimientos Laborales">
+                            <group>
+                                <group>
+                                    <field name="condicionMovimiento"/>
+                                    <field name="nuevoPuesto" />
+                                    <field name="fechaMovimiento" />
+                                    <button name="add_movimiento_laborar" string="Agregar movimiento laboral" class="btn-primary" type="object"/>
+                                </group>
+                                <group>
+                                </group>
+                            </group>
+                            <field name="movimientosLaborales">
+                                <tree create="0">
+                                    <field name="tipoMovimiento"/>
+                                    <field name="salario"/>
+                                    <field name="fechaMovimiento"/>
+                                    <field name="nuevoPuesto"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Prestamos">
+                            <group>
+                                <group>
+                                    <field name="fechaCreacionPrestamo"/>
+                                    <field name="descripcion"/>
+                                    <field name="montoTotal"/>
+                                    <field name="numeroPagos"/>
+                                    <button name="add_prestamo" string="Agregar prestamo" class="btn-primary" type="object"/>
+                                </group>
+                                <group>
+                                </group>
+                            </group>
+                            <field name="prestamos_ids">
+                                <tree create="0">
+                                    <field name="fechaCreacion"/>
+                                    <field name="descripcion"/>
+                                    <field name="montoTotal"/>
+                                    <field name="numeroPagos"/>
+                                    <field name="montoPago"/>
+                                    <field name="totalCancelado"/>
+                                    <field name="pagoFinalizado"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Embargos">
+                            <notebook>
+                                <page string="Embargos agregados">
+                                    <group>
+                                        <group>
+                                            <field name="expediente"/>
+                                            <field name="identificacionEmbargo"/>
+                                            <field name="depositante"/>
+                                            <field name="beneficiario"/>
+                                            <field name="montoEmbargo" widget="monetary" options="{'currency_field': 'currency_id'}" decoration-bf="True"/>
+                                            <button name="add_embargo" string="Agregar" class="btn-primary" type="object"/>
+                                        </group>
+                                        <group>
+                                        </group>
+                                    </group>
+                                    <field name="embargo_ids">
+                                        <tree create="0">
+                                            <field name="activo"/>
+                                            <field name="expediente"/>
+                                            <field name="identificacion"/>
+                                            <field name="depositante"/>
+                                            <field name="beneficiario"/>
+                                            <field name="montoTotal" widget="monetary" options="{'currency_field': 'currency_id'}" decoration-bf="True"/>
+                                            <field name="monto" widget="monetary" options="{'currency_field': 'currency_id'}" decoration-bf="True"/>
+                                        </tree>
+                                    </field>
+                                </page>
+                                <page string="Historial de pagos">
+                                    <group>
+                                        <group>
+                                            <field name="embargo_id"/>
+                                            <field name="montoPagadoEmbargo" widget="monetary" options="{'currency_field': 'currency_id'}" decoration-bf="True"/>
+                                            <button name="add_embargo_historial_pago" string="Agregar" class="btn-primary" type="object"/>
+                                        </group>
+                                        <group>
+                                        </group>
+                                    </group>
+                                    <field name="embargoHistorialPago_ids">
+                                        <tree create="0">
+                                            <field name="embargo_id"/>
+                                            <field name="montoPagado" widget="monetary" options="{'currency_field': 'currency_id'}" decoration-bf="True"/>
+                                        </tree>
+                                    </field>
+                                </page>
+                            </notebook>
+                        </page>
+                        <page string="Vacaciones">
+                            <notebook>
+                                <page string="Vacaciones solicitadas">
+                                    <group>
+                                        <group>
+                                            <field name="fechaInicioVacaciones"/>
+                                            <field name="fechaFinVacaciones"/>
+                                            <field name="diasVacaciones" />
+                                        </group>
+                                        <group>
+                                            <button name="add_vacaciones" string="Agregar Vacaciones" class="btn-primary" type="object"/>
+                                        </group>
+                                    </group>
+                                    <field name="vacaciones_ids">
+                                        <tree editable="bottom">
+                                            <field name="activo"/>
+                                            <field name="fechaInicioVacaciones"/>
+                                            <field name="fechaFinVacaciones"/>
+                                            <field name="diasVacaciones"/>
+                                        </tree>
+                                    </field>
+                                </page>
+                                <page string="Vacaciones agregadas">
+                                    <group>
+                                        <group>
+                                            <field name="fechaCorteAcumulacionVacaciones"/>
+                                            <field name="vacacionesAcumuladas" />
+                                            <field name="razon" />
+                                        </group>
+                                        <group>
+                                            <button name="add_acumulacion_vacaciones" string="Agregar" class="btn-primary" type="object"/>
+                                        </group>
+                                    </group>
+                                    <field name="vacacionesAdd_ids">
+                                        <tree editable="bottom">
+                                            <field name="activo"/>
+                                            <field name="fechaCorteAcumulacion"/>
+                                            <field name="razon"/>
+                                            <field name="vacacionesAcumuladas"/>
+                                        </tree>
+                                    </field>
+                                </page>
+                            </notebook>
+                        </page>
+                        <page string="Tiempo Acumulado">
+                            <notebook>
+                                <page string="Tiempo acumulado solicitado">
+                                    <group>
+                                        <group>
+                                            <field name="fechaTiempoAcumulado"/>
+                                            <field name="tiempoTomar"/>
+                                            <field name="inicioFinJornada"/>
+                                        </group>
+                                        <group>
+                                            <button name="add_tiempo_acumulado" string="Agregar" class="btn-primary" type="object"/>
+                                        </group>
+                                    </group>
+                                    <field name="timepoAcumulado_ids">
+                                        <tree editable="bottom">
+                                            <field name="activo" widget="boolean_toggle"/>
+                                            <field name="fechaDesdeTiempoAcumulado"/>
+                                            <field name="fechaHastaTiempoAcumulado"/>
+                                            <field name="tiempoAcumuladoTomado"/>
+                                            <field name="diasAcumuladoTomado"/>
+                                            <field name="inicioFinJornada"/>
+                                            <field name="estadoJefatura"/>
+                                            <field name="estadoRH"/>
+                                            <field name="razon"/>
+                                        </tree>
+                                    </field>
+                                </page>
+                                <page string="Tiempo acumulado agregado">
+                                    <group>
+                                        <group>
+                                            <field name="fechaCorteAcumulacion"/>
+                                            <field name="tiempoAgregar"/>
+                                        </group>
+                                        <group>
+                                            <button name="set_tiempo_agregado_agregar" string="Agregar" class="btn-primary" type="object"/>
+                                        </group>
+                                    </group>
+                                    <field name="timepoAcumuladoAdd_ids">
+                                        <tree editable="bottom">
+                                            <field name="activo" widget="boolean_toggle"/>
+                                            <field name="fechaCorteAcumulacion"/>
+                                            <field name="periodoPago"/>
+                                            <field name="tiempoAcumulado"/>
+                                        </tree>
+                                    </field>
+                                </page>
+                            </notebook>
+                        </page>
+                        <page string="Incapacidades">
+                            <group>
+                                <group>
+                                    <field name="tipoIncapacidad" />
+                                    <field name="fechaInicioIncapacidad" />
+                                    <field name="fechaFinIncapacidad" />
+                                    <field name="numeroBoletaIncapacidad" />
+                                </group>
+                                <group>
+                                    <button name="add_incapacidad" string="Agregar Incapacidad" class="btn-primary" type="object"/>
+                                </group>
+                            </group>
+                            <field name="incapacidades_ids">
+                                <tree editable="bottom" create="0">
+                                    <field name="activo"/>
+                                    <field name="tipoIncapacidad"/>
+                                    <field name="numeroBoletaIncapacidad"/>
+                                    <field name="fechaInicioIncapacidad"/>
+                                    <field name="fechaFinIncapacidad"/>
+                                    <field name="totalDiasIncapacidad"/>
+                                    <field name="diasIncapacidad"/>
+                                    <field name="diasIncapacidadRebajas"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Licencias">
+                            <group>
+                                <group>
+                                    <field name="tipoLicencia" />
+                                    <field name="fechaInicioLicencia" />
+                                    <field name="fechaFinLicencia" />
+                                    <field name="tipoPago" />
+                                </group>
+                                <group>
+                                    <button name="add_licencia" string="Agregar Licencia" class="btn-primary" type="object"/>
+                                </group>
+                            </group>
+                            <field name="licencias_ids">
+                                <tree editable="bottom" create="0">
+                                    <field name="activo"/>
+                                    <field name="tipoLicencia"/>
+                                    <field name="fechaInicioLicencia"/>
+                                    <field name="fechaFinLicencia"/>
+                                    <field name="tipoPago"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_contrato_empleado_tree" model="ir.ui.view">
+        <field name="name">contrato.empleado.tree</field>
+        <field name="model">contrato.empleado</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="empleado_id" widget="many2one_avatar_employee" optional="show"/>
+                <field name="currency_id" invisible="1"/>
+                <field name="salario"  widget="monetary" options="{'currency_field': 'currency_id'}" decoration-bf="True"/>
+                <field name="puestoTrabajo"/>
+                <field name="fechaContratacion"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_contrato_empleado" model="ir.actions.act_window">
+        <field name="res_model">contrato.empleado</field>
+        <field name="name">Contrato Empleado</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('empleado_id', '=', active_id)]</field>
+    </record>
+
+    <record id="view_contrato_empleado_search" model="ir.ui.view">
+        <field name="name">contrato.empleado.search</field>
+        <field name="model">contrato.empleado</field>
+        <field name="arch" type="xml">
+            <search string="Planilla">
+                <field string="Nombre" name="empleado_id" filter_domain="[('empleado_id.name', 'ilike', self)]"/>
+                <separator/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_contrato_empleado_admin" model="ir.actions.act_window">
+        <field name="res_model">contrato.empleado</field>
+        <field name="name">Contrato Empleado</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_contrato_empleado_search"/>
+    </record>
+
+    <menuitem id="contrato_root"
+              name="Contrato Empleado"
+              web_icon="contrato,static/description/Contrato.png"
+              sequence="10"/>
+
+    <menuitem id="contrato_empleado_root"
+              name="Contratos"
+              parent="contrato_root"
+              sequence="10"/>
+
+    <menuitem id="contrato_empleado"
+              name="Contratos del personal"
+              parent="contrato_empleado_root"
+              action="action_contrato_empleado_admin"
+              sequence="10"/>
+</odoo>

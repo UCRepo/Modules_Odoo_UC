@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_horario_empleado_tree" model="ir.ui.view">
+        <field name="name">horario.empleado.tree</field>
+        <field name="model">horario.empleado</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="empleado_id"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_horario_empleado_form" model="ir.ui.view">
+        <field name="name">horario.empleado.form</field>
+        <field name="model">horario.empleado</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group string="Datos generales">
+                            <field name="empleado_id"/>
+                        </group>
+                        <group>
+                            <field name="horarioSearch"/>
+                            <button name="edit_horario" string="Editar Horario" class="btn-primary" type="object"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Horarios">
+                            <field name="horarioEmpleado_ids" >
+                                <tree editable="top" edit="true">
+                                    <field name="fechaDesde"/>
+                                    <field name="fechaHasta"/>
+                                    <field name="horaInicioLunes" />
+                                    <field name="horaFinalLunes" />
+                                    <field name="horaInicioMartes" optional="hide"/>
+                                    <field name="horaFinalMartes" optional="hide"/>
+                                    <field name="horaInicioMiercoles" optional="hide"/>
+                                    <field name="horaFinalMiercoles" optional="hide"/>
+                                    <field name="horaInicioJueves" optional="hide"/>
+                                    <field name="horaFinalJueves" optional="hide"/>
+                                    <field name="horaInicioViernes" optional="hide"/>
+                                    <field name="horaFinalViernes" optional="hide"/>
+                                    <field name="horaInicioSabado" optional="hide"/>
+                                    <field name="horaFinalSabado" optional="hide"/>
+                                    <field name="horaInicioDomingo" optional="hide"/>
+                                    <field name="horaFinalDomingo" optional="hide"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="action_horario_empleado" model="ir.actions.act_window">
+        <field name="name">Horario de los empleados</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">horario.empleado</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Crea un Horario!
+            </p>
+        </field>
+    </record>
+
+
+    <record id="view_horario_empleado_line_form" model="ir.ui.view">
+        <field name="name">horario.empleado.line.form</field>
+        <field name="model">horario.empleado.line</field>
+        <field name="arch" type="xml">
+            <form create="false" edit="true">
+                <sheet>
+                    <group>
+                        <group string="Datos Generales">
+                            <field name="horarioEmpleado_id"/>
+                            <field name="fechaDesde"/>
+                            <field name="fechaHasta"/>
+                        </group>
+                        <group string="Lunes">
+                            <field name="horaInicioLunes"/>
+                            <field name="horaFinalLunes"/>
+                        </group>
+                        <group string="Martes">
+                            <field name="horaInicioMartes"/>
+                            <field name="horaFinalMartes"/>
+                        </group>
+                        <group string="Miercoles">
+                            <field name="horaInicioMiercoles"/>
+                            <field name="horaFinalMiercoles"/>
+                        </group>
+                        <group string="Jueves">
+                            <field name="horaInicioJueves"/>
+                            <field name="horaFinalJueves"/>
+                        </group>
+                        <group string="Viernes">
+                            <field name="horaInicioViernes"/>
+                            <field name="horaFinalViernes"/>
+                        </group>
+                        <group string="Sabado">
+                            <field name="horaInicioSabado"/>
+                            <field name="horaFinalSabado"/>
+                        </group>
+                        <group string="Domingo">
+                            <field name="horaInicioDomingo"/>
+                            <field name="horaFinalDomingo"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+
+    <menuitem id="horario_root"
+              name="Horario Empleado"
+              web_icon="horario,static/description/icon.png"
+              sequence="10"/>
+
+    <menuitem id="horario_empleado_root"
+              name="Horario"
+              parent="horario_root"
+              sequence="10"/>
+
+    <menuitem id="horario_empleado"
+              name="Horario de los empleados"
+              parent="horario_empleado_root"
+              action="action_horario_empleado"
+              sequence="10"/>
+
+    <menuitem id="horario_empleado_generar_horario"
+              name="Generar horario"
+              parent="horario_empleado_root"
+              action="action_horario_generacion_horario_wizard"
+              sequence="30"/>
+</odoo>

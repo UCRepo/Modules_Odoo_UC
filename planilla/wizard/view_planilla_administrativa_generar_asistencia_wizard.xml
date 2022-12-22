@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--START [configuraicones de pagos adicionales]-->
+    <record id="view_planilla_administrativa_generar_aistencia_wizard_form" model="ir.ui.view">
+        <field name="name">planilla.administrativa.generar.asistencia.wizard.form</field>
+        <field name="model">planilla.administrativa.generar.asistencia.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Generar Asistencia Planilla">
+                <group class="oe_title">
+                    <group string="Info general">
+                        <field name="periodoPago_id"/>
+                        <field name="pago"/>
+                        <field name="administrativo_id"/>
+                    </group>
+                    <group string="Rango de fechas">
+                        <field name="desde"/>
+                        <field name="hasta"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="generar_asistencia" string="Generar" type="object" class="btn-primary"/>
+                    <button string="Cancelar" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="action_planilla_administrativa_generar_aistencia_wizard" model="ir.actions.act_window">
+        <field name="name">Generar Asistencia Planilla</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">planilla.administrativa.generar.asistencia.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_planilla_administrativa_generar_aistencia_wizard_form"/>
+        <field name="target">new</field>
+    </record>
+    <!--    END [configuraicones de pagos adicionales]-->
+</odoo>

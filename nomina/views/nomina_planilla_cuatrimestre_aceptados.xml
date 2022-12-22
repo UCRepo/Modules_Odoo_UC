@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--START [Planilla Aceptados]-->
+    <record id="view_planilla_cuatrimestre_aceptados_form" model="ir.ui.view">
+        <field name="name">nomina.planilla.cuatrimestre.aceptados.form</field>
+        <field name="model">planilla.cuatrimestre.aceptados</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div role="alert" class="alert alert-danger"
+                         style="height:40px, width:30px, margin-bottom:1px;"
+                         attrs="{'invisible': [('warning','=',False)]}">
+                        <field name="warning"/>
+                        No existen nuevo profesores para generar un pago
+                    </div>
+
+                    <group>
+                        <group>
+                            <field name="planilla_cuatrimestre_id" />
+                            <field name="docentes"  readonly="1" force_save="1"/>
+                        </group>
+
+                        <group>
+                            <button name="createXLSXReport" string="Generar Excel de pago" class="btn-primary" type="object"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Docentes Pago Aceptado ">
+                            <field name="planila_cuatrimestre_lines_ids" domain="[('cuatrimestre_id', '=', planilla_cuatrimestre_id),('prePlanillaAceptada', '=', True)]">
+                                <tree create="0" >
+                                    <field name="nombreDocente"/>
+                                    <field name="correoDocente"/>
+                                    <field name="cedulaDocente"/>
+                                    <field name="telefonoDocente"/>
+                                    <field name="horasDocente"/>
+                                    <field name="horasSemanaContratoDocente"/>
+                                    <field name="horasContratoDocente"/>
+                                    <field name="tarifaDocente"/>
+                                    <field name="cantidadCursosDocente"/>
+                                    <field name="totalDocente"/>
+                                    <field name="CCSSDocente" />
+                                    <field name="rentaDocente"/>
+                                    <field name="totalDeduccionDocente"/>
+                                    <field name="adicionales"/>
+                                    <field name="aguinaldoDocente"/>
+                                    <field name="cesantiaDocente"/>
+                                    <field name="preavisoDocente"/>
+                                    <field name="vacacionesDocente"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="view_planilla_cuatrimestre_aceptados_tree" model="ir.ui.view">
+        <field name="name">nomina.planilla.cuatrimestre.aceptados.tree</field>
+        <field name="model">planilla.cuatrimestre.aceptados</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="planilla_cuatrimestre_id"/>
+                <field name="planila_cuatrimestre_lines_ids"/>
+            </tree>
+        </field>
+    </record>
+    <record id="action_planilla_cuatrimestre_aceptados" model="ir.actions.act_window">
+        <field name="name">Planilla Cuatrimestre Aceptados</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">planilla.cuatrimestre.aceptados</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+            </p>
+        </field>
+    </record>
+    <menuitem id="nomina_planilla_cuatrimestre_aceptados"
+              name="Planilla Cuatrimestre Aceptados"
+              parent="nomina_planilla_root"
+              action="action_planilla_cuatrimestre_aceptados"
+              sequence="20"/>
+    <!--END [Planilla Aceptados]-->
+</odoo>

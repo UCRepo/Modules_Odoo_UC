@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="aceptaciones_frontend" name="Apcetacion Frontend" inherit_id="web.assets_frontend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/nomina/static/src/js/aceptaciones_docente.js"></script>
+                <link rel="stylesheet"  href="/nomina/static/src/css/aceptaciones_docente.css"/>
+            </xpath>
+        </template>
+    </data>
+</odoo>

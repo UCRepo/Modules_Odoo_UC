@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="report_accion_personal_tiempo_acumulado" model="ir.actions.report">
+        <field name="name">Acción de personal : Tiempo acumulado</field>
+        <field name="model">contrato.empleado.tiempo.acumulado.line</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">uia_portal.report_accion_personal_tiempo_acumulado_id</field>
+        <field name="report_file">uia_portal.report_accion_personal_tiempo_acumulado_id</field>
+        <field name="binding_model_id" ref="contrato.model_contrato_empleado_tiempo_acumulado_line"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="report_accion_personal_tiempo_acumulado_id">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <t t-set="dataTiempoAcumulado" t-value="get_accion_personal_tiempo_acumulado"/>
+                <div class="page">
+                    <div class="oe_structure"/>
+                    <h2>Acción de personal tiempo acumulado</h2>
+                    <br/><br/><br/>
+                    <table class="table table-sm">
+                        <thead>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <strong>FECHA DE EMISION:</strong>
+                                </td>
+                                <td>
+                                    <t t-esc="dataTiempoAcumulado['fechaEmision']"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>NOMBRE DEL COLABORADOR:</strong>
+                                </td>
+                                <td>
+                                    <t t-esc="dataTiempoAcumulado['nombreAdministrativo']"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>NUMERO DE CEDULA:</strong>
+                                </td>
+                                <td>
+                                    <t t-esc="dataTiempoAcumulado['cedulaAdministrativo']"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>DEPARTAMENTO:</strong>
+                                </td>
+                                <td>
+                                    <t t-esc="dataTiempoAcumulado['departamentoAdministrativo']"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>PUESTO:</strong>
+                                </td>
+                                <td>
+                                    <t t-esc="dataTiempoAcumulado['puestoAdministrativo']"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>JEFE RESPONSABLE:</strong>
+                                </td>
+                                <td>
+                                    <t t-esc="dataTiempoAcumulado['jefatura']"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <br/>
+
+                    <h2>OBSERVACIONES</h2>
+                    <p class="text-break">
+                        SE AUTORIZA EL DISFRUTE DEL DIA <t t-esc="dataTiempoAcumulado['fecha']"/> POR HORAS ACUMULDAS , <t t-esc="dataTiempoAcumulado['entradaSalida']"/>.
+                        <br/>
+                        TOTAL DE TIEMPO ACUMULADO CONSUMIDO <t t-esc="dataTiempoAcumulado['tiempoTomado']"/> h, QUEDANDOLE A LA FECHA PENDIENTES POR DISFRUTAR <t t-esc="dataTiempoAcumulado['tiempoAcumuladoRestante']"/> h
+                    </p>
+
+                    <br/><br/><br/>
+                    <br/><br/><br/>
+
+                    <div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <td>
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <p style="font-size:12px">Aprobación</p>
+                                                    <p style="font-size:12px">Nombre: <t t-esc="dataTiempoAcumulado['firmaJefaturaNombre']"/></p>
+                                                    <p style="font-size:12px">Usuario: <t t-esc="dataTiempoAcumulado['firmaJefaturaUsuario']"/></p>
+                                                    <p style="font-size:12px">Fecha: <t t-esc="dataTiempoAcumulado['firmaJefaturaFecha']"/></p>
+                                                    <p style="font-size:10px"></p>
+                                                    <hr class="style1"/>
+                                                    <p style="font-size:15px">JEFATURA DEL DEPARTAMENTO</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <p style="font-size:12px">Aprobación</p>
+                                                    <p style="font-size:12px">Nombre: <t t-esc="dataTiempoAcumulado['firmaRHNombre']"/></p>
+                                                    <p style="font-size:12px">Usuario: <t t-esc="dataTiempoAcumulado['firmaRHUsuario']"/></p>
+                                                    <p style="font-size:12px">Fecha: <t t-esc="dataTiempoAcumulado['firmaRHFecha']"/></p>
+                                                    <p style="font-size:10px"></p>
+                                                    <hr class="style1"/>
+                                                    <p style="font-size:15px">JEFATURA DE RECURSOS HUMANOS</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <p style="font-size:12px">Aprobación</p>
+                                                    <p style="font-size:12px">Nombre: <t t-esc="dataTiempoAcumulado['firmaEmpleadoNombre']"/></p>
+                                                    <p style="font-size:12px">Usuario: <t t-esc="dataTiempoAcumulado['firmaEmpleadoUsuario']"/></p>
+                                                    <p style="font-size:12px">Fecha: <t t-esc="dataTiempoAcumulado['firmaEmpleadoFecha']"/></p>
+                                                    <p style="font-size:10px"></p>
+                                                    <hr class="style1"/>
+                                                    <p style="font-size:15px">RECIBIDO CONFORME</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+
+</odoo>

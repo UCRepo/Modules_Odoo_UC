@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<odoo>
+    <record id="action_nomina_miembro_bloque" model="ir.actions.act_window">
+        <field name="name">Mimebros por Bloque</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">miembro</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+            Crea un miembro!
+            </p>
+        </field>
+    </record>
+
+
+    <menuitem id="nomina_miembro_bloque" 
+              name="Mimebros por Bloque" 
+              parent="nomina_miembro_root" 
+              action="action_nomina_miembro_bloque" 
+              sequence="30"/>
+
+</odoo>

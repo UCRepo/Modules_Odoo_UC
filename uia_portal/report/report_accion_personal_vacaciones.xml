@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="report_accion_personal_vacaciones" model="ir.actions.report">
+        <field name="name">Acción de personal : Vacaciones</field>
+        <field name="model">contrato.empleado.vacaciones.line</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">uia_portal.report_accion_personal_vacaciones_id</field>
+        <field name="report_file">uia_portal.report_accion_personal_vacaciones_id</field>
+        <field name="binding_model_id" ref="contrato.model_contrato_empleado_vacaciones_line"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="report_accion_personal_vacaciones_id">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <t t-set="dataVacaciones" t-value="get_accion_personal_vacaciones"/>
+                <div class="page">
+                    <div class="oe_structure"/>
+                    <h2>Acción de personal vacaciones</h2>
+                    <br/><br/><br/>
+                    <table class="table table-sm">
+                        <thead>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <strong>FECHA DE EMISION:</strong>
+                                </td>
+                                <td>
+                                    <t t-esc="dataVacaciones['fechaEmision']"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>NOMBRE DEL COLABORADOR:</strong>
+                                </td>
+                                <td>
+                                    <t t-esc="dataVacaciones['nombreAdministrativo']"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>NUMERO DE CEDULA:</strong>
+                                </td>
+                                <td>
+                                    <t t-esc="dataVacaciones['cedulaAdministrativo']"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>DEPARTAMENTO:</strong>
+                                </td>
+                                <td>
+                                    <t t-esc="dataVacaciones['departamentoAdministrativo']"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>PUESTO:</strong>
+                                </td>
+                                <td>
+                                    <t t-esc="dataVacaciones['puestoAdministrativo']"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>JEFE RESPONSABLE:</strong>
+                                </td>
+                                <td>
+                                    <t t-esc="dataVacaciones['jefatura']"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <br/>
+
+                    <h2>OBSERVACIONES</h2>
+                    <p class="text-break">
+                        SE AUTORIZA EL DISFRUTE DE VACACIONES <t t-esc="dataVacaciones['desdehasta']"/> REGRESANDO EL DIA <t t-esc="dataVacaciones['regreso']"/>
+                        TOTAL <t t-esc="dataVacaciones['diasVacaciones']"/> DIAS, QUEDANDOLE A LA FECHA PENDIENTES POR DISFRUTAR <t t-esc="dataVacaciones['restantes']"/> DIAS
+                    </p>
+
+                    <br/><br/><br/>
+                    <br/><br/><br/>
+
+                    <div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <td>
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <p style="font-size:12px">Aprobación</p>
+                                                    <p style="font-size:12px">Nombre: <t t-esc="dataVacaciones['firmaJefaturaNombre']"/></p>
+                                                    <p style="font-size:12px">Usuario: <t t-esc="dataVacaciones['firmaJefaturaUsuario']"/></p>
+                                                    <p style="font-size:12px">Fecha: <t t-esc="dataVacaciones['firmaJefaturaFecha']"/></p>
+                                                    <p style="font-size:10px"></p>
+                                                    <hr class="style1"/>
+                                                    <p style="font-size:15px">JEFATURA DEL DEPARTAMENTO</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <p style="font-size:12px">Aprobación</p>
+                                                    <p style="font-size:12px">Nombre: <t t-esc="dataVacaciones['firmaRHNombre']"/></p>
+                                                    <p style="font-size:12px">Usuario: <t t-esc="dataVacaciones['firmaRHUsuario']"/></p>
+                                                    <p style="font-size:12px">Fecha: <t t-esc="dataVacaciones['firmaRHFecha']"/></p>
+                                                    <p style="font-size:10px"></p>
+                                                    <hr class="style1"/>
+                                                    <p style="font-size:15px">JEFATURA DE RECURSOS HUMANOS</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <p style="font-size:12px">Aprobación</p>
+                                                    <p style="font-size:12px">Nombre: <t t-esc="dataVacaciones['firmaEmpleadoNombre']"/></p>
+                                                    <p style="font-size:12px">Usuario: <t t-esc="dataVacaciones['firmaEmpleadoUsuario']"/></p>
+                                                    <p style="font-size:12px">Fecha: <t t-esc="dataVacaciones['firmaEmpleadoFecha']"/></p>
+                                                    <p style="font-size:10px"></p>
+                                                    <hr class="style1"/>
+                                                    <p style="font-size:15px">RECIBIDO CONFORME</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+
+</odoo>

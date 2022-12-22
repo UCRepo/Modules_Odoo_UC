@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="poliza_estudiante_form" name="Poliza Estudiantes">
+        <t t-call="website.layout">
+            <div class="oe_structure">
+                <div class="container">
+                    <div class="uia_poliza_estudiante_form">
+                        <div class="oe_structure" id="oe_structure_portal_my_home_1"/>
+                        <h3>Información de Beneficiario de póliza</h3>
+                        <h4>Todo campo con * es obligatorio</h4>
+                        <div class="o_portal_docs list-group" id="uia_poliza_estudiante_form_div">
+                        </div>
+                    </div>
+                    <div class="oe_structure" id="oe_structure_portal_my_home_2"/>
+                    <p style="visibility: hidden" id="uia_poliza_identificaion_estudiante"  t-esc="identificacionEstudiante"/>
+                    <p style="visibility: hidden" id="uia_poliza_id"  t-esc="idpoliza"/>
+                    <p style="visibility: hidden" id="uia_poliza_nombreEstudiante"  t-esc="nombreEstudiante"/>
+                    <p style="visibility: hidden" id="uia_poliza_datosActualizados"  t-esc="datosActualizados"/>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

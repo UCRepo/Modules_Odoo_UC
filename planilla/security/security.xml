@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="planilla_administrativa" model="ir.module.category">
+            <field name="name">Planilla Administrativa</field>
+            <field name="sequence">9</field>
+        </record>
+        <record id="planilla_administrativa_lectura" model="res.groups">
+            <field name="name">Lectura</field>
+            <field name="category_id" ref="planilla_administrativa"/>
+        </record>
+        <record id="planilla_administrativa_escritura" model="res.groups">
+            <field name="name">Escritura</field>
+            <field name="category_id" ref="planilla_administrativa"/>
+        </record>
+        <record id="planilla_administrativa_creacion" model="res.groups">
+            <field name="name">Creación</field>
+            <field name="category_id" ref="planilla_administrativa"/>
+        </record>
+        <record id="planilla_administrativa_eliminacion" model="res.groups">
+            <field name="name">Eliminación</field>
+            <field name="category_id" ref="planilla_administrativa"/>
+        </record>
+    </data>
+</odoo>

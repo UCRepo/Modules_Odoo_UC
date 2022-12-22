@@ -1,0 +1,588 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--START [configuraicones de menu principal]-->
+    <menuitem id="nomina_configuraciones_root"
+              name="Configuraciones"
+              parent="nomina_root"
+              sequence="100"/>
+    <!--END [configuraicones de menu principal]-->
+
+    <!--START [configuraicones de menu principal]-->
+    <record id="view_nomina_configuraciones_form" model="ir.ui.view">
+        <field name="name">nomina.configuraciones.form</field>
+        <field name="model">configuraciones</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <field name="currency_id" invisible="1"/>
+                    <notebook>
+                        <page string="Adicionales">
+                            <group>
+                                <group>
+                                    <field name="nameAdicional" />
+                                    <field name="montoAdicional" widget="monetary" options="{'currency_field': 'currency_id'}" decoration-bf="True"/>
+                                    <button name="add_adicional" string="Agregar Adicional" class="btn-primary" type="object"/>
+                                </group>
+                                <group>
+                                </group>
+                            </group>
+                            <field name="adicionales_ids">
+                                <tree>
+                                    <field name="currency_id" invisible="1"/>
+                                    <field name="name" />
+                                    <field name="monto" widget="monetary" options="{'currency_field': 'currency_id'}" decoration-bf="True" />
+                                    <field name="montoSinPrestaciones" widget="monetary" options="{'currency_field': 'currency_id'}" decoration-bf="True"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Ajustes de pago">
+                            <group>
+                                <group>
+                                    <field name="nameAjuste" />
+                                    <button name="add_ajuste" string="Agregar Ajuste" class="btn-primary" type="object"/>
+                                </group>
+                                <group>
+                                </group>
+                            </group>
+                            <field name="ajustes_ids">
+                                <tree>
+                                    <field name="name" />
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Reposiciones">
+                            <group>
+                                <group>
+                                    <field name="nameReposiciones" />
+                                    <button name="add_reposiciones" string="Agregar Reposicion" class="btn-primary" type="object"/>
+                                </group>
+                                <group>
+                                </group>
+                            </group>
+                            <field name="reposiciones_ids">
+                                <tree>
+                                    <field name="name" />
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Renta">
+                            <group>
+                                <group string="Primer Tramo">
+                                    <field name="desde0" widget="monetary" options="{'currency_field': 'currency_id'}" decoration-bf="True"/>
+                                    <field name="hasta0" widget="monetary" options="{'currency_field': 'currency_id'}" decoration-bf="True"/>
+                                    <field name="porciento0" widget="percentage"/>
+                                </group>
+                                <group string="Segundo Tramo">
+                                    <field name="desde1" widget="monetary" options="{'currency_field': 'currency_id'}" decoration-bf="True"/>
+                                    <field name="hasta1" widget="monetary" options="{'currency_field': 'currency_id'}" decoration-bf="True"/>
+                                    <field name="porciento1" widget="percentage"/>
+                                </group>
+                                <group string="Tercer Tramo">
+                                    <field name="desde2" widget="monetary" options="{'currency_field': 'currency_id'}" decoration-bf="True"/>
+                                    <field name="hasta2" widget="monetary" options="{'currency_field': 'currency_id'}" decoration-bf="True"/>
+                                    <field name="porciento2" widget="percentage"/>
+                                </group>
+                                <group string="Cuarto Tramo">
+                                    <field name="desde3" widget="monetary" options="{'currency_field': 'currency_id'}" decoration-bf="True"/>
+                                    <field name="hasta3" widget="monetary" options="{'currency_field': 'currency_id'}" decoration-bf="True"/>
+                                    <field name="porciento3" widget="percentage"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Embargo">
+                            <group>
+                                <group>
+                                    <field name="salarioBase" widget="monetary" options="{'currency_field': 'currency_id'}" decoration-bf="True"/>
+                                    <field name="porcientoRebajoEmbargo" widget="percentage"/>
+                                </group>
+                                <group>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Rebajos">
+                            <group>
+                                <group>
+                                    <field name="nameRebajos" />
+                                    <button name="add_rebajos" string="Agregar Rebajo" class="btn-primary" type="object"/>
+                                </group>
+                                <group>
+                                </group>
+                            </group>
+                            <field name="rebajos_ids">
+                                <tree>
+                                    <field name="name" />
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="CCSS">
+                            <group>
+                                <group>
+                                    <field name="CCSSNormal" widget="percentage"/>
+                                    <field name="CCSSPensionado" widget="percentage"/>
+                                </group>
+                                <group>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Prestaciones">
+                            <group>
+                                <group>
+                                    <field name="aguinaldo" widget="percentage"/>
+
+                                </group>
+                                <group>
+
+                                    <field name="vacaciones" widget="percentage"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Tutorias">
+                            <group>
+                                <group>
+                                    <field name="descripcionTutoria" />
+                                    <field name="numeroEstudiantes" />
+                                    <button name="add_tutoria" string="Agregar Tutoria" class="btn-primary" type="object"/>
+                                </group>
+                                <group>
+                                    <field name="semanasTutoria" />
+                                    <field name="cantiadadHorasTutorias" />
+                                </group>
+                            </group>
+                            <field name="tutorias_ids">
+                                <tree>
+                                    <field name="name" />
+                                    <field name="numeroEstudiantes" />
+                                    <field name="semanasTutoria" />
+                                    <field name="cantiadadHorasTutorias" />
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Otros">
+                            <group>
+                                <group>
+                                    <field name="factor"/>
+                                    <field name="honorariosTesis"/>
+                                    <field name="honorariosCursosLibre"/>
+                                </group>
+                                <group>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="action_nomina_configuraciones" model="ir.actions.act_window">
+        <field name="name">Ajustes Nomina</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">configuraciones</field>
+        <field name="view_mode">kanban,form,tree</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Crea un Ajuste!
+            </p>
+        </field>
+    </record>
+    <menuitem id="nomina_configuraciones_pagos_adicionales"
+              name="Ajustes Nomina"
+              parent="nomina_configuraciones_root"
+              action="action_nomina_configuraciones"
+              sequence="20"/>
+    <!--END [configuraicones de menu principal]-->
+
+    <!--START [configuraicones de cursos]-->
+    <record id="view_nomina_configuraciones_cursos_form" model="ir.ui.view">
+        <field name="name">nomina.configuraciones.cursos.form</field>
+        <field name="model">configuraciones.cursos</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="descripcion" />
+                            <field name="codigoCurso" />
+                            <field name="cantiadadHoras"/>
+                        </group>
+
+                        <group>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="view_nomina_configuraciones_cursos_tree" model="ir.ui.view">
+        <field name="name">nomina.configuraciones.cursos.tree</field>
+        <field name="model">configuraciones.cursos</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="descripcion"/>
+                <field name="codigoCurso"/>
+                <field name="cantiadadHoras"/>
+            </tree>
+        </field>
+    </record>
+    <record id="action_nomina_configuraciones_cursos" model="ir.actions.act_window">
+        <field name="name">Cursos</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">configuraciones.cursos</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Crea un Cursos !
+            </p>
+        </field>
+    </record>
+    <menuitem id="nomina_configuraciones_cursos"
+              name="Cursos"
+              parent="nomina_configuraciones_root"
+              action="action_nomina_configuraciones_cursos"
+              sequence="30"/>
+    <!--END [configuraicones de cursos]-->
+
+    <!--START [configuraicones de cursos medicina]-->
+    <record id="view_nomina_configuraciones_cursos_medicina_form" model="ir.ui.view">
+        <field name="name">nomina.configuraciones.cursos.medicina.form</field>
+        <field name="model">configuraciones.cursos.medicina</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="descripcion" />
+                            <field name="codigoCurso" />
+                            <field name="cantiadadHoras"/>
+                            <field name="tarifaCurso"/>
+                            <field name="planillaExterna"/>
+                        </group>
+
+                        <group>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="view_nomina_configuraciones_cursos_medicina_tree" model="ir.ui.view">
+        <field name="name">nomina.configuraciones.cursos.medicina.tree</field>
+        <field name="model">configuraciones.cursos.medicina</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="descripcion"/>
+                <field name="codigoCurso"/>
+                <field name="cantiadadHoras"/>
+                <field name="tarifaCurso"/>
+                <field name="planillaExterna"/>
+            </tree>
+        </field>
+    </record>
+    <record id="action_nomina_configuraciones_cursos_medicina" model="ir.actions.act_window">
+        <field name="name">Cursos de medicina</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">configuraciones.cursos.medicina</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Crea un Cursos de medicina!
+            </p>
+        </field>
+    </record>
+    <menuitem id="nomina_configuraciones_cursos_medicina"
+              name="Cursos medicina"
+              parent="nomina_configuraciones_root"
+              action="action_nomina_configuraciones_cursos_medicina"
+              sequence="40"/>
+    <!--END [configuraicones de cursos medicina]-->
+
+    <!--START [configuraicones de cursos taller graduacion]-->
+    <record id="view_nomina_configuraciones_cursos_taller_graduacion_form" model="ir.ui.view">
+        <field name="name">nomina.configuraciones.cursos.taller.graduacion.form</field>
+        <field name="model">configuraciones.cursos.taller.graduacion</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="descripcion" />
+                            <field name="codigoCurso" />
+                        </group>
+
+                        <group>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="view_nomina_configuraciones_cursos_taller_graduacion_tree" model="ir.ui.view">
+        <field name="name">nomina.configuraciones.taller.graduacion.tree</field>
+        <field name="model">configuraciones.cursos.taller.graduacion</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="descripcion"/>
+                <field name="codigoCurso"/>
+            </tree>
+        </field>
+    </record>
+    <record id="action_nomina_configuraciones_cursos_taller_graduacion" model="ir.actions.act_window">
+        <field name="name">Cursos taller Graduacion</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">configuraciones.cursos.taller.graduacion</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Crea un Cursos de taller de graduacion!
+            </p>
+        </field>
+    </record>
+    <menuitem id="nomina_configuraciones_cursos_taller_graduacion"
+              name="Cursos Taller de Graduación"
+              parent="nomina_configuraciones_root"
+              action="action_nomina_configuraciones_cursos_taller_graduacion"
+              sequence="50"/>
+    <!--END [configuraicones de cursos taller graduacion]-->
+
+    <!--START [configuraicones de cursos  puente]-->
+    <record id="view_nomina_configuraciones_cursos_puente_form" model="ir.ui.view">
+        <field name="name">nomina.configuraciones.cursos.puente.form</field>
+        <field name="model">configuraciones.cursos.puente</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" />
+                            <field name="codigoCurso"  />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Cursos">
+                            <field name="cursos_ids">
+                                <tree editable="bottom" create="0">
+                                    <field name="name"/>
+                                    <field name="codigoCurso"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="view_nomina_configuraciones_cursos_puente_tree" model="ir.ui.view">
+        <field name="name">nomina.configuraciones.cursos.puente.tree</field>
+        <field name="model">configuraciones.cursos.puente</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="codigoCurso"/>
+                <field name="cursos_ids"/>
+            </tree>
+        </field>
+    </record>
+    <record id="action_nomina_configuraciones_cursos_puente" model="ir.actions.act_window">
+        <field name="name">Cursos  Puente</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">configuraciones.cursos.puente</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Crea un Cursos con Puente!
+            </p>
+        </field>
+    </record>
+    <menuitem id="nomina_configuraciones_cursos_con_puente"
+              name="Cursos  Puentes"
+              parent="nomina_configuraciones_root"
+              action="action_nomina_configuraciones_cursos_puente"
+              sequence="60"/>
+    <!--END [configuraicones de cursos  puente]-->
+
+    <!--START [configuraicones de tarifas tesis carreras]-->
+    <record id="view_nomina_configuraciones_tarifa_tesis_carrera_form" model="ir.ui.view">
+        <field name="name">configuraciones.tarifa.tesis.carrera.form</field>
+        <field name="model">configuraciones.tarifa.tesis.carrera</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="carrera" />
+                            <field name="tarifaTutor" />
+                            <field name="tarifaLector"/>
+                            <field name="tarifaDelegado"/>
+                        </group>
+                        <group>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="view_nomina_configuraciones_tarifa_tesis_carrera_tree" model="ir.ui.view">
+        <field name="name">configuraciones.tarifa.tesis.carrera.tree</field>
+        <field name="model">configuraciones.tarifa.tesis.carrera</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="tarifaTutor" />
+                <field name="tarifaLector"/>
+                <field name="tarifaDelegado"/>
+            </tree>
+        </field>
+    </record>
+    <record id="action_nomina_configuraciones_tarifa_tesis_carrera" model="ir.actions.act_window">
+        <field name="name">Tarifa de Tesis por Carrera</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">configuraciones.tarifa.tesis.carrera</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                !!!!
+            </p>
+        </field>
+    </record>
+    <menuitem id="nomina_configuraciones_tarifa_tesis_carrera"
+              name="Tarifa de Tesis por Carrera"
+              parent="nomina_configuraciones_root"
+              action="action_nomina_configuraciones_tarifa_tesis_carrera"
+              sequence="70"/>
+    <!--END [configuraicones de tarifas tesis carreras]-->
+
+    <!--START [configuraicones de Cursos Libre]-->
+    <record id="view_nomina_configuraciones_cursos_libre_form" model="ir.ui.view">
+        <field name="name">configuraciones.cursos.libre.form</field>
+        <field name="model">configuraciones.cursos.libre</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <field name="currency_id" invisible="1"/>
+                    <group>
+                        <group>
+                            <field name="codigoCurso" />
+                            <field name="descripcionCurso" />
+                            <field name="pagoDocente"  widget="monetary" options="{'currency_field': 'currency_id'}" decoration-bf="True"/>
+                            <field name="pagoTracto" />
+                            <field name="semanasPago" attrs="{'invisible': [('pagoTracto', '=', False)]}" />
+                        </group>
+                        <group>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="view_nomina_configuraciones_cursos_libre_tree" model="ir.ui.view">
+        <field name="name">configuraciones.cursos.libre.tree</field>
+        <field name="model">configuraciones.cursos.libre</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="codigoCurso" />
+                <field name="pagoDocente" />
+                <field name="pagoTracto"/>
+                <field name="semanasPago"/>
+            </tree>
+        </field>
+    </record>
+    <record id="action_nomina_configuraciones_cursos_libre" model="ir.actions.act_window">
+        <field name="name">Configuracion de Cursos Libres</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">configuraciones.cursos.libre</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                !!!!
+            </p>
+        </field>
+    </record>
+    <menuitem id="nomina_configuraciones_cursos_libre"
+              name="Configuracion de Cursos Libres"
+              parent="nomina_configuraciones_root"
+              action="action_nomina_configuraciones_cursos_libre"
+              sequence="80"/>
+    <!--END [configuraicones de Cursos Libre]-->
+
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.nomina.docente</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="10"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('settings')]" position="inside">
+                <div class="app_settings_block" data-string="Nomina" string="Nomina Docentes" data-key="nomina">
+                    <h2>Nomina</h2>
+                    <div class="row mt16 o_settings_container">
+                        <div class="o_settings_left_pane">
+                            <label string="Envio de correos" for="correoEnvio"/>
+                            <field name="correoEnvio"/>
+                            <label string="Correo contacto planilla" for="correoContactoPlanilla"/>
+                            <field name="correoContactoPlanilla"/>
+                            <label string="Correo de Envio Horarios Erroneos" for="correoEnvioHorarioErroneo"/>
+                            <field name="correoEnvioHorarioErroneo"/>
+                            <label string="URL de recepcion" for="urlOdoo"/>
+                            <field name="urlOdoo"/>
+                            <label string="URL de WS" for="urlWSOdoo"/>
+                            <field name="urlWSOdoo"/>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+    <record id="action_nomina_configuraciones_config" model="ir.actions.act_window">
+        <field name="name">Ajustes de Nomina</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_id" ref="res_config_settings_view_form"/>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+        <field name="context">{'module' : 'nomina'}</field>
+    </record>
+    <menuitem id="nomina_configuraciones_modulo"
+              name="Configuraciones de modulo"
+              parent="nomina_configuraciones_root"
+              action="action_nomina_configuraciones_config"
+              sequence="60"/>
+
+
+</odoo>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--START [configuraicones de menu principal]-->
+    <menuitem id="planialla_administrativa_pre_planilla_root"
+              name="Planilla"
+              parent="planillaPersonal_root"
+              sequence="10"/>
+    <!--END [configuraicones de menu principal]-->
+
+
+    <!--START [configuraicones de pagos adicionales]-->
+    <record id="view_planialla_administrativa_pre_planilla_form" model="ir.ui.view">
+        <field name="name">planilla.administrativa.pre.planilla.form</field>
+        <field name="model">planilla.administrativa.pre.planilla</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="generar_pre_planilla" string="Crear Pre Planilla" class="btn-primary" type="object"/>
+                    <button name="generar_excel_pago" string="Crear Excel de pago" class="btn-primary" type="object"/>
+                    <button name="envio_colilla_pago" string="Crear y Enviar colilla de pago" class="btn-primary" type="object"/>
+                    <!--                    <button name="action_create_report" string="Crear Reportes y Enviar Correo" class="btn-primary" type="object"/>-->
+                </header>
+                <sheet>
+                    <group>
+                        <group string="Descripcion del pago">
+                            <field name="periodoPago_id" />
+                            <field name="planillaCuatrimestre_id" />
+                        </group>
+                        <group>
+                            <field name="pago" readonly="1" force_save="1"/>
+                            <field name="desde" readonly="1" force_save="1"/>
+                            <field name="hasta" readonly="1" force_save="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Miembros Planilla">
+                            <field name="miembrosPlanilla_id">
+                                <tree editable="bottom" create="0">
+                                    <field name="nombreEmpleado"/>
+                                    <field name="correoEmpleado"/>
+                                    <field name="cedulaEmpleado"/>
+                                    <field name="telefonoEmpleado"/>
+                                    <field name="salarioBruto"/>
+                                    <field name="salarioNeto"/>
+                                    <field name="diasPagoCompleto"/>
+                                    <field name="diasPagoMedio" optional="hide"/>
+                                    <field name="diasPagoNulo" optional="hide"/>
+                                    <field name="diasPagoNulo" optional="hide"/>
+                                    <field name="totalDeduccion"/>
+                                    <field name="CCSSEmpleado" optional="hide"/>
+                                    <field name="rentaEmpleado" optional="hide"/>
+                                    <field name="rentaEmpleadoDocente" optional="hide"/>
+                                    <field name="embargo" optional="hide"/>
+                                    <field name="pension" optional="hide"/>
+                                    <field name="deduccionAsistencia" optional="hide"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="view_planialla_administrativa_pre_planilla_tree" model="ir.ui.view">
+        <field name="name">planilla.administrativa.pre.planilla.tree</field>
+        <field name="model">planilla.administrativa.pre.planilla</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="periodoPago_id"/>
+                <field name="pago"/>
+            </tree>
+        </field>
+    </record>
+    <record id="action_planialla_administrativa_pre_planilla" model="ir.actions.act_window">
+        <field name="name">Pre Planilla</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">planilla.administrativa.pre.planilla</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Crea una Pre Planilla!
+            </p>
+        </field>
+    </record>
+    <menuitem id="planialla_administrativa_pre_planilla"
+              name="Pre Planilla"
+              parent="planialla_administrativa_pre_planilla_root"
+              action="action_planialla_administrativa_pre_planilla"
+              sequence="20"/>
+    <!--END [configuraicones de pagos adicionales]-->
+</odoo>

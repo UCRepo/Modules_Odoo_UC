@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="report_detalles_pago_docente" model="ir.actions.report">
+        <field name="name">Reporte Pago Docente</field>
+        <field name="model">planilla.cuatrimestre</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">nomina.report_detalles_pago_docente_id</field>
+        <field name="report_file">nomina.report_detalles_pago_docente_id</field>
+        <field name="binding_model_id" ref="model_planilla_cuatrimestre"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="report_detalles_pago_docente_id">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <t t-set="docenteInfo" t-value="get_docente_info"/>
+                    <t t-set="docentePagoGeneral" t-value="get_docente_pago_general"/>
+                    <t t-set="docenteInfoPlanilla" t-value="get_docente_info_planilla"/>
+                    <t t-set="docenteCursos" t-value="get_docente_cursos"/>
+                    <t t-set="docenteMarcasCursos" t-value="get_marcas_cursos"/>
+                    <p1>Docente : <t t-esc="docenteInfo['nombreDocente']"/></p1>
+                    <br/>
+                    <p1>Cedula : <t t-esc="docenteInfo['cedulaDocente']"/></p1>
+                    <br/>
+                    <p1>Correo : <t t-esc="docenteInfo['correoDocente']"/></p1>
+                    <br/>
+                    <t>Del </t>
+                    <t t-esc="docenteInfoPlanilla['fechaInicio']"/>
+                    <t> al </t>
+                    <t t-esc="docenteInfoPlanilla['fechaFinal']"/>
+                    <t t-esc="docenteInfoPlanilla['cuatrimestre']"/>
+                    <br/>
+
+                    <h4>Cursos</h4>
+                    <table class="table table-condensed">
+                        <thead>
+                            <tr>
+                                <th class="text-left"><span>Descripción</span></th>
+                                <th class="text-left"><span>Horario</span></th>
+                                <th class="text-left"><span>Horas de Curso</span></th>
+                                <th class="text-left"><span>Cantidad de Semanas por Pagar</span></th>
+                                <th class="text-left"><span>Cantidad de Horas por Pagar</span></th>
+                                <th class="text-left"><span>Cantidad de Horas Impartidas</span></th>
+                                <th class="text-left"><span>Observación</span></th>
+                            </tr>
+                        </thead>
+                        <tbody class="invoice_tbody">
+                            <tr t-foreach="docenteCursos" t-as="cursos">
+                                <td>
+                                    <t t-esc="cursos['descripcion']" />
+                                </td>
+                                <td>
+                                    <t t-esc="cursos['horario']" />
+                                </td>
+                                <td>
+                                    <t t-esc="cursos['cantiadadHoras']" />
+                                </td>
+                                <td>
+                                    <t t-esc="cursos['semanas']" />
+                                </td>
+                                <td>
+                                    <t t-esc="cursos['horasRealizar']" />
+                                </td>
+                                <td>
+                                    <t t-esc="cursos['horasRealizadas']" />
+                                </td>
+                                <td>
+                                    <t t-esc="cursos['pagoHasta']" />
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+                    <br/>
+
+                    <br/>
+                    <div class="page">
+                        <p style="page-break-after:always;"></p>
+                        <h4>Desglose</h4>
+                        <table class="table table-sm o_report_block_total">
+                            <tr class="border-black o_subtotal">
+                                <td>
+                                    <strong>Pago por Horas Laboradas</strong>
+                                </td>
+                                <td class="text-right">
+                                    ₡<span t-esc="docentePagoGeneral['subTotal']" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Adicionales ( + )</td>
+                                <tr t-foreach="docentePagoGeneral['adicionalesList']" t-as="adicionales">
+
+                                    <td class="text-center"> <t t-esc="adicionales['nombre']" /></td>
+                                    <td class="text-right">
+                                        ₡<span t-esc="adicionales['total']"/>
+                                    </td>
+                                </tr>
+                            </tr>
+                            <tr>
+                                <td>Ajustes de Pago ( + )</td>
+                                <tr t-foreach="docentePagoGeneral['ajustesList']" t-as="ajustes">
+                                    <td class="text-center"> <t t-esc="ajustes['nombre']" /></td>
+                                    <td class="text-right">
+                                        ₡<span t-esc="ajustes['total']"/>
+                                    </td>
+                                </tr>
+                            </tr>
+                            <tr>
+                                <td>Reposiciones de Clases ( + )</td>
+                                <tr t-foreach="docentePagoGeneral['reposicionesList']" t-as="reposiciones">
+
+                                    <td class="text-center"> <t t-esc="reposiciones['nombre']" /></td>
+                                    <td class="text-right">
+                                        ₡<span t-esc="reposiciones['total']"/>
+                                    </td>
+                                </tr>
+                            </tr>
+                            <tr>
+                                <td>Deducciones ( - )</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Entrada Tardia</td>
+                                <td class="text-right">
+                                    ₡<span t-esc="docentePagoGeneral['deducionesEntradaTardia']"  />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Salida Temprana</td>
+                                <td class="text-right">
+                                    ₡<span t-esc="docentePagoGeneral['deducionesSalidaTemprana']"  />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Omision de Marca</td>
+                                <td class="text-right">
+                                    ₡<span t-esc="docentePagoGeneral['deducionesOmisionMarca']"  />
+                                </td>
+                            </tr>
+                            <!--                            <tr>-->
+                            <!--                                <td class="text-center">Ausencia</td>-->
+                            <!--                                <td class="text-right">-->
+                            <!--                                    ₡<span t-esc="docentePagoGeneral['deducionesAusencia']"  />-->
+                            <!--                                </td>-->
+                            <!--                            </tr>-->
+                            <tr>
+                                <td class="text-center">*****</td>
+                                <td class="text-right">
+                                    <span>*****</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-left">Subtotal</td>
+                                <td class="text-right">
+                                    ₡<span t-esc="docentePagoGeneral['subTotal2']" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Prestaciones ( + )</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Pago de  Aguinaldo</td>
+                                <td class="text-right">
+                                    ₡<span t-esc="docentePagoGeneral['aguinaldoDocente']" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Pago de  Vacaciones</td>
+                                <td class="text-right">
+                                    ₡<span t-esc="docentePagoGeneral['vacacionesDocente']"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Deducciones ( - )</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">CCSS</td>
+                                <td class="text-right">
+                                    ₡<span t-esc="docentePagoGeneral['CCSSDocente']"  />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Renta</td>
+                                <td class="text-right">
+                                    ₡<span t-esc="docentePagoGeneral['renta']"  />
+                                </td>
+                            </tr>
+                            <t t-if="docentePagoGeneral['embargo'] != '0.0'">
+                                <tr>
+                                    <td class="text-center">Embargo</td>
+                                    <td class="text-right">
+                                        ₡<span t-esc="docentePagoGeneral['embargo']"  />
+                                    </td>
+                                </tr>
+                            </t>
+                            <tr t-foreach="docentePagoGeneral['rebajosNeto']" t-as="rebajos">
+                                <td class="text-center"><t t-esc="rebajos['nombre']" /></td>
+                                <td class="text-right">
+                                    ₡<span t-esc="rebajos['total']"  />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-left">Total </td>
+                                <td class="text-right">
+                                    ₡<span t-esc="docentePagoGeneral['totalDocente']"  />
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="page">
+                    <p style="page-break-after:always;"></p>
+                    <h4>Marcas </h4>
+                    <table class="table table-condensed">
+                        <thead>
+                            <tr>
+                                <th class="text-left"><span>Codigo Curso</span></th>
+                                <th class="text-left"><span>Fecha Curso</span></th>
+                                <th class="text-left"><span>Horario Curso</span></th>
+                                <th class="text-left"><span>Marca de Entrada</span></th>
+                                <th class="text-left"><span>Marca de Salida</span></th>
+                                <th class="text-left"><span>Estado</span></th>
+                            </tr>
+                        </thead>
+                        <tbody class="invoice_tbody">
+                            <tr t-foreach="docenteMarcasCursos" t-as="marcas">
+                                <td>
+                                    <t t-esc="marcas['codigo']" />
+                                </td>
+                                <td>
+                                    <t t-esc="marcas['fechaCurso']" />
+                                </td>
+                                <td>
+                                    <t t-esc="marcas['horarioCurso']" />
+                                </td>
+                                <td>
+                                    <t t-esc="marcas['marcaEntrada']" />
+                                </td>
+                                <td>
+                                    <t t-esc="marcas['marcaSalida']" />
+                                </td>
+                                <td>
+                                    <t t-esc="marcas['estado']" />
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+
+</odoo>

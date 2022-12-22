@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--START [configuraicones de menu principal]-->
+    <menuitem id="nomina_cursos_docente_root"
+              name="Docente"
+              parent="nomina_root"
+              sequence="10"/>
+    <!--END [configuraicones de menu principal]-->
+    <!--START [configuraicones de pagos adicionales]-->
+    <record id="view_nomina_cursos_docente_search" model="ir.ui.view">
+        <field name="name">cursos.docente.search</field>
+        <field name="model">cursos.docente</field>
+        <field name="arch" type="xml">
+            <search string="Cursos Docente">
+                <field string="Nombre" name="docente_id" filter_domain="[('docente_id.name', 'ilike', self)]"/>
+                <separator/>
+                <group expand="1" string="Group By">
+                    <filter string="Cuatrimestre" name="cuatrimestre_id" context="{'group_by':'cuatrimestre_id'}"/>
+                    <filter string="Puesto" name="puesto" context="{'group_by':'puesto'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_nomina_cursos_docente_form" model="ir.ui.view">
+        <field name="name">nomina.cursos.docente.form</field>
+        <field name="model">cursos.docente</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div role="alert" class="alert alert-danger"
+                         style="height:40px, width:30px, margin-bottom:1px;"
+                         attrs="{'invisible': [('warning','=',False)]}">
+                        <field name="warning" invisible="1"/>
+                        Este docente ya tiene cursos en el cuatrimestre selecionado
+                    </div>
+                    <group>
+                        <group>
+                            <field name="cuatrimestre_id" />
+                            <field name="docente_id" />
+                        </group>
+                        <group>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Cursos">
+                            <group>
+                                <group string="Curso">
+                                    <field name="cursos_ids"/>
+                                </group>
+                                <group string="Dias de clases">
+                                    <field name="dia1"/>
+                                    <field name="dia2"/>
+                                    <field name="dia3"/>
+                                </group>
+                                <group string="Hora de Clases">
+                                    <group>
+                                        <field name="horaInicio"/>
+                                        <field name="minutoInicio"/>
+                                        <field name="ampmInicio"/>
+                                    </group>
+                                    <group>
+                                        <field name="horaFinal"/>
+                                        <field name="minutoFinal"/>
+                                        <field name="ampmFinal"/>
+                                    </group>
+                                </group>
+                                <group>
+                                    <button name="action_add_curso" string="Agregar Curso" class="btn-primary" type="object"/>
+                                </group>
+                            </group>
+                            <field name="cursos_lines_ids" >
+                                <tree editable="bottom" create="0">
+                                    <field name="cursoActivo" widget="boolean_toggle"/>
+                                    <field name="name"/>
+                                    <field name="descripcion"/>
+                                    <field name="codigoCurso"/>
+                                    <field name="cantiadadHoras"/>
+                                    <field name="cantiadadHorasSemana"/>
+                                    <field name="alumnos"/>
+                                    <field name="horario"/>
+                                    <field name="estadoCurso" />
+                                    <field name="estadoActa" />
+                                    <field name="fechaCambioCurso" optional="hide"/>
+                                    <field name="fechaInicioPago" optional="hide"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Adicionales">
+                            <group>
+                                <group>
+                                    <field name="adicionales_id"/>
+                                </group>
+                                <group>
+                                    <button name="action_add_adicional" string="Agregar Adicional" class="btn-primary" type="object"/>
+                                </group>
+                            </group>
+                            <field name="adicionales_lines_ids" >
+                                <tree editable="bottom" create="0">
+                                    <field name="name"/>
+                                    <field name="sinPrestaciones"/>
+                                    <field name="cantidad"/>
+                                    <field name="totalAdicionales"/>
+                                    <field name="cuatrimestre_id" invisible="1"/>
+                                    <field name="docente_id" invisible="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Ajustes de Pago">
+                            <group>
+                                <group string="Tipo de Ajuste">
+                                    <field name="ajustes_ids"/>
+                                </group>
+                                <group>
+                                    <group string="Ajustes por Monto">
+                                        <field name="monto_ajustes"/>
+                                    </group>
+                                    <group string="Ajustes Por Hora">
+                                        <field name="horas_ajustes"/>
+                                        <field name="minutos_ajustes"/>
+                                    </group>
+                                </group>
+                                <group string="Autorizacion">
+                                    <field name="fechaAjuste"/>
+                                    <field name="autoriza_ids"/>
+                                    <field name="descripcion_ajustes"/>
+                                    <button name="action_add_ajustes" string="Agregar Ajuste" class="btn-primary" type="object"/>
+                                </group>
+                            </group>
+                            <field name="ajustes_lines_ids">
+                                <tree editable="bottom" create="0">
+                                    <field name="name"/>
+                                    <field name="monto"/>
+                                    <field name="horas"/>
+                                    <field name="minutos"/>
+                                    <field name="descripcion"/>
+                                    <field name="total"/>
+                                </tree>
+
+                            </field>
+                        </page>
+                        <page string="Reposición">
+                            <group>
+                                <group string="Tipo de Reposicion">
+                                    <field name="reposiciones_ids"/>
+                                </group>
+                                <group>
+                                    <group string="Reposicion por Monto">
+                                        <field name="monto_reposiciones"/>
+                                    </group>
+                                    <group string="Reposicion Por Hora">
+                                        <field name="horas_reposiciones"/>
+                                        <field name="minutos_reposiciones"/>
+                                    </group>
+                                </group>
+                                <group string="Autorizacion">
+                                    <field name="autoriza_ids"/>
+                                    <field name="descripcion_reposiciones"/>
+                                    <button name="action_add_reposiciones" string="Agregar Ajuste" class="btn-primary" type="object"/>
+                                </group>
+                            </group>
+                            <field name="reposiciones_lines_ids">
+                                <tree editable="bottom" create="0">
+                                    <field name="name"/>
+                                    <field name="monto"/>
+                                    <field name="horas"/>
+                                    <field name="minutos"/>
+                                    <field name="descripcion"/>
+                                    <field name="total"/>
+                                </tree>
+
+                            </field>
+                        </page>
+                        <page string="Rebajos Manuales">
+                            <group>
+                                <group string="Tipo de Rebajo">
+                                    <field name="rebajo_id"/>
+                                </group>
+                                <group>
+                                    <group string="Rebajo por Monto">
+                                        <field name="monto_rebajos"/>
+                                    </group>
+                                </group>
+                                <group string="Autorizacion">
+                                    <button name="action_add_rebajo" string="Agregar Rebajo" class="btn-primary" type="object"/>
+                                    <field name="documento_autorizacion_ajuste"/>
+                                </group>
+                            </group>
+                            <field name="rebajos_lines_ids">
+                                <tree editable="bottom" create="0">
+                                    <field name="name"/>
+                                    <field name="monto"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Asistencia">
+                            <field name="asistencia_line_ids">
+                                <tree editable="bottom" create="0">
+                                    <field name="aplicar" widget="boolean_toggle"/>
+                                    <field name="cursoMarca"/>
+                                    <field name="pagoMarca"/>
+                                    <field name="fechaCurso"/>
+                                    <field name="horarioCurso"/>
+                                    <field name="entradaClases"/>
+                                    <field name="salidaClases"/>
+                                    <field name="tiempoClases"/>
+                                    <field name="estado"/>
+                                    <field name="deduccionTotal"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="view_nomina_cursos_docente_tree" model="ir.ui.view">
+        <field name="name">nomina.cursos.docente.tree</field>
+        <field name="model">cursos.docente</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="cuatrimestre_id"/>
+                <field name="docente_id"/>
+                <field name="cursos_lines_ids"/>
+                <field name="puesto"/>
+            </tree>
+        </field>
+    </record>
+    <record id="action_nomina_cursos_docente" model="ir.actions.act_window">
+        <field name="name">Cursos Docente</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">cursos.docente</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="search_view_id" ref="view_nomina_cursos_docente_search"/>
+        <field name="context">{'search_default_cuatrimestre_id': 1,'search_default_puesto': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Agrega Cursos a un Docente!
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="nomina_cursos_regulares_menu_docente"
+              name="Cursos Regulares"
+              parent="nomina_cursos_docente_root"
+              sequence="100"/>
+
+    <menuitem id="nomina_cursos_docente"
+              name="Cursos Docente"
+              parent="nomina_cursos_regulares_menu_docente"
+              action="action_nomina_cursos_docente"
+              sequence="110"/>
+    <!--END [configuraicones de pagos adicionales]-->
+
+    <menuitem id="nomina_generar_asistencia_docente"
+              name="Generar Asistencia Docente"
+              parent="nomina_cursos_regulares_menu_docente"
+              action="action_nomina_cargar_asistencia_docente_wizard"
+              sequence="120"/>
+
+    <menuitem id="nomina_cargar_cursos_docente"
+              name="Cargar Cursos Docente"
+              parent="nomina_cursos_regulares_menu_docente"
+              action="action_nomina_cargar_cursos_docente_wizard"
+              sequence="130"/>
+
+    <menuitem id="nomina_cargar_adicionales_docente"
+              name="Cargar Adicionales Docente"
+              parent="nomina_cursos_regulares_menu_docente"
+              action="action_nomina_cargar_adicionales_wizard"
+              sequence="140"/>
+
+    <menuitem id="nomina_cargar_justificaciones_marcas_docentes_docente"
+              name="Cargar Justificacion Marcas Docente"
+              parent="nomina_cursos_regulares_menu_docente"
+              action="action_nomina_cargar_justificacion_marcas_docente_wizard"
+              sequence="150"/>
+
+    <menuitem id="nomina_cargar_ajuste_pago_docentes_docente"
+              name="Cargar Ajustes de Pago de Docentes"
+              parent="nomina_cursos_regulares_menu_docente"
+              action="action_nomina_cargar_ajuste_pago_docente_wizard"
+              sequence="160"/>
+
+    <menuitem id="nomina_cargar_suficiencias_docentes_docente"
+              name="Cargar Ajustes de Pago de Docentes"
+              parent="nomina_cursos_regulares_menu_docente"
+              action="action_nomina_cargar_suficiencias_docente_wizard"
+              sequence="170"/>
+</odoo>

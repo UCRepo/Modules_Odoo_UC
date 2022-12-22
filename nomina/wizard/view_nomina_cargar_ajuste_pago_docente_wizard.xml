@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--START [configuraicones de pagos adicionales]-->
+    <record id="view_nomina_cargar_ajuste_pago_docente_wizard_form" model="ir.ui.view">
+        <field name="name">nomina.cargar.ajuste.pago.docente.wizard.form</field>
+        <field name="model">nomina.cargar.ajuste.pago.docente.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Cargar Ajustes de Pago de Docentes">
+                <group class="oe_title">
+                    <group string="Info general">
+                        <field name="documentoAjustePago"/>
+                        <field name="tipo"/>
+                    </group>
+                    <group>
+                    </group>
+                </group>
+                <footer>
+                    <button name="cargar_ajuste_pago_docente" string="Cargar" type="object" class="btn-primary"/>
+                    <button string="Cancelar" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="action_nomina_cargar_ajuste_pago_docente_wizard" model="ir.actions.act_window">
+        <field name="name">Cargar Ajustes de Pago de Docentes</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">nomina.cargar.ajuste.pago.docente.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_nomina_cargar_ajuste_pago_docente_wizard_form"/>
+        <field name="target">new</field>
+    </record>
+    <!--    END [configuraicones de pagos adicionales]-->
+</odoo>

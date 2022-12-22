@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="poliza_uia_categoria" model="ir.module.category">
+            <field name="name">Poliza</field>
+            <field name="sequence">9</field>
+        </record>
+        <record id="poliza_uia_lectura" model="res.groups">
+            <field name="name">Lectura</field>
+            <field name="category_id" ref="poliza_uia_categoria"/>
+        </record>
+        <record id="poliza_uia_escritura" model="res.groups">
+            <field name="name">Escritura</field>
+            <field name="category_id" ref="poliza_uia_categoria"/>
+        </record>
+        <record id="poliza_uia_ceacion" model="res.groups">
+            <field name="name">Creación</field>
+            <field name="category_id" ref="poliza_uia_categoria"/>
+        </record>
+        <record id="poliza_uia_eliminacion" model="res.groups">
+            <field name="name">Eliminacion</field>
+            <field name="category_id" ref="poliza_uia_categoria"/>
+        </record>
+    </data>
+</odoo>

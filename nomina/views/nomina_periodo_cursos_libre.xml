@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<odoo>
+    <record id="view_nomina_periodo_cursos_libre_form" model="ir.ui.view">
+        <field name="name">nomina.periodo.cursos.libre.form</field>
+        <field name="model">periodo.cursos.libre</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div role="alert" class="alert alert-danger"
+                         style="height:40px, width:30px, margin-bottom:1px;"
+                         attrs="{'invisible': [('warning','=',False)]}">
+                        <field name="warning"/>
+                        Ya existe un  año con este cuatrimestre asignado
+                    </div>
+                    <group>
+                        <group string="Opciones Cuatrimestre">
+                            <field name="decripcion" />
+                            <field name="year"/>
+                            <field name="active" readonly="1" widget="boolean_toggle"/>
+                        </group>
+                        <group>
+                            <group string="Fechas de Cuatrimestre">
+                                <field name="fechaInicioCuatrimestre"/>
+                                <field name="fechaFinCuatrimestre"/>
+                            </group>
+                            <group string="Fechas de Pago Semana 7 y 15">
+                                <field name="fechaPrimerPago15Semanas"/>
+                                <field name="fechaSegundoPago15Semanas"/>
+                            </group>
+                            <group string="Fechas de Pago Semana 5 y 10">
+                                <field name="fechaPrimerPago10Semanas"/>
+                                <field name="fechaSegundoPago10Semanas"/>
+                            </group>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_nomina_periodo_cursos_tree" model="ir.ui.view">
+        <field name="name">nomina.periodo.cursos.libre.tree</field>
+        <field name="model">periodo.cursos.libre</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="decripcion" />
+                <field name="anno"/>
+                <field name="active" widget="boolean_toggle"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_nomina_periodo_cursos" model="ir.actions.act_window">
+        <field name="name">Periodos</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">periodo.cursos.libre</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                !!!!!
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="nomina_periodo_cursos_libres"
+              name="Crear Periodo Cursos Libres"
+              parent="nomina_cuatrimestre_root"
+              action="action_nomina_periodo_cursos"
+              sequence="20"/>
+
+
+</odoo>

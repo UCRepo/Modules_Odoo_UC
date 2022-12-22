@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<odoo>
+    <record id="view_nomina_miembro_cuatrimestre_form" model="ir.ui.view">
+        <field name="name">nomina.miembro.cuatrimestre.form</field>
+        <field name="model">miembro.cuatrimestre</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="cuatrimestre_id"/>
+                            <field name="contrato_id" domain="[('cuatrimestre_id', '=', cuatrimestre_id)]"/>
+                        </group>
+                        <group>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Docentes">
+                            <field name="docentes_ids" domain="[('department_id', '=', 'Docentes')]"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_nomina_miembro_tree" model="ir.ui.view">
+        <field name="name">nomina.miembro.tree</field>
+        <field name="model">miembro.cuatrimestre</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="contrato_id"/>
+                <field name="docentes_ids" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_nomina_miembro_cuatrimestre" model="ir.actions.act_window">
+        <field name="name">Miembros por Cuatrimestre</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">miembro.cuatrimestre</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+            Crea un miembro!
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="nomina_miembro_root" 
+              name="Miembros" 
+              parent="nomina_root" 
+              sequence="10"/>
+
+    <menuitem id="nomina_miembro_cuatrimestre" 
+              name="Miembros por Cuatrimestre" 
+              parent="nomina_miembro_root" 
+              action="action_nomina_miembro_cuatrimestre" 
+              sequence="20"/> 
+
+</odoo>

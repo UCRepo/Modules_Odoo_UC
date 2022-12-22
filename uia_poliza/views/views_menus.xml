@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="poliza_dashboard_root"
+              name="Polizas"
+              web_icon="uia_poliza,static/description/icon.png"
+              sequence="10"/>
+</odoo>

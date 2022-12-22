@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="horario_empleado_security" model="ir.module.category">
+            <field name="name">Horario Empleado</field>
+            <field name="sequence">9</field>
+        </record>
+
+        <record id="horario_empleado_lectura" model="res.groups">
+            <field name="name">Lectura</field>
+            <field name="category_id" ref="horario_empleado_security"/>
+        </record>
+
+        <record id="horario_empleado_escritura" model="res.groups">
+            <field name="name">Escritura</field>
+            <field name="category_id" ref="horario_empleado_security"/>
+        </record>
+
+        <record id="horario_empleado_ceacion" model="res.groups">
+            <field name="name">Creación</field>
+            <field name="category_id" ref="horario_empleado_security"/>
+        </record>
+
+        <record id="horario_empleado_eliminacion" model="res.groups">
+            <field name="name">Eliminacion</field>
+            <field name="category_id" ref="horario_empleado_security"/>
+        </record>
+
+        <record id="horario_empleado_visualizacion" model="res.groups">
+            <field name="name">Visualizar</field>
+            <field name="category_id" ref="horario_empleado_security"/>
+        </record>
+
+        <record id="horario_regla_visualizacion_horario_empleado" model="ir.rule">
+            <field name="name">visualizar horario empleado</field>
+            <field name="model_id" ref="model_horario_empleado"/>
+            <field name="domain_force">[('create_uid','=',user.id)]</field>
+            <field name="groups" eval="[(4, ref('horario_empleado_visualizacion'))]"/>
+        </record>
+
+        <record id="horario_regla_visualizacion_horario_horario_predeterminado" model="ir.rule">
+            <field name="name">visualizar horario empleado</field>
+            <field name="model_id" ref="model_horario_horario_predeterminado"/>
+            <field name="domain_force">[('create_uid','=',user.id)]</field>
+            <field name="groups" eval="[(4, ref('horario_empleado_visualizacion'))]"/>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="planillaPersonal_root"
+              name="Planilla Administrativa"
+              web_icon="planilla,static/description/icon.png"
+              sequence="10"/>
+</odoo>

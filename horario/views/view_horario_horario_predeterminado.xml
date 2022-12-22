@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--START [configuraicones de cursos]-->
+        <record id="view_horario_horario_predeterminado_form" model="ir.ui.view">
+            <field name="name">horario.horario.predeterminado.form</field>
+            <field name="model">horario.horario.predeterminado</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group string="Datos generales">
+                                <field name="name"/>
+                                <field name="diaHorario" force_save="1"/>
+                            </group>
+                            <group>
+                                <group string="Entrada">
+                                    <field name="horaEntrada" force_save="1"/>
+                                    <field name="minutoEntrada" force_save="1"/>
+                                </group>
+                                <group string="Salida">
+                                    <field name="horaSalida" force_save="1"/>
+                                    <field name="minutoSalida" force_save="1"/>
+                                </group>
+                                <button name="agregar_horario" string="Agregar" class="btn-primary" type="object"/>
+                            </group>
+                            <group>
+
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Horario">
+                                <field name="horarioPredeterminado_ids" >
+                                    <tree editable="bottom" create="0" edit="false">
+                                        <field name="diaHorario"/>
+                                        <field name="horaEntrada"/>
+                                        <field name="horaSalida"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        <record id="view_horario_horario_predeterminado_tree" model="ir.ui.view">
+            <field name="name">horario.horario.predeterminado.tree</field>
+            <field name="model">horario.horario.predeterminado</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        <record id="action_horario_horario_predeterminado" model="ir.actions.act_window">
+            <field name="name">Horarios Predeterminados</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">horario.horario.predeterminado</field>
+            <field name="view_mode">tree,kanban,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Crea un horario predeterminado !
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="horario_horario_predeterminado"
+                  name="Horarios predeterminados"
+                  parent="horario_empleado_root"
+                  action="action_horario_horario_predeterminado"
+                  sequence="20"/>
+        <!--END [configuraicones de cursos]-->
+
+
+
+    </data>
+</odoo>

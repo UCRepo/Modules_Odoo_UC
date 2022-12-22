@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="email_correo_cumple" model="mail.template">
+            <field name="name">Envio Correo Cumpleaños</field>
+            <field name="model_id" ref="planilla.model_planialla_administrativa_cron"/>
+            <field name="body_html" type="html" >
+                <div style="margin: 0px; padding: 0px;">
+                    % set datosCorreo = ctx.get('datosCorreo', {})
+                    <table>
+                        <tr>
+                            <td><img src="https://biblioteca.uc.ac.cr/wp-content/uploads/2022/11/cumpleUCTop.png" width="650" height="200"/></td>
+                        </tr>
+                    </table>
+                    <table>
+                        <tr>
+                            <td><img src="https://biblioteca.uc.ac.cr/wp-content/uploads/2022/11/cumpleUCLeft.png" width="250" height="300"/></td>
+                            <td>
+                                <div style="width:350px;text-align:center;">
+                                    <h2 style="color: #00416b">${datosCorreo['empleadoNombre']}</h2>
+                                    <p style="color: #00416b">Hoy en UC celebramos tu día especial, te deseamos un muy feliz cumpleaños y recordá que podés alcanzar tus metas y sueños. </p>
+                                    <p style="color: #00416b">"Al final, lo que importa no son los años de vida, sino la vida de los años"</p>
+                                    <p style="color: #00416b">Abraham Lincoln</p>
+                                </div>
+
+                                <table style="width:400px;text-align:center;">
+                                    <tr>
+
+                                        <td><img src="https://biblioteca.uc.ac.cr/wp-content/uploads/2022/11/logo.png" width="60" height="45"/></td>
+
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </field>
+        </record>
+
+        <record id="email_comprobante_pago" model="mail.template">
+            <field name="name">Panilla Administrativa: Correo Comprobante de Pago</field>
+            <field name="model_id" ref="planilla.model_planilla_administrativa_pre_planilla"/>
+            <field name="body_html" type="html" >
+                <div>
+
+                </div>
+            </field>
+        </record>
+    </data>
+</odoo>

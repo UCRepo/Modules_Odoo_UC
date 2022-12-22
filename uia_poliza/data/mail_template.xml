@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="email_correo_poliza_estudiante" model="mail.template">
+            <field name="name">Información de Beneficiario de póliza</field>
+            <field name="model_id" ref="uia_poliza.model_poliza_dashboard"/>
+            <field name="body_html" type="html" >
+                <div style="margin: 0px; padding: 0px;background-color:#E3E3E3;">
+                    % set datosCorreo = ctx.get('datosCorreo', {})
+                    <div>
+                        <img src="https://uc.ac.cr/wp-content/uploads/2022/09/MicrosoftTeams-image-1.png" width="150" height="100"/>
+                    </div>
+                    <div style="text-align:center;">
+                        <img src="https://uc.ac.cr/wp-content/uploads/2022/09/MicrosoftTeams-image.png" width="300" height="100"/>
+                        <p style="margin: 0px; padding: 0px; font-size: 13px;color: #033C5D">Para mayor información: polizaestudiantes@universidadcentral.ac.cr</p>
+                    </div>
+                    <div style="text-align:center;">
+                        <p style="margin: 0px; padding: 0px; font-size: 13px;color: #033C5D" >
+                            Estimado(a) ${datosCorreo['nombreEstudiante']}
+                            <br/><br/>
+                            En atención a su Seguro Estudiantil, es de suma importancia indicar el Beneficiario que desea sé
+                            vincule en su póliza, es por esta razón se requiere que complete los datos solicitados en este
+                            link, si ya relleno la información hacer caso omiso a este correo:
+                            <br/><br/>
+                            <a href="${datosCorreo['link']}">Ir al Formulario</a>
+
+                            <br/><br/>
+                            Agradecemos su ayuda completando la información lo antes posible.
+                            <br/><br/>
+                            Saludos cordiales.
+                        </p>
+
+                    </div>
+                    <div style="text-align:right;">
+                        <img src="https://uc.ac.cr/wp-content/uploads/2022/09/MicrosoftTeams-image-2.png" width="250" height="100"/>
+                    </div>
+                </div>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--START [configuraicones de pagos adicionales]-->
+    <record id="view_nomina_generar_reporte_marcas_docente_wizard_form" model="ir.ui.view">
+        <field name="name">nomina.generar.reporte.marcas.wizard.form</field>
+        <field name="model">nomina.generar.reporte.marcas.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Generar Reporte Marcas Docente">
+                <group class="oe_title">
+                    <group string="Info general">
+                        <field name="planilla_line_ids"/>
+                        <field name="docente_ids" domain="[('department_id', '=', 'Docentes')]"/>
+                    </group>
+                    <group>
+                    </group>
+                </group>
+                <footer>
+                    <button name="descargar_reporte_asistencia" string="Generar" type="object" class="btn-primary"/>
+                    <button string="Cancelar" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="action_nomina_generar_reporte_marcas_docente_wizard" model="ir.actions.act_window">
+        <field name="name">Generar Reporte Asistencia Docente</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">nomina.generar.reporte.marcas.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_nomina_generar_reporte_marcas_docente_wizard_form"/>
+        <field name="target">new</field>
+    </record>
+    <!--    END [configuraicones de pagos adicionales]-->
+</odoo>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--START [configuraicones de pagos adicionales]-->
+    <record id="view_planilla_administrativa_generar_aistencia_wizard_form" model="ir.ui.view">
+        <field name="name">poliza.generar.reporte.beneficiarios.wizard.form</field>
+        <field name="model">poliza.generar.reporte.beneficiarios.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Generar Reporte Pólizas">
+                <group class="oe_title">
+                    <group string="Ranago de fechas">
+                        <field name="polizaDesde"/>
+                        <field name="polizaHasta"/>
+                        <field name="poliza"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="generar_poliza_report" string="Generar" type="object" class="btn-primary"/>
+                    <button string="Cancelar" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="action_planilla_administrativa_generar_aistencia_wizard" model="ir.actions.act_window">
+        <field name="name">Generar Reporte Pólizas</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">poliza.generar.reporte.beneficiarios.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_planilla_administrativa_generar_aistencia_wizard_form"/>
+        <field name="target">new</field>
+    </record>
+    <!--    END [configuraicones de pagos adicionales]-->
+</odoo>

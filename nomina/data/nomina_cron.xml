@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="ir_cron_envio_correo_marca_tardia_docente" model="ir.cron">
+            <field name="name">Envio de correo por marca tardia docente</field>
+            <field name="model_id" ref="model_nomina_cron"/>
+            <field name="state">code</field>
+            <field name="code">model._envio_correo_marca_tardia_docente()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+        </record>
+
+        <record id="ir_cron_agregar_cursos_docente" model="ir.cron">
+            <field name="name">UC - Nomina Docente : Actualizar cursos docente</field>
+            <field name="model_id" ref="model_nomina_cron"/>
+            <field name="type">ir.actions.server</field>
+            <field name="state">code</field>
+            <field name="code">model._agregar_cursos_docente()</field>
+            <field name="interval_number">1</field>
+            <field name="active" eval="False"/>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+        </record>
+
+        <record id="ir_cron_agregar_adicionales_docente" model="ir.cron">
+            <field name="name">Nomina Docente : Agregar Adicionales Docente</field>
+            <field name="model_id" ref="model_nomina_cron"/>
+            <field name="state">code</field>
+            <field name="code">model._agregar_adicionales_docente()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+        </record>
+
+
+        <record id="ir_cron_envio_correo_horarios_erroneos" model="ir.cron">
+            <field name="name">Nomina Docente : Envio Correo Aviso Horario Erroneo</field>
+            <field name="model_id" ref="model_nomina_cron"/>
+            <field name="state">code</field>
+            <field name="code">model._envio_correo_horarios_erroneos()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+        </record>
+
+        <record id="ir_cron_set_marca_omision" model="ir.cron">
+            <field name="name">UC - Nomina Docente : Marca Omision</field>
+            <field name="model_id" ref="model_nomina_cron"/>
+            <field name="type">ir.actions.server</field>
+            <field name="state">code</field>
+            <field name="code">model._set_horario_omision()</field>
+            <field name="active" eval="False"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+        </record>
+    </data>
+</odoo>

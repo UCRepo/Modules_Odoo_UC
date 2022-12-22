@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="web_aceptacion_docente">
+            <head>
+                <t t-call-assets="nomina.aceptaciones_frontend" t-js="false"/>
+                <t t-call-assets="nomina.aceptaciones_frontend" t-css="false"/>
+            </head>
+            <t t-call="website.layout">
+                <t t-set="title">Aprobacion Docente</t>
+                <div class="container" id="web_nomina_planilla_cuatrimestre_container_pagos">
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

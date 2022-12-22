@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="email_docente_preplanilla" model="mail.template">
+            <field name="name">Preplanilla Docente: Envio de Colilla de pago </field>
+            <field name="model_id" ref="nomina.model_planilla_cuatrimestre"/>
+            <field name="body_html" type="html" >
+                <div style="margin: 0px; padding: 0px;background-color:#E3E3E3;">
+                    % set datosCorreo = ctx.get('datosCorreo', {})
+                    <div>
+                        <img src="https://uc.ac.cr/wp-content/uploads/2022/09/MicrosoftTeams-image-1.png" width="150" height="100"/>
+                    </div>
+                    <div style="text-align:center;">
+                        <img src="https://uc.ac.cr/wp-content/uploads/2022/09/MicrosoftTeams-image.png" width="300" height="100"/>
+                    </div>
+                    <div style="text-align:center;">
+                        <h2>${datosCorreo['docenteNombre']}</h2>
+                        <p style="margin: 0px; padding: 0px; font-size: 13px;color: #033C5D" >
+                            Estimado(a) Profesor(a)
+                            <br/><br/>
+                            A continuación se le adjunta la colilla de pago referente a las fechas del ${datosCorreo['fechaInicioPago']} a ${datosCorreo['fechaFinalPago']}
+                            <br/><br/>
+                            <br/><br/>
+                            Saludos cordiales.
+                        </p>
+
+                    </div>
+                    <div style="text-align:right;">
+                        <img src="https://uc.ac.cr/wp-content/uploads/2022/09/MicrosoftTeams-image-2.png" width="250" height="100"/>
+                    </div>
+                </div>
+            </field>
+        </record>
+
+        <record id="email_irregularidad_marcas_docentes" model="mail.template">
+            <field name="name">Irregularidad en  marcas de  docentes </field>
+            <field name="model_id" ref="nomina.model_nomina_cron"/>
+            <field name="body_html" type="html" >
+                <table class="table table-condensed">
+                    % set listDocentes = ctx.get('listDocentes', [])
+                    <thead>
+                        <tr>
+                            <th class="text-left"><span>Curso</span></th>
+                            <th class="text-left"><span>Horario</span></th>
+                            <th class="text-left"><span>Docente</span></th>
+                        </tr>
+                    </thead>
+                    <tbody class="invoice_tbody">
+                        % for line in listDocentes:
+                        <tr>
+                            <td>
+                                <t>${line['curso']}</t>
+                            </td>
+                            <td>
+                                <t>${line['horario']}</t>
+                            </td>
+                            <td>
+                                <t>${line['docente']}</t>
+                            </td>
+                        </tr>
+                        % endfor
+                    </tbody>
+
+                </table>
+            </field>
+        </record>
+
+        <record id="email_cursos_horario_erroneo" model="mail.template">
+            <field name="name">Cursos Horario Erroneo</field>
+            <field name="model_id" ref="nomina.model_nomina_cron"/>
+            <field name="body_html" type="html" >
+                <table class="table">
+                    % set listCursos = ctx.get('listCursos', [])
+                    <thead>
+                        <tr>
+                            <th class="text-left"><span>Docente</span></th>
+                            <th class="text-center"><span>Curso</span></th>
+                            <th class="text-center"><span>Codigo</span></th>
+                            <th class="text-right"><span>Horas de curso</span></th>
+                            <th class="text-right"><span>Horario</span></th>
+                        </tr>
+                    </thead>
+                    <tbody class="invoice_tbody">
+                        % for line in listCursos:
+                        <tr>
+                            <td>
+                                <t>${line['docente']}</t>
+                            </td>
+                            <td>
+                                <t>${line['curso']}</t>
+                            </td>
+                            <td>
+                                <t>${line['codigo']}</t>
+                            </td>
+                            <td>
+                                <t>${line['horasCurso']}</t>
+                            </td>
+                            <td>
+                                <t>${line['horarioCurso']}</t>
+                            </td>
+                        </tr>
+                        % endfor
+                    </tbody>
+
+                </table>
+            </field>
+        </record>
+
+        <record id="email_cursos_cursos_deshabilitados" model="mail.template">
+            <field name="name">Cursos Deshabilitados</field>
+            <field name="model_id" ref="nomina.model_nomina_cron"/>
+            <field name="body_html" type="html" >
+                <table class="table">
+                    % set listCursos = ctx.get('listCursos', [])
+                    <thead>
+                        <tr>
+                            <th class="text-left"><span>Docente</span></th>
+                            <th class="text-center"><span>Curso</span></th>
+                            <th class="text-center"><span>Codigo</span></th>
+                            <th class="text-right"><span>Horas de curso</span></th>
+                            <th class="text-right"><span>Horario</span></th>
+                        </tr>
+                    </thead>
+                    <tbody class="invoice_tbody">
+                        % for line in listCursos:
+                        <tr>
+                            <td>
+                                <t>${line['docente']}</t>
+                            </td>
+                            <td>
+                                <t>${line['curso']}</t>
+                            </td>
+                            <td>
+                                <t>${line['codigo']}</t>
+                            </td>
+                            <td>
+                                <t>${line['horasCurso']}</t>
+                            </td>
+                            <td>
+                                <t>${line['horarioCurso']}</t>
+                            </td>
+                        </tr>
+                        % endfor
+                    </tbody>
+
+                </table>
+            </field>
+        </record>
+
+        <record id="email_cursos_cursos_choques" model="mail.template">
+            <field name="name">Cursos con Choques de Horario</field>
+            <field name="model_id" ref="nomina.model_nomina_cron"/>
+            <field name="body_html" type="html" >
+                <table class="table">
+                    % set listCursos = ctx.get('listCursos', [])
+                    <thead>
+                        <tr>
+                            <th class="text-left"><span>Docente</span></th>
+                            <th class="text-center"><span>Curso</span></th>
+                            <th class="text-center"><span>Codigo</span></th>
+                            <th class="text-right"><span>Horas de curso</span></th>
+                            <th class="text-right"><span>Horario</span></th>
+                        </tr>
+                    </thead>
+                    <tbody class="invoice_tbody">
+                        % for line in listCursos:
+                        <tr>
+                            <td>
+                                <t>${line['docente']}</t>
+                            </td>
+                            <td>
+                                <t>${line['curso']}</t>
+                            </td>
+                            <td>
+                                <t>${line['codigo']}</t>
+                            </td>
+                            <td>
+                                <t>${line['horasCurso']}</t>
+                            </td>
+                            <td>
+                                <t>${line['horarioCurso']}</t>
+                            </td>
+                        </tr>
+                        % endfor
+                    </tbody>
+
+                </table>
+            </field>
+        </record>
+
+        <record id="email_justificacion_marcas_docente_no_encontrado" model="mail.template">
+            <field name="name">Justificación  de Asistencia Docentes No Encontrados</field>
+            <field name="model_id" ref="nomina.model_nomina_cargar_justificacion_marcas_docente_wizard"/>
+            <field name="body_html" type="html" >
+                <table class="table">
+                    % set listAsistencia = ctx.get('listAsistencia', [])
+                    <thead>
+                        <tr>
+                            <th class="text-left"><span>Cédula</span></th>
+                            <th class="text-center"><span>Docente</span></th>
+                            <th class="text-center"><span>Año</span></th>
+                            <th class="text-center"><span>Perido</span></th>
+                            <th class="text-center"><span>Dia</span></th>
+                            <th class="text-center"><span>Fecha</span></th>
+                            <th class="text-center"><span>Hora Inicio</span></th>
+                            <th class="text-center"><span>Minuto Inicio</span></th>
+                            <th class="text-center"><span>Hora Final</span></th>
+                            <th class="text-right"><span>Minuto Final</span></th>
+                            <th class="text-right"><span>Motivo</span></th>
+                        </tr>
+                    </thead>
+                    <tbody class="invoice_tbody">
+                        % for line in listAsistencia:
+                        <tr>
+                            <td class="text-left">
+                                <t>${line['cedula']}</t>
+                            </td>
+                            <td class="text-left">
+                                <t>${line['nombreDocente']}</t>
+                            </td>
+                            <td class="text-center">
+                                <t>${line['anoo']}</t>
+                            </td>
+                            <td class="text-center">
+                                <t>${line['periodo']}</t>
+                            </td>
+                            <td class="text-center">
+                                <t>${line['dia']}</t>
+                            </td>
+                            <td class="text-center">
+                                <t>${line['fecha']}</t>
+                            </td>
+                            <td class="text-center">
+                                <t>${line['horaInicio']}</t>
+                            </td>
+                            <td class="text-center">
+                                <t>${line['minutoInicio']}</t>
+                            </td>
+                            <td class="text-center">
+                                <t>${line['horaFinal']}</t>
+                            </td>
+                            <td class="text-right">
+                                <t>${line['minutoFinal']}</t>
+                            </td>
+                            <td class="text-right">
+                                <t>${line['motivo']}</t>
+                            </td>
+                        </tr>
+                        % endfor
+                    </tbody>
+
+                </table>
+            </field>
+        </record>
+
+        <record id="email_adicionales_docente_no_encontrado" model="mail.template">
+            <field name="name">Reporte de Adicionales no Aplicados</field>
+            <field name="model_id" ref="nomina.model_nomina_cargar_adicionales_wizard"/>
+            <field name="body_html" type="html" >
+                <table class="table">
+                    % set datosCorreo = ctx.get('datosCorreo', [])
+                    <thead>
+                        <tr>
+                            <th class="text-left"><span>Cédula</span></th>
+                            <th class="text-center"><span>Docente</span></th>
+                            <th class="text-center"><span>Tipo</span></th>
+                            <th class="text-center"><span>Cantidad</span></th>
+                            <th class="text-center"><span>Año</span></th>
+                            <th class="text-center"><span>Periodo</span></th>
+                            <th class="text-center"><span>Fecha</span></th>
+                            <th class="text-right"><span>Motivo</span></th>
+                        </tr>
+                    </thead>
+                    <tbody class="invoice_tbody">
+                        % for line in datosCorreo:
+                        <tr>
+                            <td class="text-left">
+                                <t>${line['cedula']}</t>
+                            </td>
+                            <td class="text-left">
+                                <t>${line['nombreDocente']}</t>
+                            </td>
+                            <td class="text-center">
+                                <t>${line['tipo']}</t>
+                            </td>
+                            <td class="text-center">
+                                <t>${line['cantidad']}</t>
+                            </td>
+                            <td class="text-center">
+                                <t>${line['anno']}</t>
+                            </td>
+                            <td class="text-center">
+                                <t>${line['fecha']}</t>
+                            </td>
+                            <td class="text-center">
+                                <t>${line['fecha']}</t>
+                            </td>
+                            <td class="text-right">
+                                <t>${line['motivo']}</t>
+                            </td>
+                        </tr>
+                        % endfor
+                    </tbody>
+
+                </table>
+            </field>
+        </record>
+
+        <record id="email_ajuste_pago_docente_no_encontrado" model="mail.template">
+            <field name="name">Reporte de Ajustes de Pago no Aplicados</field>
+            <field name="model_id" ref="nomina.model_nomina_cargar_ajuste_pago_docente_wizard"/>
+            <field name="body_html" type="html" >
+                <table class="table">
+                    % set datosCorreo = ctx.get('datosCorreo', [])
+                    <thead>
+                        <tr>
+                            <th class="text-left"><span>Cédula</span></th>
+                            <th class="text-center"><span>Docente</span></th>
+                            <th class="text-center"><span>Ajuste</span></th>
+                            <th class="text-center"><span>Monto</span></th>
+                            <th class="text-center"><span>Fecha</span></th>
+                            <th class="text-center"><span>Año</span></th>
+                            <th class="text-center"><span>Periodo</span></th>
+                            <th class="text-right"><span>Motivo</span></th>
+                        </tr>
+                    </thead>
+                    <tbody class="invoice_tbody">
+                        % for line in datosCorreo:
+                        <tr>
+                            <td class="text-left">
+                                <t>${line['cedula']}</t>
+                            </td>
+                            <td class="text-left">
+                                <t>${line['nombreDocente']}</t>
+                            </td>
+                            <td class="text-center">
+                                <t>${line['tipo']}</t>
+                            </td>
+                            <td class="text-center">
+                                <t>${line['cantidad']}</t>
+                            </td>
+                            <td class="text-center">
+                                <t>${line['anno']}</t>
+                            </td>
+                            <td class="text-center">
+                                <t>${line['fecha']}</t>
+                            </td>
+                            <td class="text-center">
+                                <t>${line['fecha']}</t>
+                            </td>
+                            <td class="text-right">
+                                <t>${line['motivo']}</t>
+                            </td>
+                        </tr>
+                        % endfor
+                    </tbody>
+
+                </table>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

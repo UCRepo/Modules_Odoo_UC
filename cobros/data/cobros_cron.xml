@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="ir_cron_actualizar_letras_estudiantes" model="ir.cron">
+            <field name="name">UC - Cobros : Actualizar Letras Estudiantes</field>
+            <field name="model_id" ref="model_cobros_cron"/>
+            <field name="type">ir.actions.server</field>
+            <field name="state">code</field>
+            <field name="code">model.actualizar_letras()</field>
+            <field name="active" eval="False"/>
+            <field name="interval_number">5</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+        </record>
+
+        <record id="ir_cron_bloqueo_usuarios_moodle" model="ir.cron">
+            <field name="name">UC - Cobros : Bloqueo Usuarios Moodle</field>
+            <field name="model_id" ref="model_cobros_cron"/>
+            <field name="type">ir.actions.server</field>
+            <field name="state">code</field>
+            <field name="code">model.bloquear_usuarios()</field>
+            <field name="active" eval="False"/>
+            <field name="interval_number">10</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+        </record>
+
+        <record id="ir_cron_desbloqueo_usuarios_moodle" model="ir.cron">
+            <field name="name">UC - Cobros : Desbloqueo Usuarios Moodle</field>
+            <field name="model_id" ref="model_cobros_cron"/>
+            <field name="type">ir.actions.server</field>
+            <field name="state">code</field>
+            <field name="code">model.desbloquear_usuarios()</field>
+            <field name="active" eval="False"/>
+            <field name="interval_number">15</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+        </record>
+
+        <record id="ir_cron_cargar_letras" model="ir.cron">
+            <field name="name">UC - Cobros : Cargar Letras</field>
+            <field name="model_id" ref="model_cobros_cron"/>
+            <field name="type">ir.actions.server</field>
+            <field name="state">code</field>
+            <field name="code">model.cargar_letras()</field>
+            <field name="active" eval="False"/>
+            <field name="interval_number">15</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+        </record>
+
+        <record id="ir_cron_notificacion_incumplimiento_arreglo" model="ir.cron">
+            <field name="name">UC - Cobros : Notificacion incumplimiento de arreglo de pago </field>
+            <field name="model_id" ref="model_cobros_cron"/>
+            <field name="type">ir.actions.server</field>
+            <field name="state">code</field>
+            <field name="code">model.notificacion_incumplimiento_arreglo()</field>
+            <field name="active" eval="False"/>
+            <field name="interval_number">15</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+        </record>
+    </data>
+</odoo>

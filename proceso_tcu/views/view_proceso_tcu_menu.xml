@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <menuitem id="proceso_tcu_root"
+                  name="TCU"
+                  web_icon="cobros,static/description/icon.png"
+                  sequence="10"/>
+
+        <menuitem id="proceso_tcu_menu_root"
+                  name="TCU"
+                  parent="proceso_tcu_root"
+                  sequence="10"/>
+
+        <menuitem id="proceso_tcu_informacion_tcu_root"
+                  name="Procesos TCU"
+                  parent="proceso_tcu_menu_root"
+                  action="action_cobros_periodo_pago"
+                  sequence="10"/>
+
+</odoo>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--START [configuraicones de menu principal]-->
+    <menuitem id="planillaPersonal_periodoPago_root"
+              name="Periodo Pago"
+              parent="planillaPersonal_root"
+              sequence="10"/>
+    <!--END [configuraicones de menu principal]-->
+
+    <!--START [configuraicones de pagos adicionales]-->
+    <record id="view_planillaPersonal_periodoPago_form" model="ir.ui.view">
+        <field name="name">planilla.personal.periodo.pago.form</field>
+        <field name="model">planilla.personal.periodo.pago</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div role="alert" class="alert alert-danger"
+                         style="height:40px, width:30px, margin-bottom:1px;"
+                         attrs="{'invisible': [('warning','=',False)]}">
+                        <field name="warning" invisible="1"/>
+                        Ya existe un  año con este mes asignado
+                    </div>
+                    <group>
+                        <group string="Descripcion del pago">
+                            <field name="mes" />
+                            <field name="year"/>
+                        </group>
+                        <group>
+                            <group string="Inicio y fin del pago">
+                                <field name="fechaInicioMes"/>
+                                <field name="fechaFinMes"/>
+                            </group>
+                            <group string="Fechas Primer Pago">
+                                <field name="fechaInicioPrimerPago"/>
+                                <field name="fechaFinPrimerPago"/>
+                            </group>
+                            <group string="Fechas Segundo Pago">
+                                <field name="fechaInicioSegundoPago"/>
+                                <field name="fechaFinSegundoPago"/>
+                            </group>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="Dias Libres">
+                            <group>
+                                <group>
+                                    <field name="fecha"/>
+                                    <field name="razon"/>
+                                    <button name="add_dia" string="Agregar" class="btn-primary" type="object"/>
+                                </group>
+                                <group>
+                                </group>
+                            </group>
+                            <field name="diasLibres_ids">
+                                <tree create="0">
+                                    <field name="fecha"/>
+                                    <field name="razon"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="view_planillaPersonal_periodoPago_tree" model="ir.ui.view">
+        <field name="name">planilla.personal.periodo.pago.tree</field>
+        <field name="model">planilla.personal.periodo.pago</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="year"/>
+                <field name="mes"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+    <record id="action_planillaPersonal_periodoPago" model="ir.actions.act_window">
+        <field name="name">Periodo pagos del personal</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">planilla.personal.periodo.pago</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Crea un Periodo pagos del personal!
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="planialla_administrativa_periodo_pago"
+              name="Periodo pagos del personal"
+              parent="planillaPersonal_periodoPago_root"
+              action="action_planillaPersonal_periodoPago"
+              sequence="20"/>
+    <!--END [configuraicones de pagos adicionales]-->
+</odoo>

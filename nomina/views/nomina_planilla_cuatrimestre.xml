@@ -1,0 +1,120 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<odoo>
+    <record id="view_nomina_planilla_cuatrimestre_form" model="ir.ui.view">
+        <field name="name">nomina.planilla.cuatrimestre.form</field>
+        <field name="model">planilla.cuatrimestre</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_done" string="Crear Pre Planilla" class="btn-primary" type="object"/>
+                    <button name="action_create_report" string="Crear Reportes y Enviar Correo" class="btn-primary" type="object"/>
+                    <button name="descargar_reporte_asistencia" string="Descargar Reporte de Asistencia" class="btn-primary" type="object"/>
+                    <button name="%(action_nomina_reenvio_descarga_reporte_pago_docente_wizard)d" string="Reenvio y Descarga de Reporte" class="btn-primary" type="action"/>
+                    <button name="createXLSXReport" string="Generar Excel de Pago" class="btn-primary" type="object"/>
+                    <button name="createXLSXReportDetallado" string="Generar Excel de Pago Detallado" class="btn-primary" type="object"/>
+                    <button name="createXLSXReportPrediccion" string="Predicción" class="btn-primary" type="object"/>
+                    <button name="createXLSXReportJustificacionMarcas" string="Reporte Marcas Justificadas" class="btn-primary" type="object"/>
+                    <button name="createXLSXReportComparativoPago" string="Comparativo de Pago" class="btn-primary" type="object"/>
+                </header>
+                <sheet>
+                    <div role="alert" class="alert alert-danger"
+                         style="height:40px, width:30px, margin-bottom:1px;"
+                         attrs="{'invisible': [('warning','=',False)]}">
+                        <field name="warning" invisible="1"/>
+                        Ya se crearon los 3 pagos para este cuatrimestre
+                    </div>
+                    <group>
+                        <group>
+                            <field name="cuatrimestrePlanilla_id"/>
+                        </group>
+                        <group>
+                            <field name="fechaInicioPago" readonly="1" force_save="1"/>
+                            <field name="fechaFinalPago" readonly="1" force_save="1"/>
+                            <field name="pago" readonly="1" force_save="1"/>
+                            <field name="semanasPago" readonly="1" force_save="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Docentes">
+                            <field name="miembrosPlanilla_id">
+                                <tree editable="bottom" create="0" edit="false">
+                                    <field name="docentesLinea_id" invisible="1"/>
+                                    <field name="nombreDocente"/>
+                                    <field name="correoDocente" optional="hide"/>
+                                    <field name="cedulaDocente" optional="hide"/>
+                                    <field name="telefonoDocente" optional="hide"/>
+                                    <field name="horasDocente"/>
+                                    <field name="horasSemanaContratoDocente"/>
+                                    <field name="horasContratoDocente"/>
+                                    <field name="tarifaDocente"/>
+                                    <field name="cantidadCursosDocente" optional="hide"/>
+                                    <field name="brutoDocente"/>
+                                    <field name="totalDocente"/>
+                                    <field name="embargo" optional="hide"/>
+                                    <field name="rebajosNeto" optional="hide"/>
+                                    <field name="CCSSDocente" optional="hide"/>
+                                    <field name="rentaDocente" optional="hide"/>
+                                    <field name="deducionesEntradaTardia" optional="hide"/>
+                                    <field name="deducionesSalidaTemprana" optional="hide"/>
+                                    <field name="deducionesOmisionMarca" optional="hide"/>
+                                    <field name="deducionesAusencia" optional="hide"/>
+                                    <field name="totalDeduccionDocente" optional="hide"/>
+                                    <field name="adicionales" optional="hide"/>
+                                    <field name="aguinaldoDocente" optional="hide"/>
+                                    <field name="vacacionesDocente" optional="hide"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_planilla_cuatrimestres_tree" model="ir.ui.view">
+        <field name="name">nomina.planilla.tree</field>
+        <field name="model">planilla.cuatrimestre</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="semanasPago"/>
+                <field name="fechaInicioPago"/>
+                <field name="fechaFinalPago"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_planilla_cuatrimestres" model="ir.actions.act_window">
+        <field name="name">Planilla Cuatrimestre</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">planilla.cuatrimestre</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Crea un cuatrimestre!
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="nomina_planilla_root"
+              name="Planilla"
+              parent="nomina_root"
+              sequence="10"/>
+
+    <menuitem id="nomina_planilla_cursos_regulares"
+              name="Cursos Regulares"
+              parent="nomina_planilla_root"
+              sequence="20"/>
+
+    <menuitem id="nomina_planilla_cuatrimestre"
+              name="Planilla"
+              parent="nomina_planilla_cursos_regulares"
+              action="action_planilla_cuatrimestres"
+              sequence="30"/>
+</odoo>
+

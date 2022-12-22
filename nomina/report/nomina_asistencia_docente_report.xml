@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="report_asistencia_docente" model="ir.actions.report">
+        <field name="name">Reporte Asistencia Docente</field>
+        <field name="model">planilla.cuatrimestre</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">nomina.report_asistencia_docente_id</field>
+        <field name="report_file">nomina.report_asistencia_docente_id</field>
+        <field name="binding_model_id" ref="model_planilla_cuatrimestre"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="report_asistencia_docente_id">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <t t-set="docenteAsistencia" t-value="get_asistencia_docente"/>
+                </div>
+                <t t-foreach="docenteAsistencia" t-as="reporteAsistecia">
+                    <div class="page">
+                        <p1>Docente : <t t-esc="reporteAsistecia['nombreDocente']"/></p1>
+                        <br/>
+                        <p1>Correo : <t t-esc="reporteAsistecia['correo']"/></p1>
+                        <br/>
+                        <h4>Marcas </h4>
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th class="text-left"><span>Fecha Curso</span></th>
+                                    <th class="text-left"><span>Curso</span></th>
+                                    <th class="text-left"><span>Marca de Entrada</span></th>
+                                    <th class="text-left"><span>Marca de Salida</span></th>
+                                    <th class="text-left"><span>Estado</span></th>
+                                    <th class="text-left"><span>Deducción</span></th>
+                                </tr>
+                            </thead>
+                            <tbody class="invoice_tbody">
+                                <tr t-foreach="reporteAsistecia['asistenciaLine']" t-as="marcas">
+                                    <td>
+                                        <t t-esc="marcas['fechaCurso']" />
+                                    </td>
+                                    <td>
+                                        <t t-esc="marcas['cursoMarca']" />
+                                    </td>
+                                    <td>
+                                        <t t-esc="marcas['entradaClases']" />
+                                    </td>
+                                    <td>
+                                        <t t-esc="marcas['salidaClases']" />
+                                    </td>
+                                    <td>
+                                        <t t-esc="marcas['estado']" />
+                                    </td>
+                                    <td>
+                                        <t t-esc="marcas['deduccionTotal']" />
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <p style="page-break-after:always;"></p>
+                </t>
+
+            </t>
+        </t>
+    </template>
+
+</odoo>

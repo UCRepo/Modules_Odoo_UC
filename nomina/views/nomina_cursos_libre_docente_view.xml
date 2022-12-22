@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--START [configuraicones de pagos adicionales]-->
+    <record id="view_nomina_cursos_libre_docente_search" model="ir.ui.view">
+        <field name="name">cursos.libre.docente.search</field>
+        <field name="model">cursos.libre.docente</field>
+        <field name="arch" type="xml">
+            <search string="Cursos Docente">
+                <field string="Nombre" name="docente_id" filter_domain="[('docente_id.name', 'ilike', self)]"/>
+                <separator/>
+                <group expand="1" string="Group By">
+                    <filter string="Cuatrimestre" name="periodo_id" context="{'group_by':'periodo_id'}"/>
+<!--                    <filter string="Puesto" name="puesto" context="{'group_by':'puesto'}"/>-->
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="view_nomina_cursos_libre_docente_form" model="ir.ui.view">
+        <field name="name">nomina.cursos.libre.docente.form</field>
+        <field name="model">cursos.libre.docente</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="periodo_id" />
+                            <field name="docente_id" domain="[('department_id', '=', 'Docentes')]" />
+                        </group>
+                        <group>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Cursos">
+                            <group>
+                                <group string="Curso">
+                                    <field name="cursos_ids"/>
+                                </group>
+                                <group string="Dias de clases">
+                                    <field name="cantidadEstudiantes"/>
+                                    <field name="estadoActa"/>
+                                </group>
+                                <group>
+                                    <button name="action_add_curso" string="Agregar Curso" class="btn-primary" type="object"/>
+                                </group>
+                            </group>
+                            <field name="cursos_lines_ids" >
+                                <tree editable="bottom" create="0">
+                                    <field name="cursoActivo" widget="boolean_toggle"/>
+                                    <field name="name"/>
+                                    <field name="descripcion"/>
+                                    <field name="codigoCurso"/>
+                                    <field name="alumnos"/>
+                                    <field name="estadoActa" />
+                                    <field name="fechaCambioCurso" optional="hide"/>
+                                    <field name="fechaInicioPago" optional="hide"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="view_nomina_cursos_libre_docente_tree" model="ir.ui.view">
+        <field name="name">nomina.cursos.libre.docente.tree</field>
+        <field name="model">cursos.libre.docente</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="periodo_id"/>
+                <field name="docente_id"/>
+                <field name="cursos_lines_ids"/>
+            </tree>
+        </field>
+    </record>
+    <record id="action_nomina_cursos_libre_docente" model="ir.actions.act_window">
+        <field name="name">Cursos Libre Docente</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">cursos.libre.docente</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="search_view_id" ref="view_nomina_cursos_libre_docente_search"/>
+        <field name="context">{'search_default_periodo_id': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                !!!
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="nomina_cursos_libre_menu_docente"
+              name="Cursos Libre"
+              parent="nomina_cursos_docente_root"
+              sequence="500"/>
+
+    <menuitem id="nomina_cursos_libre_docente"
+              name="Cursos Libre Docente"
+              parent="nomina_cursos_libre_menu_docente"
+              action="action_nomina_cursos_libre_docente"
+              sequence="510"/>
+
+    <menuitem id="nomina_cargar_cursos_libre_docente"
+              name="Cargar Cursos Libre Docente"
+              parent="nomina_cursos_libre_menu_docente"
+              action="action_nomina_cargar_cursos_libres_docente_wizard"
+              sequence="520"/>
+
+</odoo>

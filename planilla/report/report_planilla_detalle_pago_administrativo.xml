@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="report_detalle_pago_administrativo" model="ir.actions.report">
+        <field name="name">Reporte Pago Administrativo</field>
+        <field name="model">planilla.administrativa.pre.planilla</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">planilla.report_detalle_pago_administrativo_id</field>
+        <field name="report_file">planilla.report_detalle_pago_administrativo_id</field>
+        <field name="binding_model_id" ref="model_planilla_administrativa_pre_planilla"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="report_detalle_pago_administrativo_id">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <t t-set="pagoInfo" t-value="get_pago_info"/>
+                <style type="text/css">
+                    .divcontainer{
+                    margin: 20px;
+                    border: 2px solid #000000;
+                    border-radius: 5px;
+                    }
+                    .div{
+                    display: inline-block;
+                    margin-top: 25px;
+                    margin-left: 70px;
+                    margin-rigth: 50px;
+                    }
+                    .div p{
+                    text-align: left;
+                    font-size:15px;
+                    }
+                    hr{
+                    border-top: 1px dashed black;
+                    }
+                </style>
+                <div class="page">
+                    <h2>Comprobante de Pago de Planilla. <t t-esc="pagoInfo['desdehasta']"/></h2>
+                    <br/>
+                    <div class="divcontainer" style="height: 100px;">
+                        <div class="div">
+                            <p>Nombre: <t t-esc="pagoInfo['nombreEmpleado']"/></p>
+                            <p>Usuario: <t t-esc="pagoInfo['cedulaEmpleado']"/></p>
+                        </div>
+                        <div class="div">
+                            <p>Departamento: <t t-esc="pagoInfo['departamento']"/></p>
+                            <p>Posición: <t t-esc="pagoInfo['puesto']"/></p>
+                        </div>
+                    </div>
+                    <div class="divcontainer">
+                        <div class="div">
+                            <p>Salario Base: <t t-esc="pagoInfo['salarioBruto']"/></p>
+                            <p>Regular: <t t-esc="pagoInfo['diasPagoCompleto']"/></p>
+                            <hr/>
+                            <p>Horas Tiempo Extra: <t t-esc="pagoInfo['timepoExtra']"/></p>
+                            <p>Horas Feriados: <t t-esc="pagoInfo['timepoExtraFeriados']"/></p>
+                            <hr/>
+                            <p>Días Vacaciones Utilizados: <t t-esc="pagoInfo['vacaciones']"/></p>
+                            <hr/>
+                            <p/><br/>
+                        </div>
+                        <div class="div">
+                            <p>Feriados: <t t-esc="pagoInfo['feriados']"/></p>
+                            <p>Incapacidades: <t t-esc="pagoInfo['diasIncapacidad']"/></p>
+                            <hr/>
+                            <p/><br/><p/>
+                            <p>Extras en Feriados: <t t-esc="pagoInfo['extraFeriado']"/></p>
+                            <hr/>
+                            <p>Total Vacaciones: <t t-esc="pagoInfo['totalVacaciones']"/></p>
+                            <hr/>
+                            <p/><br/>
+                        </div>
+                        <div class="div">
+                            <p>Tareas: <t t-esc="pagoInfo['tareas']"/></p>
+                            <p>Total Salario: <t t-esc="pagoInfo['salarioBruto']"/></p>
+                            <hr/>
+                            <p/><br/><p/>
+                            <p>Total Horas Extra: <t t-esc="pagoInfo['totalTimepoExtra']"/></p>
+                            <hr/>
+                            <p>Otros Conceptos:  <t t-esc="pagoInfo['otrosConceptos']"/></p>
+                            <hr/>
+                            <p>Salario Bruto: <t t-esc="pagoInfo['salarioBruto']"/></p>
+                        </div>
+                    </div>
+                    <div class="divcontainer">
+                        <div class="div">
+                            <p>Deducciones: <t t-esc="pagoInfo['deducciones']"/></p>
+                            <p>Beneficios a Pagar: <t t-esc="pagoInfo['beneficiosPagar']"/></p>
+                            <p>Impuestos: <t t-esc="pagoInfo['impuestos']"/></p>
+                        </div>
+                        <div class="div">
+                            <p>Préstamos: <t t-esc="pagoInfo['prestamos']"/></p>
+                            <p>Reembolsos: <t t-esc="pagoInfo['reembolsos']"/></p>
+                            <p>Cargos: <t t-esc="pagoInfo['cargos']"/></p>
+                        </div>
+                        <div class="div">
+                            <p>Salario Neto: <t t-esc="pagoInfo['salarioNeto']"/></p>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="div">
+                            <p>Otros Conceptos:</p>
+                            <tr t-foreach="pagoInfo['otrosConceptosList']" t-as="otrosConceptos">
+                                <p style="font-size:12px"><t t-esc="otrosConceptos"/></p>
+                            </tr>
+                            <p>Préstamos:</p>
+                            <tr t-foreach="pagoInfo['prestamosList']" t-as="prestamos">
+                                <p style="font-size:12px"><t t-esc="prestamos"/></p>
+                            </tr>
+                            <p>Comentarios:</p>
+
+                        </div>
+                        <div class="div">
+                            <p>Deducciones:</p>
+                            <tr t-foreach="pagoInfo['deduccionesList']" t-as="deducciones">
+                                <p style="font-size:12px" ><t t-esc="deducciones"/></p>
+                            </tr>
+                            <p>Reembolsos: </p>
+                            <tr t-foreach="pagoInfo['reembolsosList']" t-as="reembolsos">
+                                <p style="font-size:12px"><t t-esc="reembolsos"/></p>
+                            </tr>
+                        </div>
+                        <div class="div">
+                            <p>Impuestos:</p>
+                            <tr t-foreach="pagoInfo['impuestosList']" t-as="impuestos">
+                                <p style="font-size:12px"><t t-esc="impuestos"/></p>
+                            </tr>
+                            <p>Otros Cargos:</p>
+                            <tr t-foreach="pagoInfo['otrosCargosList']" t-as="otrosCargos">
+                                <p style="font-size:12px"><t t-esc="otrosCargos"/></p>
+                            </tr>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+
+</odoo>

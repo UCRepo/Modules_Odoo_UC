@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<odoo>
+    <record id="view_nomina_planilla_tesis_form" model="ir.ui.view">
+        <field name="name">nomina.planilla.tesis.form</field>
+        <field name="model">planilla.tesis</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="generar_planilla" string="Generar Planilla" class="btn-primary" type="object"/>
+                    <button name="generar_reporte_excel_pago" string="Generar Reporte Pago Planilla" class="btn-primary" type="object"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="cuatrimestrePlanilla_id"/>
+                        </group>
+                        <group>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Docentes">
+                            <field name="miembrosPlanilla_id">
+                                <tree editable="bottom" create="0" edit="false">
+                                    <field name="nombreDocente"/>
+                                    <field name="correoDocente" optional="hide"/>
+                                    <field name="cedulaDocente" optional="hide"/>
+                                    <field name="telefonoDocente" optional="hide"/>
+                                    <field name="brutoDocente"/>
+                                    <field name="totalDocente"/>
+                                    <field name="cantidadTutor"/>
+                                    <field name="cantidadLector"/>
+                                    <field name="cantidadDelegado"/>
+                                    <field name="embargo" optional="hide"/>
+                                    <field name="CCSSDocente" optional="hide"/>
+                                    <field name="rentaDocente" optional="hide"/>
+                                    <field name="aguinaldoDocente" optional="hide"/>
+                                    <field name="cesantiaDocente" optional="hide"/>
+                                    <field name="preavisoDocente" optional="hide"/>
+                                    <field name="vacacionesDocente" optional="hide"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_planilla_tesis_tree" model="ir.ui.view">
+        <field name="name">nomina.planilla.tesis.tree</field>
+        <field name="model">planilla.tesis</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_planilla_tesis" model="ir.actions.act_window">
+        <field name="name">Planilla Tesis</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">planilla.tesis</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                !!!
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="nomina_planilla_tesis"
+              name="Tesis"
+              parent="nomina_planilla_root"
+              sequence="40"/>
+
+    <menuitem id="nomina_planilla_tesis_pago"
+              name="Planilla"
+              parent="nomina_planilla_tesis"
+              action="action_planilla_tesis"
+              sequence="50"/>
+</odoo>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="report_pago_docentes_xlsx" model="ir.actions.report">
+        <field name="name">Reporte Pago Docente</field>
+        <field name="model">planilla.cuatrimestre</field>
+        <field name="report_type">qweb-text</field>
+        <field name="report_name">nomina.report_pago_docentes_xlsx_id</field>
+        <field name="report_file">nomina.report_pago_docentes_xlsx_id</field>
+        <field name="print_report_name">reportepago</field>
+        <field name="binding_model_id" ref="model_planilla_cuatrimestre"/>
+        <field name="binding_type">report</field>
+    </record>
+    <template id="report_pago_docentes_xlsx_id">
+                <t t-set="pago" t-value="get_pagos"/>
+                <t t-foreach="pago" t-as="reposiciones">
+                    <t t-esc="reposiciones"/>
+                </t>
+    </template>
+
+</odoo>

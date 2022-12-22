@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--START [configuraicones de pagos adicionales]-->
+    <record id="view_nomina_tesis_docente_search" model="ir.ui.view">
+        <field name="name">tesis.docente.search</field>
+        <field name="model">tesis.docente</field>
+        <field name="arch" type="xml">
+            <search string="Tesis Docente">
+                <field string="Director" name="director" filter_domain="[('director.name', 'ilike', self)]"/>
+                <field string="Tutor" name="tutor" filter_domain="[('tutor.name', 'ilike', self)]"/>
+                <field string="Lector" name="lector" filter_domain="[('lector.name', 'ilike', self)]"/>
+                <separator/>
+                <group expand="1" string="Group By">
+                    <filter string="Cuatrimestre" name="cuatrimestre" context="{'group_by':'cuatrimestre_id'}"/>
+                    <filter string="Carrea" name="carrera" context="{'group_by':'carrera'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="view_nomina_tesis_docente_form" model="ir.ui.view">
+        <field name="name">nomina.tesis.docente.form</field>
+        <field name="model">tesis.docente</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="cuatrimestre_id" />
+                            <field name="estudiante" />
+                            <field name="tema" />
+                            <field name="carrera" />
+                        </group>
+                        <group>
+                            <field name="director" domain="[('department_id', '=', 'Docentes')]"/>
+                            <field name="activeDelegado" />
+                            <field name="delegado" attrs="{'invisible': [('activeDelegado', '=', False)]}" domain="[('department_id', '=', 'Docentes')]"/>
+                            <field name="tutor" domain="[('department_id', '=', 'Docentes')]"/>
+                            <field name="lector" domain="[('department_id', '=', 'Docentes')]"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="view_nomina_tesis_docente_tree" model="ir.ui.view">
+        <field name="name">nomina.tesis.docente.tree</field>
+        <field name="model">tesis.docente</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="carrera"/>
+                <field name="tema"/>
+                <field name="estudiante"/>
+            </tree>
+        </field>
+    </record>
+    <record id="action_nomina_tesis_docente" model="ir.actions.act_window">
+        <field name="name">Tesis Docente</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">tesis.docente</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="search_view_id" ref="view_nomina_tesis_docente_search"/>
+        <field name="context">{'search_default_cuatrimestre': 1,'search_default_carrera': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                !!!!
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="nomina_tesis_menu_docente"
+              name="Tesis"
+              parent="nomina_cursos_docente_root"
+              sequence="300"/>
+
+    <menuitem id="nomina_tesis_docente"
+              name="Tesis Docente"
+              parent="nomina_tesis_menu_docente"
+              action="action_nomina_tesis_docente"
+              sequence="310"/>
+    <!--END [configuraicones de pagos adicionales]-->
+
+    <menuitem id="nomina_cargar_tesis_docente"
+              name="Cargar Tesis Docente"
+              parent="nomina_tesis_menu_docente"
+              action="action_nomina_cargar_tesis_docente_wizard"
+              sequence="320"/>
+
+</odoo>

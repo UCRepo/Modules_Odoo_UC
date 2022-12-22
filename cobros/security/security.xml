@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="uia_cobros" model="ir.module.category">
+            <field name="name">Cobros UC</field>
+            <field name="sequence">9</field>
+        </record>
+        <record id="uia_cobros_lectura" model="res.groups">
+            <field name="name">Lectura</field>
+            <field name="category_id" ref="uia_cobros"/>
+        </record>
+        <record id="uia_cobros_escritura" model="res.groups">
+            <field name="name">Escritura</field>
+            <field name="category_id" ref="uia_cobros"/>
+        </record>
+        <record id="uia_cobros_creacion" model="res.groups">
+            <field name="name">Creación</field>
+            <field name="category_id" ref="uia_cobros"/>
+        </record>
+        <record id="uia_cobros_eliminacion" model="res.groups">
+            <field name="name">Eliminación</field>
+            <field name="category_id" ref="uia_cobros"/>
+        </record>
+
+        <record id="uia_cobros_visualizacion" model="res.groups">
+            <field name="name">Visualizar</field>
+            <field name="category_id" ref="uia_cobros"/>
+        </record>
+
+        <record id="uia_cobros_regla_visualizacion_cobros_periodo_pago_line" model="ir.rule">
+            <field name="name">Visualización</field>
+            <field name="model_id" ref="model_cobros_periodo_pago_line"/>
+            <field name="domain_force">[('empleadoAsignado','=',user.id)]</field>
+            <field name="groups" eval="[(4, ref('uia_cobros_visualizacion'))]"/>
+        </record>
+    </data>
+</odoo>

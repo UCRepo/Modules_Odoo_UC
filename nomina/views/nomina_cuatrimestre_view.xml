@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<odoo>
+    <record id="view_nomina_cuatrimestres_tree" model="ir.ui.view">
+        <field name="name">nomina.cuatrimestres.tree</field>
+        <field name="model">cuatrimestre</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="decripcion" />
+                <field name="year"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_nomina_cuatrimestres" model="ir.actions.act_window">
+        <field name="name">Cuatrimestres</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">cuatrimestre</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+            Crea un cuatrimestre!
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="nomina_root" name="Nomina Profes" sequence="10"/>
+
+    <menuitem id="nomina_cuatrimestre_root" name="Periodo" parent="nomina_root" sequence="10"/>
+
+    <menuitem id="nomina_cuatrimestre" 
+              name="Cuatrimestres" 
+              parent="nomina_cuatrimestre_root" 
+              action="action_nomina_cuatrimestres" 
+              sequence="10"/>
+
+
+</odoo>

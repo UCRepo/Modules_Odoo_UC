@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.poliza</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="10"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('settings')]" position="inside">
+                <div class="app_settings_block" data-string="Poliza" string="Polizas" data-key="poliza">
+                    <h2>Nomina</h2>
+                    <div class="row mt16 o_settings_container">
+                        <div class="o_settings_left_pane">
+                            <label string="Correo de Envío de Notificaciones" for="correoEnvioNotificacionesPoliza"/>
+                            <field name="correoEnvioNotificacionesPoliza"/>
+                            <label string="URL de API" for="UrlAPI"/>
+                            <field name="UrlAPI"/>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+    <record id="action_poliza_configuraciones_config" model="ir.actions.act_window">
+        <field name="name">Ajustes de Poliza</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_id" ref="res_config_settings_view_form"/>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+        <field name="context">{'module' : 'uia_poliza'}</field>
+    </record>
+</odoo>

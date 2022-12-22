@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="portal_administrativo_home" name="My Portal UC">
+        <t t-call="portal.portal_layout">
+            <t t-set="my_details" t-value="True"/>
+            <div class="uia_porta_administrativo">
+                <div class="oe_structure" id="oe_structure_portal_my_home_1"/>
+                <h3>Menu</h3>
+                <div class="o_portal_docs list-group" id="uia_portal_menu_administrativo">
+                </div>
+            </div>
+            <div class="oe_structure" id="oe_structure_portal_my_home_2"/>
+        </t>
+    </template>
+
+    <template id="portal_administrativo_gestion_vacaciones_home" name="My Portal UC">
+        <t t-call="portal.portal_layout">
+            <t t-set="my_details" t-value="True"/>
+            <div class="uia_portal_administrativo_gestion_vacaciones">
+                <div class="oe_structure" id="oe_structure_portal_my_home_1"/>
+                <h3>Gestión de Vacaciones</h3>
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                    <div class="container-fluid">
+                        <div class="navbar-toggler"  data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="javascript:void(0);"  id="uia_portal_administrativo_vacaciones_informacion" >Información</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="javascript:void(0);" id="uia_portal_administrativo_vacaciones_historial" >Historial</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="javascript:void(0);" id="uia_portal_administrativo_vacaciones_solicitud" >Solicitud</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="javascript:void(0);"  id="uia_portal_administrativo_vacaciones_informacion" >Información</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="javascript:void(0);" id="uia_portal_administrativo_vacaciones_historial" >Historial</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="javascript:void(0);" id="uia_portal_administrativo_vacaciones_solicitud" >Solicitud</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+                <div class="o_portal_docs list-group" id="uia_portal_menu_administrativo_vacaciones_container">
+                </div>
+            </div>
+            <div class="oe_structure" id="oe_structure_portal_my_home_2"/>
+        </t>
+    </template>
+
+    <template id="portal_aprobacion_vacaciones" name="My Portal UC">
+        <t t-call="portal.portal_layout">
+            <t t-set="my_details" t-value="True"/>
+            <div class="uia_porta_aprobacion_vacaciones">
+                <div class="oe_structure" id="oe_structure_portal_my_home_1"/>
+                <h3>Aprobación de vacaciones</h3>
+                <p style="visibility: hidden" id="uia_portal_vacaciones_aprobacion_id"  t-esc="idVacaciones"/>
+                <div class="o_portal_docs list-group" id="uia_portal_aprobacion_vacaciones">
+                </div>
+            </div>
+            <div class="oe_structure" id="oe_structure_portal_my_home_2"/>
+        </t>
+    </template>
+
+    <template id="portal_administrativo_gestion_tiempo_acumulado_home" name="My Portal UC">
+        <t t-call="portal.portal_layout">
+            <t t-set="my_details" t-value="True"/>
+            <div class="uia_portal_administrativo_gestion_vacaciones">
+                <div class="oe_structure" id="oe_structure_portal_my_home_1"/>
+                <h3>Gestión de Vacaciones</h3>
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                    <div class="container-fluid">
+                        <div class="navbar-toggler"  data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="javascript:void(0);"  id="uia_portal_administrativo_vacaciones_informacion" >Información</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="javascript:void(0);" id="uia_portal_administrativo_vacaciones_historial" >Historial</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="javascript:void(0);" id="uia_portal_administrativo_vacaciones_solicitud" >Solicitud</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="javascript:void(0);"  id="uia_portal_administrativo_vacaciones_informacion" >Información</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="javascript:void(0);" id="uia_portal_administrativo_vacaciones_historial" >Historial</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="javascript:void(0);" id="uia_portal_administrativo_vacaciones_solicitud" >Solicitud</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+                <div class="o_portal_docs list-group" id="uia_portal_menu_administrativo_vacaciones_container">
+                </div>
+            </div>
+            <div class="oe_structure" id="oe_structure_portal_my_home_2"/>
+        </t>
+    </template>
+
+    <template id="portal_administrativo_gestion_incapacidades_home" name="My Portal UC">
+        <t t-call="portal.portal_layout">
+            <t t-set="my_details" t-value="True"/>
+            <div class="uia_portal_administrativo_gestion_incapacidades">
+                <div class="oe_structure" id="oe_structure_portal_my_home_1"/>
+                <h3>Gestión de Vacaciones</h3>
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                    <div class="container-fluid">
+                        <div class="navbar-toggler"  data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="javascript:void(0);" id="uia_portal_administrativo_incapacidades_historial" >Historial</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="javascript:void(0);" id="uia_portal_administrativo_incapacidades_solicitud" >Solicitud</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="javascript:void(0);" id="uia_portal_administrativo_incapacidades_historial" >Historial</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="javascript:void(0);" id="uia_portal_administrativo_incapacidades_solicitud" >Solicitud</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+                <div class="o_portal_docs list-group" id="uia_portal_menu_administrativo_incapacidades_container">
+                </div>
+            </div>
+            <div class="oe_structure" id="oe_structure_portal_my_home_2"/>
+        </t>
+    </template>
+
+    <template id="portal_administrativo_gestion_tiempo_acumulado_home" name="My Portal UC">
+        <t t-call="portal.portal_layout">
+            <t t-set="my_details" t-value="True"/>
+            <div class="uia_portal_administrativo_gestion_tiempo_acumulado">
+                <div class="oe_structure" id="oe_structure_portal_my_home_1"/>
+                <h3>Gestión de Tiempo Acumulado</h3>
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                    <div class="container-fluid">
+                        <div class="navbar-toggler"  data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="javascript:void(0);"  id="uia_portal_administrativo_tiempo_acumulado_informacion" >Información</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="javascript:void(0);" id="uia_portal_administrativo_tiempo_acumulado_historial" >Historial</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="javascript:void(0);" id="uia_portal_administrativo_tiempo_acumulado_solicitud" >Solicitud</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="javascript:void(0);"  id="uia_portal_administrativo_tiempo_acumulado_informacion" >Información</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="javascript:void(0);" id="uia_portal_administrativo_tiempo_acumulado_historial" >Historial</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="javascript:void(0);" id="uia_portal_administrativo_tiempo_acumulado_solicitud" >Solicitud</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+                <div class="o_portal_docs list-group" id="uia_portal_menu_administrativo_tiempo_acumulado_container">
+                </div>
+            </div>
+            <div class="oe_structure" id="oe_structure_portal_my_home_2"/>
+        </t>
+    </template>
+
+    <template id="portal_aprobacion_tiempo_acumulado" name="My Portal UC">
+        <t t-call="portal.portal_layout">
+            <t t-set="my_details" t-value="True"/>
+            <div class="uia_porta_aprobacion_tiempo_acumulado">
+                <div class="oe_structure" id="oe_structure_portal_my_home_1"/>
+                <h3>Aprobación de tiempo acumulado</h3>
+                <p style="visibility: hidden" id="uia_portal_tiempo_acumulado_aprobacion_id"  t-esc="idTiempoAcumulado"/>
+                <div class="o_portal_docs list-group" id="uia_portal_aprobacion_tiempo_acumulado">
+                </div>
+            </div>
+            <div class="oe_structure" id="oe_structure_portal_my_home_2"/>
+        </t>
+    </template>
+
+    <template id="portal_administrativo_gestion_tiempo_acumulado_home" name="My Portal UC">
+        <t t-call="portal.portal_layout">
+            <t t-set="my_details" t-value="True"/>
+            <div class="uia_portal_administrativo_gestion_tiempo_acumulado">
+                <div class="oe_structure" id="oe_structure_portal_my_home_1"/>
+                <h3>Gestión de Tiempo Acumulado</h3>
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                    <div class="container-fluid">
+                        <div class="navbar-toggler"  data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="javascript:void(0);"  id="uia_portal_administrativo_tiempo_acumulado_informacion" >Información</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="javascript:void(0);" id="uia_portal_administrativo_tiempo_acumulado_historial" >Historial</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="javascript:void(0);" id="uia_portal_administrativo_tiempo_acumulado_solicitud" >Solicitud</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="javascript:void(0);"  id="uia_portal_administrativo_tiempo_acumulado_informacion" >Información</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="javascript:void(0);" id="uia_portal_administrativo_tiempo_acumulado_historial" >Historial</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="javascript:void(0);" id="uia_portal_administrativo_tiempo_acumulado_solicitud" >Solicitud</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+                <div class="o_portal_docs list-group" id="uia_portal_menu_administrativo_tiempo_acumulado_container">
+                </div>
+            </div>
+            <div class="oe_structure" id="oe_structure_portal_my_home_2"/>
+        </t>
+    </template>
+
+    <template id="portal_administrativo_gestion_justificaciones_marca" name="My Portal UC">
+        <t t-call="portal.portal_layout">
+            <t t-set="my_details" t-value="True"/>
+            <div class="uia_porta_justificaciones_marca">
+                <div class="oe_structure" id="oe_structure_portal_my_home_1"/>
+                <h3>Justificar Marca</h3>
+                <div class="o_portal_docs list-group" id="uia_porta_justificaciones_marca_container">
+                    <form>
+                        <div class="form-group row">
+                            <label for="cedulaDocente" class="col-sm-2 col-form-label">Cédula Docente</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="cedulaDocente" placeholder="Cédula Docente"/>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-10">
+                                <button type="button" id="btn_buscar_docente" class="btn btn-primary">Buscar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="oe_structure" id="oe_structure_portal_my_home_2"/>
+        </t>
+    </template>
+
+    <template id="portal_administrativo_cargar_adicionales" name="My Portal UC">
+        <t t-call="portal.portal_layout">
+            <t t-set="my_details" t-value="True"/>
+            <div class="uia_porta_cargar_adicionales">
+                <div class="oe_structure" id="oe_structure_portal_my_home_1"/>
+                <h3>Cargar Adicionales</h3>
+                <div class="o_portal_docs list-group" id="uia_porta_cargar_adicionales_container">
+                    <form>
+                        <div class="form-group row">
+                            <label for="cedulaDocente" class="col-sm-2 col-form-label">Cédula Docente</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="cedulaDocente" placeholder="Cédula Docente"/>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-10">
+                                <button type="button" id="btn_buscar_docente" class="btn btn-primary">Buscar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="oe_structure" id="oe_structure_portal_my_home_2"/>
+        </t>
+    </template>
+
+    <template id="portal_administrativo_cargar_ajustes_pago" name="My Portal UC">
+        <t t-call="portal.portal_layout">
+            <t t-set="my_details" t-value="True"/>
+            <div class="uia_porta_cargar_ajustes_pago">
+                <div class="oe_structure" id="oe_structure_portal_my_home_1"/>
+                <h3>Cargar Ajustes de Pago</h3>
+                <div class="o_portal_docs list-group" id="uia_porta_cargar_ajustes_pago_container">
+                    <form>
+                        <div class="form-group row">
+                            <label for="cedulaDocente" class="col-sm-2 col-form-label">Cédula Docente</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="cedulaDocente" placeholder="Cédula Docente"/>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-10">
+                                <button type="button" id="btn_buscar_docente" class="btn btn-primary">Buscar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="oe_structure" id="oe_structure_portal_my_home_2"/>
+        </t>
+    </template>
+</odoo>

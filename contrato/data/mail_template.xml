@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="email_acumulacion_vacaciones" model="mail.template">
+            <field name="name">UIA - Contrato:  Acumulacion de Vacaciones</field>
+            <field name="model_id" ref="contrato.model_contrato_empleado"/>
+            <field name="body_html" type="html" >
+                <div>
+                    % set datosCorreo = ctx.get('datosCorreo', [])
+                    <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Empleado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                % for line in datosCorreo:
+                                <tr>
+                                    <td>
+                                        <t>${line['empleado']}</t>
+                                    </td>
+                                </tr>
+                                % endfor
+                            </tbody>
+                        </table>
+
+                </div>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="contrato_security" model="ir.module.category">
+            <field name="name">Contrato Empleado</field>
+            <field name="sequence">9</field>
+        </record>
+
+        <record id="contrato_lectura" model="res.groups">
+            <field name="name">Lectura</field>
+            <field name="category_id" ref="contrato_security"/>
+        </record>
+
+        <record id="contrato_escritura" model="res.groups">
+            <field name="name">Escritura</field>
+            <field name="category_id" ref="contrato_security"/>
+        </record>
+
+        <record id="contrato_ceacion" model="res.groups">
+            <field name="name">Creación</field>
+            <field name="category_id" ref="contrato_security"/>
+        </record>
+
+        <record id="contrato_eliminacion" model="res.groups">
+            <field name="name">Eliminacion</field>
+            <field name="category_id" ref="contrato_security"/>
+        </record>
+
+        <record id="contrato_visualizacion" model="res.groups">
+            <field name="name">Visualizar</field>
+            <field name="category_id" ref="contrato_security"/>
+        </record>
+
+        <record id="contrato_regla_visualizacion_contrato_empleado" model="ir.rule">
+            <field name="name">visualizar horario empleado</field>
+            <field name="model_id" ref="model_contrato_empleado"/>
+            <field name="domain_force">[('create_uid','=',user.id)]</field>
+            <field name="groups" eval="[(4, ref('contrato_visualizacion'))]"/>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="email_correo_aceptacion_vacaciones" model="mail.template">
+            <field name="name">Solicitud de vacaciones</field>
+            <field name="model_id" ref="contrato.model_contrato_empleado_vacaciones_line"/>
+            <field name="body_html" type="html" >
+                <div>
+                    % set vacacionesData = ctx.get('vacacionesData', {})
+                    <p>Sé ha solicitado una aprobación de vacaciones del empleado <strong>${vacacionesData['nombre']}</strong>.</p>
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Empleado</th>
+                                <th scope="col">Razón</th>
+                                <th scope="col">Fechas</th>
+                                <th scope="col">Dias</th>
+                                <th scope="col">Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>${vacacionesData['nombre']}</td>
+                                <td>${vacacionesData['razon']}</td>
+                                <td>${vacacionesData['fechasVacaciones']}</td>
+                                <td>${vacacionesData['totalVacaciones']}</td>
+                                <td><a href="${vacacionesData['link']}">
+                                    Ingrese Aqui !!
+                                </a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </field>
+        </record>
+
+        <record id="email_correo_aceptacion_tiempoAcumulado" model="mail.template">
+            <field name="name">Solicitud de tiempo acumulado</field>
+            <field name="model_id" ref="contrato.model_contrato_empleado_tiempo_acumulado_line"/>
+            <field name="body_html" type="html" >
+                <div>
+                    % set tiempoacumulado = ctx.get('tiempoacumulado', {})
+                    <p>Sé ha solicitado una aprobación de tiempo acumulado del empleado <strong>${tiempoacumulado['nombre']}</strong>.</p>
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Empleado</th>
+                                <th scope="col">Razón</th>
+                                <th scope="col">Fechas</th>
+                                <th scope="col">Tiempo en h</th>
+                                <th scope="col">Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>${tiempoacumulado['nombre']}</td>
+                                <td>${tiempoacumulado['razon']}</td>
+                                <td>${tiempoacumulado['fechasVacaciones']}</td>
+                                <td>${tiempoacumulado['totalTiempoAcumulado']}</td>
+                                <td><a href="${tiempoacumulado['link']}">
+                                    Ingrese Aqui !!
+                                </a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </field>
+        </record>
+
+        <record id="email_correo_justificacion_marcas" model="mail.template">
+            <field name="name">Justificación de Marcas</field>
+            <field name="model_id" ref="nomina.model_asistencia_docente_line"/>
+            <field name="body_html" type="html" >
+                <div>
+                    % set datosCorreo = ctx.get('datosCorreo', [])
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Docente</th>
+                                <th scope="col">Fecha de Justificación</th>
+                                <th scope="col">Curso</th>
+                                <th scope="col">Horario</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            % for line in datosCorreo:
+                            <tr>
+                                <td>
+                                    <t>${line['docenteNombre']}</t>
+                                </td>
+                                <td>
+                                    <t>${line['fechaJustificacion']}</t>
+                                </td>
+                                <td>
+                                    <t>${line['codigoCurso']}</t>
+                                </td>
+                                <td>
+                                    <t>${line['horarioCurso']}</t>
+                                </td>
+                            </tr>
+                            % endfor
+                        </tbody>
+                    </table>
+                </div>
+            </field>
+        </record>
+
+        <record id="email_correo_carga_adicionales" model="mail.template">
+            <field name="name">Justificación de Marcas</field>
+            <field name="model_id" ref="nomina.model_asistencia_docente_line"/>
+            <field name="body_html" type="html" >
+                <div>
+                    % set datosCorreo = ctx.get('datosCorreo', {})
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Docente</th>
+                                <th scope="col">Fecha de Adicional de Pago</th>
+                                <th scope="col">Cantidad</th>
+                                <th scope="col">Monto</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <t>${datosCorreo['docenteNombre']}</t>
+                                </td>
+                                <td>
+                                    <t>${datosCorreo['fechaAjuste']}</t>
+                                </td>
+                                <td>
+                                    <t>${datosCorreo['monto']}</t>
+                                </td>
+                                <td>
+                                    <t>${datosCorreo['monto']}</t>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </field>
+        </record>
+
+        <record id="email_correo_carga_ajuste_pago" model="mail.template">
+            <field name="name">Justificación de Marcas</field>
+            <field name="model_id" ref="nomina.model_asistencia_docente_line"/>
+            <field name="body_html" type="html" >
+                <div>
+                    % set datosCorreo = ctx.get('datosCorreo', {})
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Docente</th>
+                                <th scope="col">Fecha de Ajuste de Pago</th>
+                                <th scope="col">Monto</th>
+                                <th scope="col">Descripción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <t>${datosCorreo['docenteNombre']}</t>
+                                </td>
+                                <td>
+                                    <t>${datosCorreo['fechaAjuste']}</t>
+                                </td>
+                                <td>
+                                    <t>${datosCorreo['monto']}</t>
+                                </td>
+                                <td>
+                                    <t>${datosCorreo['descripcion']}</t>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <menuitem id="cobros_root"
+                  name="Cobros"
+                  web_icon="cobros,static/description/icon.png"
+                  sequence="10"/>
+
+        <menuitem id="cobros_menu_root"
+                  name="Periodos de Cobro"
+                  parent="cobros_root"
+                  sequence="10"/>
+
+        <menuitem id="cobros_periodo_pago_root"
+                  name="Periodos"
+                  parent="cobros_menu_root"
+                  action="action_cobros_periodo_pago"
+                  sequence="10"/>
+
+        <menuitem id="cobros_asignar_letras_wizard"
+                  name="Cagar Asignación"
+                  parent="cobros_menu_root"
+                  action="action_cobros_asignar_letras_wizard_wizard"
+                  sequence="20"/>
+</odoo>

@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<odoo>
+    <record id="view_nomina_planilla_cursos_libre_form" model="ir.ui.view">
+        <field name="name">nomina.planilla.cursos.libre.form</field>
+        <field name="model">planilla.cursos.libre</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="crear_planilla" string="Crear Planilla" class="btn-primary" type="object"/>
+                    <button name="generar_reporte_excel_pago" string="Generar Reporte Pago Planilla" class="btn-primary" type="object"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="periodo_id"/>
+                        </group>
+                        <group>
+                            <field name="fechaPago510" readonly="1" force_save="1"/>
+                            <field name="fechaPago715" readonly="1" force_save="1"/>
+                            <field name="pago" readonly="1" force_save="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Docentes">
+                            <field name="miembrosPlanilla_id">
+                                <tree editable="bottom" create="0" edit="false">
+                                    <field name="nombreDocente"/>
+                                    <field name="correoDocente" optional="hide"/>
+                                    <field name="cedulaDocente" optional="hide"/>
+                                    <field name="telefonoDocente" optional="hide"/>
+                                    <field name="brutoDocente"/>
+                                    <field name="totalDocente"/>
+                                    <field name="embargo" optional="hide"/>
+                                    <field name="CCSSDocente" optional="hide"/>
+                                    <field name="rentaDocente" optional="hide"/>
+                                    <field name="aguinaldoDocente" optional="hide"/>
+                                    <field name="cesantiaDocente" optional="hide"/>
+                                    <field name="preavisoDocente" optional="hide"/>
+                                    <field name="vacacionesDocente" optional="hide"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_planilla_cursos_libre_tree" model="ir.ui.view">
+        <field name="name">nomina.planilla.cursos.libre.tree</field>
+        <field name="model">planilla.cursos.libre</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="periodo_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_planilla_cursos_libre" model="ir.actions.act_window">
+        <field name="name">Planilla Cursos Libre</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">planilla.cursos.libre</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                !!!
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="nomina_planilla_cursos_libre"
+              name="Cursos Libre"
+              parent="nomina_planilla_root"
+              sequence="60"/>
+
+    <menuitem id="nomina_planilla_cursos_libre_pago"
+              name="Planilla"
+              parent="nomina_planilla_cursos_libre"
+              action="action_planilla_cursos_libre"
+              sequence="70"/>
+</odoo>
