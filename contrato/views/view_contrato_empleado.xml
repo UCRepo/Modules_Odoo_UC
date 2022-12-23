@@ -202,8 +202,9 @@
                                     <field name="vacaciones_ids">
                                         <tree editable="bottom">
                                             <field name="activo"/>
-                                            <field name="fechaInicioVacaciones"/>
-                                            <field name="fechaFinVacaciones"/>
+                                            <field name="estadoJefatura"/>
+                                            <field name="estadoRH"/>
+                                            <field name="razon"/>
                                             <field name="diasVacaciones"/>
                                         </tree>
                                     </field>
@@ -373,6 +374,47 @@
         <field name="name">Contrato Empleado</field>
         <field name="view_mode">tree,form</field>
         <field name="search_view_id" ref="view_contrato_empleado_search"/>
+    </record>
+
+    <record id="view_contrato_empleado_vacaciones_line_form" model="ir.ui.view">
+        <field name="name">contrato.empleado.vacaciones.line.form</field>
+        <field name="model">contrato.empleado.vacaciones.line</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="estadoJefatura"/>
+                            <field name="estadoRH"/>
+                            <field name="diasVacaciones"/>
+                        </group>
+                        <group>
+                            <field name="fechaFirmaEmpleado"/>
+                            <field name="fechaFirmaJefatura"/>
+                            <field name="fechaFirmaRH"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Vacaciones">
+                            <field name="detailVacaciones_ids">
+                                <tree create="0">
+                                    <field name="fechaInicioVacaciones"/>
+                                    <field name="fechaFinVacaciones"/>
+                                    <field name="fechaMedioDia"/>
+                                    <field name="tipoMedioDia"/>
+                                    <field name="diasVacaciones"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
     </record>
 
     <menuitem id="contrato_root"
