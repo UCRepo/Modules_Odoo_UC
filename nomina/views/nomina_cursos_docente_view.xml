@@ -79,6 +79,7 @@
                                     <field name="cantiadadHorasSemana"/>
                                     <field name="alumnos"/>
                                     <field name="horario"/>
+                                    <field name="sede" />
                                     <field name="estadoCurso" />
                                     <field name="estadoActa" />
                                     <field name="fechaCambioCurso" optional="hide"/>

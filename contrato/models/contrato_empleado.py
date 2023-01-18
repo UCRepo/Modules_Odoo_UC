@@ -919,6 +919,7 @@ class ContratoEmpleadoPrestamosLine(models.Model):
 
 class ContratoEmpleadoVacacionesLine(models.Model):
     _name = "contrato.empleado.vacaciones.line"
+    _inherit = ["mail.thread", "mail.activity.mixin"]
     _description = "Vacaciones del Empleado"
 
     contratoEmpleado_id = fields.Many2one(

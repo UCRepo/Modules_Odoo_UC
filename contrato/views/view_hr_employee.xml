@@ -18,6 +18,9 @@
             </div>
             <xpath expr="//field[@name='job_id']" position="after">
             </xpath>
+            <xpath expr="//field[@name='company_id']" position="after">
+                <field name="direccion" />
+            </xpath>
         </field>
     </record>
 </odoo>

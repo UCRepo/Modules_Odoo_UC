@@ -614,6 +614,10 @@ class CursosDocenteLines(models.Model):
                    ],
         required=True,
     )
+    sede = fields.Char(
+        string="Sede",
+        required=False,
+    )
     estadoCurso = fields.Char(
         string="Estado del Curso",
         required=False,

@@ -119,6 +119,7 @@ class CargarCursoDocente(models.TransientModel):
                                                                 'ampmFinal': data['ampmFinal'],
                                                                 'alumnos': data['matriculados'],
                                                                 'estadoCurso': data['estadoCurso'],
+                                                                'sede': data['sede'],
                                                                 'estadoActa': data['estadoActa'],
                                                                 'cursoActivo': cursoActivo,
                                                                 })]
