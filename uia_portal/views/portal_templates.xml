@@ -51,6 +51,53 @@
                 </nav>
                 <div class="o_portal_docs list-group" id="uia_portal_menu_administrativo_vacaciones_container">
                 </div>
+                <div class="o_portal_docs list-group" id="notificaciones_container">
+                </div>
+            </div>
+            <div class="oe_structure" id="oe_structure_portal_my_home_2"/>
+        </t>
+    </template>
+
+    <template id="portal_administrativo_gestion_vacaciones_aprobar_jefatura_home" name="My Portal UC">
+        <t t-call="portal.portal_layout">
+            <t t-set="my_details" t-value="True"/>
+            <div class="uia_portal_administrativo_gestion_vacaciones_aprobar_jefatura">
+                <div class="oe_structure" id="oe_structure_portal_my_home_1"/>
+                <h3>Gestión de Vacaciones</h3>
+                <div class="o_portal_docs list-group" id="uia_portal_menu_administrativo_vacaciones_aprobar_jefatura_container">
+                    <div class="table-responsive">
+                        <table class="table" >
+                            <thead>
+                                <tr>
+                                    <th scope="col">Colaborador</th>
+                                    <th scope="col">Desde</th>
+                                    <th scope="col">Hasta</th>
+                                    <th scope="col"></th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="vacacionesDetail" t-as="line">
+                                    <tr t-att-id="line['id']">
+                                        <td class="text-center"><t t-esc="line['nombre']" /></td>
+                                        <td class="text-center"><t t-esc="line['desde']" /></td>
+                                        <td class="text-center"><t t-esc="line['hasta']" /></td>
+                                        <td>
+                                            <button type="button" id="aceptar_vacaciones" t-att-value="line['id']" class="btn btn-success">Aceptar</button>
+                                        </td>
+                                        <td>
+                                            <button type="button"  id="rechazar_vacaciones" t-att-value="line['id']" class="btn btn-danger">Rechazar</button>
+                                        </td>
+                                    </tr>
+
+                                </t>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="o_portal_docs list-group" id="notificaciones_container">
+                </div>
             </div>
             <div class="oe_structure" id="oe_structure_portal_my_home_2"/>
         </t>
@@ -67,6 +114,165 @@
                 </div>
             </div>
             <div class="oe_structure" id="oe_structure_portal_my_home_2"/>
+        </t>
+    </template>
+
+    <template id="portal_administrativo_gestion_vacaciones_accion_jefatura_inmediata" name="My Portal UC">
+        <t t-call="website.layout">
+            <div class="oe_structure">
+                <div class="container">
+                    <div class="portal_administrativo_gestion_vacaciones_accion_jefatura_inmediata_form">
+                        <div class="oe_structure" id="oe_structure_portal_my_home_1"/>
+                        <h3>Aprobación de vacaciones</h3>
+                        <t t-if="accionRealizada == false" >
+                            <div class="o_portal_docs list-group" id="portal_administrativo_gestion_vacaciones_accion_jefatura_inmediata_container">
+
+                                <form>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label>Tipo</label>
+                                            <input type="text" class="form-control" id="tipo" t-att-value="tipo" readonly="" />
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label>Nombre Administrativo</label>
+                                            <input type="text" class="form-control" id="nombre_empleado" t-att-value="nombre_empleado" readonly="" />
+                                        </div>
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center" scope="col">Desde</th>
+                                                    <th class="text-center" scope="col">Hasta</th>
+                                                    <th class="text-center" scope="col">Medio día</th>
+                                                    <th class="text-center" scope="col">Jornada</th>
+                                                    <th class="text-center" scope="col">Cant Días</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr t-foreach="vacacionesList" t-as="line">
+                                                    <td class="text-center"><t t-esc="line['dt_desde']" /></td>
+                                                    <td class="text-center"><t t-esc="line['dt_hasta']" /></td>
+                                                    <td class="text-center"><t t-esc="line['fechaMedioDia']" /></td>
+                                                    <td class="text-center"><t t-esc="line['tipoMedioDia']" /></td>
+                                                    <td class="text-center"><t t-esc="line['cantDias']" /></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </form>
+                                <form>
+                                    <t t-if="diaMedio == true" >
+                                        <form>
+                                            <div class="form-row">
+                                                <div class="form-group col-md-6">
+                                                    <label>Fecha Medio Dia</label>
+                                                    <input type="text" class="form-control" id="fechaMedioDia" t-att-value="fechaMedioDia" readonly="" />
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label>Jornada</label>
+                                                    <input type="text" class="form-control" id="tipoMedioDia" t-att-value="tipoMedioDia" readonly="" />
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </t>
+
+                                    <div class="form-group">
+                                        <label for="razon_licencia">Razón</label>
+                                        <textarea class="form-control" id="razon_licencia" t-att-value="txt_razon" t-esc="txt_razon"  rows="3" readonly="" ></textarea>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-sm-10">
+                                            <button type="button" id="btn_aceptar_vacaciones" class="btn btn-primary">Aceptar</button>
+                                            <button type="button" id="btn_rechazar_vacaciones" class="btn btn-danger">Rechazar</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="o_portal_docs list-group" id="notificaciones_container">
+                            </div>
+                        </t>
+
+                        <t t-if="accionRealizada == true" >
+                            <div class="o_portal_docs list-group" id="notificaciones_container">
+                                <div class="alert alert-warning" role="alert">
+                                    Ya sé a realizado una acción sobre esta solicitud de vacaciones.
+                                </div>
+                            </div>
+                        </t>
+
+                    </div>
+                    <div class="oe_structure" id="oe_structure_portal_my_home_2"/>
+                    <p style="visibility: hidden" id="id_vacaciones"  t-esc="idVacaciones"/>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="portal_administrativo_gestion_vacaciones_accion_jefatura_RH" name="My Portal UC">
+        <t t-call="website.layout">
+            <div class="oe_structure">
+                <div class="container">
+                    <div class="portal_administrativo_gestion_vacaciones_accion_jefatura_RH_form">
+                        <div class="oe_structure" id="oe_structure_portal_my_home_1"/>
+                        <h3>Aprobación de vacaciones</h3>
+                        <div class="o_portal_docs list-group" id="portal_administrativo_gestion_vacaciones_accion_jefatura_RH_container">
+                            <form>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label>Tipo</label>
+                                        <input type="text" class="form-control" id="tipo" t-att-value="tipo" readonly="" />
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label>Nombre Administrativo</label>
+                                        <input type="text" class="form-control" id="nombre_empleado" t-att-value="nombre_empleado" readonly="" />
+                                    </div>
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center" scope="col">Desde</th>
+                                                <th class="text-center" scope="col">Hasta</th>
+                                                <th class="text-center" scope="col">Medio día</th>
+                                                <th class="text-center" scope="col">Jornada</th>
+                                                <th class="text-center" scope="col">Cant Días</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr t-foreach="vacacionesList" t-as="line">
+                                                <td class="text-center"><t t-esc="line['dt_desde']" /></td>
+                                                <td class="text-center"><t t-esc="line['dt_hasta']" /></td>
+                                                <td class="text-center"><t t-esc="line['fechaMedioDia']" /></td>
+                                                <td class="text-center"><t t-esc="line['tipoMedioDia']" /></td>
+                                                <td class="text-center"><t t-esc="line['cantDias']" /></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </form>
+                            <form>
+                                <t t-if="diaMedio == true" >
+                                    <div  class="form-group">
+                                        <label for="diasList">Dia Medio</label>
+                                        <textarea class="form-control" id="diasList" t-att-value="dataDias" t-esc="dataDias"  rows="3" readonly="" ></textarea>
+                                    </div>
+                                </t>
+                                <div class="form-group">
+                                    <label for="razon_licencia">Razón</label>
+                                    <textarea class="form-control" id="razon_licencia" t-att-value="txt_razon" t-esc="txt_razon"  rows="3" readonly="" ></textarea>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-10">
+                                        <button type="button" id="btn_aceptar_vacaciones" class="btn btn-primary">Aceptar</button>
+                                        <button type="button" id="btn_rechazar_vacaciones" class="btn btn-danger">Rechazar</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="o_portal_docs list-group" id="notificaciones_container">
+                        </div>
+                    </div>
+                    <div class="oe_structure" id="oe_structure_portal_my_home_2"/>
+                    <p style="visibility: hidden" id="id_vacaciones"  t-esc="idVacaciones"/>
+                </div>
+            </div>
         </t>
     </template>
 
@@ -150,6 +356,162 @@
         </t>
     </template>
 
+    <template id="portal_administrativo_gestion_licencias_home" name="My Portal UC">
+        <t t-call="portal.portal_layout">
+            <t t-set="my_details" t-value="True"/>
+            <div class="uia_portal_administrativo_gestion_licencias">
+                <div class="oe_structure" id="oe_structure_portal_my_home_1"/>
+                <h3>Gestión de Licencias</h3>
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                    <div class="container-fluid">
+                        <div class="navbar-toggler"  data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="javascript:void(0);" id="uia_portal_administrativo_licencias_historial" >Historial</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="javascript:void(0);" id="uia_portal_administrativo_licencias_solicitud" >Solicitud</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="javascript:void(0);" id="uia_portal_administrativo_licencias_historial" >Historial</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="javascript:void(0);" id="uia_portal_administrativo_licencias_solicitud" >Solicitud</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+                <div class="o_portal_docs list-group" id="uia_portal_menu_administrativo_licencias_container">
+                </div>
+                <div class="o_portal_docs list-group" id="uia_portal_menu_administrativo_tipos_licencias_container">
+                </div>
+                <div class="o_portal_docs list-group" id="notificaciones_licencias_container">
+                </div>
+            </div>
+            <div class="oe_structure" id="oe_structure_portal_my_home_2"/>
+        </t>
+    </template>
+
+    <template id="portal_administrativo_gestion_licencias_accion_jefatura_inmediata" name="My Portal UC">
+        <t t-call="website.layout">
+            <div class="oe_structure">
+                <div class="container">
+                    <div class="portal_administrativo_gestion_licencias_accion_jefatura_inmediata_form">
+                        <div class="oe_structure" id="oe_structure_portal_my_home_1"/>
+                        <h3>Aprobación de licencia</h3>
+                        <div class="o_portal_docs list-group" id="portal_administrativo_gestion_licencias_accion_jefatura_inmediata_container">
+                            <form>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label>Tipo Licencia</label>
+                                        <input type="text" class="form-control" id="tipo_licencia" t-att-value="tipo_licencia" readonly="" />
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label>Nombre Administrativo</label>
+                                        <input type="text" class="form-control" id="nombre_empleado" t-att-value="nombre_empleado" readonly="" />
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label>Desde</label>
+                                        <input type="text" class="form-control" id="dt_desde" t-att-value="dt_desde" readonly="" />
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label>Hasta</label>
+                                        <input type="text" class="form-control" id="dt_hasta" t-att-value="dt_hasta" readonly="" />
+                                    </div>
+                                </div>
+                            </form>
+                            <form>
+                                <t t-if="tipo_licencia == 'Paternidad'" >
+                                    <div  class="form-group">
+                                        <label for="diasList">Dias de Paternidad</label>
+                                        <textarea class="form-control" id="diasList" t-att-value="dataDias" t-esc="dataDias"  rows="3" readonly="" ></textarea>
+                                    </div>
+                                </t>
+
+                                <div class="form-group">
+                                    <label for="razon_licencia">Razón</label>
+                                    <textarea class="form-control" id="razon_licencia" t-att-value="txt_razon" t-esc="txt_razon"  rows="3" readonly="" ></textarea>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-10">
+                                        <button type="button" id="btn_aceptar_licencia" class="btn btn-primary">Aceptar</button>
+                                        <button type="button" id="btn_rechazar_licencia" class="btn btn-danger">Rechazar</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="o_portal_docs list-group" id="notificaciones_container">
+                        </div>
+                    </div>
+                    <div class="oe_structure" id="oe_structure_portal_my_home_2"/>
+                    <p style="visibility: hidden" id="id_licencia"  t-esc="idLicencia"/>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="portal_administrativo_gestion_licencias_accion_jefatura_RH" name="My Portal UC">
+        <t t-call="website.layout">
+            <div class="oe_structure">
+                <div class="container">
+                    <div class="portal_administrativo_gestion_licencias_accion_jefatura_RH_form">
+                        <div class="oe_structure" id="oe_structure_portal_my_home_1"/>
+                        <h3>Aprobación de licencia</h3>
+                        <div class="o_portal_docs list-group" id="portal_administrativo_gestion_licencias_accion_jefatura_RH_container">
+                            <form>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label>Tipo Licencia</label>
+                                        <input type="text" class="form-control" id="tipo_licencia" t-att-value="tipo_licencia" readonly="" />
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label>Nombre Administrativo</label>
+                                        <input type="text" class="form-control" id="nombre_empleado" t-att-value="nombre_empleado" readonly="" />
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label>Desde</label>
+                                        <input type="text" class="form-control" id="dt_desde" t-att-value="dt_desde" readonly="" />
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label>Hasta</label>
+                                        <input type="text" class="form-control" id="dt_hasta" t-att-value="dt_hasta" readonly="" />
+                                    </div>
+                                </div>
+                            </form>
+                            <form>
+                                <t t-if="tipo_licencia == 'Paternidad'" >
+                                    <div  class="form-group">
+                                        <label for="diasList">Dias de Paternidad</label>
+                                        <textarea class="form-control" id="diasList" t-att-value="dataDias" t-esc="dataDias"  rows="3" readonly="" ></textarea>
+                                    </div>
+                                </t>
+                                <div class="form-group">
+                                    <label for="razon_licencia">Razón</label>
+                                    <textarea class="form-control" id="razon_licencia" t-att-value="txt_razon" t-esc="txt_razon"  rows="3" readonly="" ></textarea>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-10">
+                                        <button type="button" id="btn_aceptar_licencia" class="btn btn-primary">Aceptar</button>
+                                        <button type="button" id="btn_rechazar_licencia" class="btn btn-danger">Rechazar</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="o_portal_docs list-group" id="notificaciones_container">
+                        </div>
+                    </div>
+                    <div class="oe_structure" id="oe_structure_portal_my_home_2"/>
+                    <p style="visibility: hidden" id="id_licencia"  t-esc="idLicencia"/>
+                </div>
+            </div>
+        </t>
+    </template>
+
     <template id="portal_administrativo_gestion_tiempo_acumulado_home" name="My Portal UC">
         <t t-call="portal.portal_layout">
             <t t-set="my_details" t-value="True"/>
@@ -188,65 +550,130 @@
                 </nav>
                 <div class="o_portal_docs list-group" id="uia_portal_menu_administrativo_tiempo_acumulado_container">
                 </div>
-            </div>
-            <div class="oe_structure" id="oe_structure_portal_my_home_2"/>
-        </t>
-    </template>
-
-    <template id="portal_aprobacion_tiempo_acumulado" name="My Portal UC">
-        <t t-call="portal.portal_layout">
-            <t t-set="my_details" t-value="True"/>
-            <div class="uia_porta_aprobacion_tiempo_acumulado">
-                <div class="oe_structure" id="oe_structure_portal_my_home_1"/>
-                <h3>Aprobación de tiempo acumulado</h3>
-                <p style="visibility: hidden" id="uia_portal_tiempo_acumulado_aprobacion_id"  t-esc="idTiempoAcumulado"/>
-                <div class="o_portal_docs list-group" id="uia_portal_aprobacion_tiempo_acumulado">
+                <div class="o_portal_docs list-group" id="uia_portal_menu_administrativo_tiempo_acumulado_container_tipos">
+                </div>
+                <div class="o_portal_docs list-group" id="notificaciones_container">
                 </div>
             </div>
             <div class="oe_structure" id="oe_structure_portal_my_home_2"/>
         </t>
     </template>
 
-    <template id="portal_administrativo_gestion_tiempo_acumulado_home" name="My Portal UC">
-        <t t-call="portal.portal_layout">
-            <t t-set="my_details" t-value="True"/>
-            <div class="uia_portal_administrativo_gestion_tiempo_acumulado">
-                <div class="oe_structure" id="oe_structure_portal_my_home_1"/>
-                <h3>Gestión de Tiempo Acumulado</h3>
-                <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                    <div class="container-fluid">
-                        <div class="navbar-toggler"  data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                                <li class="nav-item">
-                                    <a class="nav-link" href="javascript:void(0);"  id="uia_portal_administrativo_tiempo_acumulado_informacion" >Información</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="javascript:void(0);" id="uia_portal_administrativo_tiempo_acumulado_historial" >Historial</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="javascript:void(0);" id="uia_portal_administrativo_tiempo_acumulado_solicitud" >Solicitud</a>
-                                </li>
-                            </ul>
+    <template id="portal_administrativo_gestion_tiempo_acumulado_accion_jefatura_inmediata" name="My Portal UC">
+        <t t-call="website.layout">
+            <div class="oe_structure">
+                <div class="container">
+                    <div class="portal_administrativo_gestion_tiempo_acumulado_accion_jefatura_inmediata_form">
+                        <div class="oe_structure" id="oe_structure_portal_my_home_1"/>
+                        <h3>Aprobación de tiempo acumulado</h3>
+                        <div class="o_portal_docs list-group" id="portal_administrativo_gestion_tiempo_acumulado_accion_jefatura_inmediata_container">
+                            <form>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label>Tipo</label>
+                                        <input type="text" class="form-control" id="tipo" t-att-value="tipo" readonly="" />
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label>Nombre Administrativo</label>
+                                        <input type="text" class="form-control" id="nombre_empleado" t-att-value="nombre_empleado" readonly="" />
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label>Desde</label>
+                                        <input type="text" class="form-control" id="dt_desde" t-att-value="dt_desde" readonly="" />
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label>Hasta</label>
+                                        <input type="text" class="form-control" id="dt_hasta" t-att-value="dt_hasta" readonly="" />
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label>Jornada</label>
+                                        <input type="text" class="form-control" id="tipoMedioDia" t-att-value="tipoMedioDia" readonly="" />
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label>Tiempo Tomado</label>
+                                        <input type="text" class="form-control" id="tiempoAcumuladoTomado" t-att-value="tiempoAcumuladoTomado" readonly="" />
+                                    </div>
+                                </div>
+                            </form>
+                            <form>
+                                <div class="form-group">
+                                    <label for="razon_licencia">Razón</label>
+                                    <textarea class="form-control" id="razon_licencia" t-att-value="txt_razon" t-esc="txt_razon"  rows="3" readonly="" ></textarea>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-10">
+                                        <button type="button" id="btn_aceptar_tiempo_acumulado" class="btn btn-primary">Aceptar</button>
+                                        <button type="button" id="btn_rechazar_tiempo_acumulado" class="btn btn-danger">Rechazar</button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
-                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                                <li class="nav-item">
-                                    <a class="nav-link" href="javascript:void(0);"  id="uia_portal_administrativo_tiempo_acumulado_informacion" >Información</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="javascript:void(0);" id="uia_portal_administrativo_tiempo_acumulado_historial" >Historial</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="javascript:void(0);" id="uia_portal_administrativo_tiempo_acumulado_solicitud" >Solicitud</a>
-                                </li>
-                            </ul>
+                        <div class="o_portal_docs list-group" id="notificaciones_container">
                         </div>
                     </div>
-                </nav>
-                <div class="o_portal_docs list-group" id="uia_portal_menu_administrativo_tiempo_acumulado_container">
+                    <div class="oe_structure" id="oe_structure_portal_my_home_2"/>
+                    <p style="visibility: hidden" id="id_tiempo_acumulado"  t-esc="idTiempoAcumulado"/>
                 </div>
             </div>
-            <div class="oe_structure" id="oe_structure_portal_my_home_2"/>
+        </t>
+    </template>
+
+    <template id="portal_administrativo_gestion_tiempo_acumulado_accion_jefatura_RH" name="My Portal UC">
+        <t t-call="website.layout">
+            <div class="oe_structure">
+                <div class="container">
+                    <div class="portal_administrativo_gestion_tiempo_acumulado_accion_jefatura_RH_form">
+                        <div class="oe_structure" id="oe_structure_portal_my_home_1"/>
+                        <h3>Aprobación de tiempo acumulado</h3>
+                        <div class="o_portal_docs list-group" id="portal_administrativo_gestion_tiempo_acumulado_accion_jefatura_RH_container">
+                            <form>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label>Tipo</label>
+                                        <input type="text" class="form-control" id="tipo" t-att-value="tipo" readonly="" />
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label>Nombre Administrativo</label>
+                                        <input type="text" class="form-control" id="nombre_empleado" t-att-value="nombre_empleado" readonly="" />
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label>Desde</label>
+                                        <input type="text" class="form-control" id="dt_desde" t-att-value="dt_desde" readonly="" />
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label>Hasta</label>
+                                        <input type="text" class="form-control" id="dt_hasta" t-att-value="dt_hasta" readonly="" />
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label>Jornada</label>
+                                        <input type="text" class="form-control" id="tipoMedioDia" t-att-value="tipoMedioDia" readonly="" />
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label>Tiempo Tomado</label>
+                                        <input type="text" class="form-control" id="tiempoAcumuladoTomado" t-att-value="tiempoAcumuladoTomado" readonly="" />
+                                    </div>
+                                </div>
+                            </form>
+                            <form>
+                                <div class="form-group">
+                                    <label for="razon_licencia">Razón</label>
+                                    <textarea class="form-control" id="razon_licencia" t-att-value="txt_razon" t-esc="txt_razon"  rows="3" readonly="" ></textarea>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-10">
+                                        <button type="button" id="btn_aceptar_tiempo_acumulado" class="btn btn-primary">Aceptar</button>
+                                        <button type="button" id="btn_rechazar_tiempo_acumulado" class="btn btn-danger">Rechazar</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="o_portal_docs list-group" id="notificaciones_container">
+                        </div>
+                    </div>
+                    <div class="oe_structure" id="oe_structure_portal_my_home_2"/>
+                    <p style="visibility: hidden" id="id_tiempo_acumulado"  t-esc="idTiempoAcumulado"/>
+                </div>
+            </div>
         </t>
     </template>
 

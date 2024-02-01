@@ -3,6 +3,7 @@ import io
 from odoo.tools.misc import xlsxwriter
 import pytz
 import json
+import math
 from odoo import http
 from odoo.http import content_disposition, request
 from datetime import date, timedelta, datetime
@@ -72,6 +73,32 @@ class AceptacionesDocente(http.Controller):
                     "marcaAsistencia": "NO"
                 }
             return request.make_response(data=json.dumps(data), headers=[('Content-Type', 'application/json')])
+
+    @http.route('/marcadiaasistenciadocente', type='http', auth='public', methods=['GET', 'POST'],cors='*',csrf=False)
+    def marcadiaasistenciadocente(self, **kw):
+        cedulaDocente = request.params['cedula']
+        data = {}
+        anno = datetime.today()
+        marcasDB = []
+
+        docentes = request.env['hr.employee'].sudo().search([('department_id.name', '=','Docentes')])
+        docente = docentes.filtered(lambda x: x.identification_id.replace("-","") == cedulaDocente)
+
+        marcas = request.env['hr.attendance'].sudo().search([('employee_id','=',docente.id)]).filtered(lambda x: x.check_in.date() == anno.date())
+
+        if marcas:
+
+            for marca in marcas:
+                marcasDB.append({
+                    'marcaEntrada': str((marca.check_in - timedelta(hours=6)).time().replace(microsecond=0) if marca.check_in else ""),
+                    'marcaSalida':  str((marca.check_out - timedelta(hours=6)).time().replace(microsecond=0) if marca.check_out else ""),
+
+                })
+
+            data={
+                'marcas': marcasDB
+            }
+        return request.make_response(data=json.dumps(data), headers=[('Content-Type', 'application/json')])
 
 
     @http.route('/aceptacionesdocentes',type='http', auth='public', website=True)
@@ -173,12 +200,11 @@ class SaleExcelReportController(http.Controller):
 
         # search the sales order
 
-        docentesAceptado =  request.env['planilla.cuatrimestre.line'].sudo().search(['&',('totalDocente', '>', 0),('pagoEfectuado','=',False),('prePlanillaAceptada','=',True),('docentesLinea_id','=',idPlanilla.id)])
+        docentesAceptado =  request.env['planilla.cuatrimestre.line'].sudo().search(['&',('totalDocente', '>', 0),('docentesLinea_id','=',idPlanilla.id)])
 
         listDocentesCuentaBACActiva = list(filter(lambda x: x.cuentaBacActiva == True,docentesAceptado))
         listDocentesCuentaBACNoActiva = list(filter(lambda x: x.cuentaBacActiva == False,docentesAceptado))
         for aceptados in listDocentesCuentaBACActiva:
-            aceptados.pagoEfectuado = True
             aceptados.fechaCorte = date.today()
             sheet.write(row, 0, aceptados.cuentaBac)
             sheet.write(row, 1, aceptados.nombreDocente)
@@ -188,7 +214,6 @@ class SaleExcelReportController(http.Controller):
 
         row += 5
         for aceptados in listDocentesCuentaBACNoActiva:
-            aceptados.pagoEfectuado = True
             aceptados.fechaCorte = date.today()
             sheet.write(row, 0, aceptados.cuentaBac)
             sheet.write(row, 1, aceptados.nombreDocente)
@@ -540,6 +565,63 @@ class SaleExcelReportController(http.Controller):
 
         return response
 
+    @http.route(['/nomina/excel_docentes_falta_pago/<model("planilla.cuatrimestre"):idPlanilla>', ], type='http',auth="user", csrf=False)
+    def excel_docentes_falta_pago(self, idPlanilla=None, **args):
+        response = request.make_response(
+            None,
+            headers=[
+                ('Content-Type', 'application/vnd.ms-excel'),
+                ('Content-Disposition', content_disposition('Docentes sin Pago.xlsx'))
+            ]
+        )
+
+
+        output = io.BytesIO()
+        workbook = xlsxwriter.Workbook(output, {'in_memory': True})
+
+
+        title_style = workbook.add_format({'font_name': 'Times', 'font_size': 14, 'bold': True, 'align': 'center'})
+        header_style = workbook.add_format(
+            {'font_name': 'Times', 'bold': True, 'left': 1, 'bottom': 1, 'right': 1, 'top': 1, 'align': 'center'})
+        text_style = workbook.add_format(
+            {'font_name': 'Times', 'left': 1, 'bottom': 1, 'right': 1, 'top': 1, 'align': 'left'})
+        number_style = workbook.add_format(
+            {'font_name': 'Times', 'left': 1, 'bottom': 1, 'right': 1, 'top': 1, 'align': 'right'})
+
+        sheet = workbook.add_worksheet('Docentes')
+
+        sheet.write(0, 0, 'Docente')
+        row = 1
+
+
+
+        planilla =  request.env['planilla.cuatrimestre.line'].sudo().search([('docentesLinea_id','=',idPlanilla.id)])
+        cursosDocentes = request.env['cursos.docente.line'].sudo().search([('cuatrimestre_id','=',idPlanilla.cuatrimestrePlanilla_id.id)])
+
+        for data in planilla:
+            if data.totalDocente <= 0:
+                cursosDocente = list(filter(lambda x: (x.docente_id.id == data.docente_id.id), cursosDocentes))
+
+                for curso in cursosDocente:
+
+                    if curso.estadoCurso == 'Tutoria':
+                        if curso.alumnos >= 4:
+                            sheet.write(row, 0, data.docente_id.name)
+                            row += 1
+                            break
+                    else:
+                        sheet.write(row, 0, data.docente_id.name)
+                        row += 1
+                        break
+
+
+        workbook.close()
+        output.seek(0)
+        response.stream.write(output.read())
+        output.close()
+
+        return response
+
 class ExcelReportPlanillaTesis(http.Controller):
     @http.route(['/planilla/report_excel_planilla_tesis/<model("planilla.tesis"):planillaTesis>', ], type='http', auth="user",csrf=False)
     def report_excel_planilla_tesis(self, planillaTesis=None, **args):
@@ -699,6 +781,182 @@ class ExcelReportPlanillaCursosLibres(http.Controller):
         # sheet.write_formula(row, 4, '=SUM(E3:E' + str(row) + ')', number_style)
 
         # return the excel file as a response, so the browser can download it
+        workbook.close()
+        output.seek(0)
+        response.stream.write(output.read())
+        output.close()
+
+        return response
+
+class PlanillaPorcurso(http.Controller):
+    @http.route(['/nomina/get_reporte_pago_UC_report/<model("planilla.cuatrimestre"):idPlanilla>', ], type='http', auth="user",csrf=False)
+    def get_reporte_pago_UC_report(self, idPlanilla=None, **args):
+
+        response = request.make_response(
+            None,
+            headers=[
+                ('Content-Type', 'application/vnd.ms-excel'),
+                ('Content-Disposition', content_disposition('Reporte Para Pago UC :'+idPlanilla.cuatrimestrePlanilla_id.name+'.xlsx'))
+            ]
+        )
+
+        # create workbook object from xlsxwriter library
+        output = io.BytesIO()
+        workbook = xlsxwriter.Workbook(output, {'in_memory': True})
+
+        # create some style to set up the font type, the font size, the border, and the aligment
+        title_style = workbook.add_format({'font_name': 'Times', 'font_size': 14, 'bold': True, 'align': 'center'})
+        header_style = workbook.add_format(
+            {'font_name': 'Times', 'bold': True, 'left': 1, 'bottom': 1, 'right': 1, 'top': 1, 'align': 'center'})
+        text_style = workbook.add_format(
+            {'font_name': 'Times', 'left': 1, 'bottom': 1, 'right': 1, 'top': 1, 'align': 'left'})
+        number_style = workbook.add_format(
+            {'font_name': 'Times', 'left': 1, 'bottom': 1, 'right': 1, 'top': 1, 'align': 'right'})
+
+        sheet = workbook.add_worksheet('Planilla General')
+
+        sheet.write(0, 0, 'No.')
+        sheet.write(0, 1, 'Nombre')
+        sheet.write(0, 2, 'Tasa')
+        sheet.write(0, 3, 'codigoCurso')
+        sheet.write(0, 4, 'descripcion')
+        sheet.write(0, 5, 'alumnos')
+        sheet.write(0, 6, 'Dia')
+        sheet.write(0, 7, 'Horario')
+        sheet.write(0, 8, 'Sede')
+        sheet.write(0, 9, 'Tipo')
+        sheet.write(0, 10, 'S1')
+        sheet.write(0, 11, 'S2')
+        sheet.write(0, 12, 'S3')
+        sheet.write(0, 13, 'S4')
+        sheet.write(0, 14, 'S5')
+        sheet.write(0, 15, 'S6')
+        sheet.write(0, 16, 'S7')
+        sheet.write(0, 17, 'S8')
+        sheet.write(0, 18, 'S9')
+        sheet.write(0, 19, 'S10')
+        sheet.write(0, 20, 'S11')
+        sheet.write(0, 21, 'S12')
+        sheet.write(0, 22, 'S13')
+        sheet.write(0, 23, 'S14')
+        sheet.write(0, 24, 'S15')
+
+        row = 1
+
+
+        docentes =  request.env['cursos.docente'].sudo().search([('cuatrimestre_id', '=', idPlanilla.cuatrimestrePlanilla_id.id)])
+
+        for docente in docentes:
+
+            contrato = request.env['contrato.empleado'].sudo().search([('empleado_id', '=', docente.docente_id.id)])
+
+            for curso in docente.cursos_lines_ids:
+
+                sheet.write(row, 0, docente.docente_id.identification_id)
+                sheet.write(row, 1, docente.docente_id.name)
+                sheet.write(row, 2, contrato.salario)
+                sheet.write(row, 3, curso.codigoCurso)
+                sheet.write(row, 4, curso.descripcion)
+                sheet.write(row, 5, curso.alumnos)
+                sheet.write(row, 6, curso.dia1)
+                sheet.write(row, 7, curso.horario)
+                sheet.write(row, 8, curso.sede)
+
+                if curso.alumnos > 0 and curso.alumnos <= 6 and curso.estadoCurso == 'Tutoria' :
+                    sheet.write(row, 9, request.env['configuraciones.tutorias.line'].sudo().search([('numeroEstudiantes', '=', curso.alumnos)]).name)
+                else:
+                    sheet.write(row, 9, curso.estadoCurso)
+
+                for marca in docente.asistencia_line_ids:
+                    if curso.codigoCurso == marca.cursoMarca and curso.horario == marca.horarioCurso:
+                        semana = int(math.ceil((((marca.fechaCurso - idPlanilla.cuatrimestrePlanilla_id.fechaInicioCuatrimestre).days + 1) / 7)))
+                        cell_format = workbook.add_format({'bold': marca.marcaJustificada, 'font_color': 'black'})
+                        if semana == 1:
+                            sheet.write(row, 10, marca.tiempoClases,cell_format)
+                        elif semana == 2:
+                            sheet.write(row, 11, marca.tiempoClases,cell_format)
+                        elif semana == 3:
+                            sheet.write(row, 12, marca.tiempoClases,cell_format)
+                        elif semana == 4:
+                            sheet.write(row, 13, marca.tiempoClases,cell_format)
+                        elif semana == 5:
+                            sheet.write(row, 14, marca.tiempoClases,cell_format)
+                        elif semana == 6:
+                            sheet.write(row, 15, marca.tiempoClases,cell_format)
+                        elif semana == 7:
+                            sheet.write(row, 16, marca.tiempoClases,cell_format)
+                        elif semana == 8:
+                            sheet.write(row, 17, marca.tiempoClases,cell_format)
+                        elif semana == 9:
+                            sheet.write(row, 18, marca.tiempoClases,cell_format)
+                        elif semana == 10:
+                            sheet.write(row, 19, marca.tiempoClases,cell_format)
+                        elif semana == 11:
+                            sheet.write(row, 20, marca.tiempoClases,cell_format)
+                        elif semana == 12:
+                            sheet.write(row, 21, marca.tiempoClases,cell_format)
+                        elif semana == 13:
+                            sheet.write(row, 22, marca.tiempoClases,cell_format)
+                        elif semana == 14:
+                            sheet.write(row, 23, marca.tiempoClases,cell_format)
+                        elif semana == 15:
+                            sheet.write(row, 24, marca.tiempoClases,cell_format)
+                row += 1
+
+
+
+        workbook.close()
+        output.seek(0)
+        response.stream.write(output.read())
+        output.close()
+
+        return response
+
+
+class PlanillaCCSS(http.Controller):
+    @http.route(['/nomina/excel_ccss_docente_detallado_report/<model("planilla.ccss.cuatrimestre"):idPlanilla>', ], type='http', auth="user",csrf=False)
+    def excel_ccss_docente_detallado_report(self, idPlanilla=None, **args):
+
+        response = request.make_response(
+            None,
+            headers=[
+                ('Content-Type', 'application/vnd.ms-excel'),
+                ('Content-Disposition', content_disposition('Reporte de CCSS Detallado Corte : ' + str(date.today()) +
+                                                            " Del " + str(idPlanilla.fechaInicioPago) +
+                                                            " Al " + str(idPlanilla.fechaFinalPago) + '.xlsx'))
+            ]
+        )
+
+        # create workbook object from xlsxwriter library
+        output = io.BytesIO()
+        workbook = xlsxwriter.Workbook(output, {'in_memory': True})
+
+        # create some style to set up the font type, the font size, the border, and the aligment
+        title_style = workbook.add_format({'font_name': 'Times', 'font_size': 14, 'bold': True, 'align': 'center'})
+        header_style = workbook.add_format(
+            {'font_name': 'Times', 'bold': True, 'left': 1, 'bottom': 1, 'right': 1, 'top': 1, 'align': 'center'})
+        text_style = workbook.add_format(
+            {'font_name': 'Times', 'left': 1, 'bottom': 1, 'right': 1, 'top': 1, 'align': 'left'})
+        number_style = workbook.add_format(
+            {'font_name': 'Times', 'left': 1, 'bottom': 1, 'right': 1, 'top': 1, 'align': 'right'})
+
+        sheet = workbook.add_worksheet('Planilla General')
+
+        sheet.write(0, 0, 'No.')
+        sheet.write(0, 1, 'Nombre')
+        sheet.write(0, 2, 'Bruto')
+        row = 1
+
+
+        docentesAceptado =  request.env['planilla.ccss.cuatrimestre.line'].sudo().search(['&',('totalDocente', '>', 0),('docentesLinea_id','=',idPlanilla.id)])
+
+        for aceptados in docentesAceptado:
+            sheet.write(row, 0, aceptados.cedulaDocente)
+            sheet.write(row, 1, aceptados.nombreDocente)
+            sheet.write(row, 2, aceptados.brutoDocente)
+
+            row += 1
+
         workbook.close()
         output.seek(0)
         response.stream.write(output.read())

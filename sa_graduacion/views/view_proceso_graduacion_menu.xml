@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <menuitem id="proceso_graduacion_root"
+                  name="Proceso de graduación"
+                  web_icon="sa_graduacion,static/description/icon.png"
+                  sequence="10"/>
+
+        <menuitem id="periodo_graduacion_root"
+                  name="Periodo de graduación"
+                  parent="proceso_graduacion_root"
+                  sequence="10"/>
+
+        <menuitem id="solicitud_graduacion_root"
+                  name="Solicitud de graduación"
+                  parent="proceso_graduacion_root"
+                  sequence="20"/>
+
+</odoo>

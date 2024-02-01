@@ -359,6 +359,33 @@
             </field>
         </record>
 
+        <record id="email_correo_cursos_ausencia" model="mail.template">
+            <field name="name">Cursos con Ausencia</field>
+            <field name="model_id" ref="nomina.model_nomina_cron"/>
+            <field name="body_html" type="html" >
+                <div style="margin: 0px; padding: 0px;background-color:#E3E3E3;">
+                    % set datosCorreo = ctx.get('datosCorreo', {})
+                    <div>
+                        <img src="https://uc.ac.cr/wp-content/uploads/2022/09/MicrosoftTeams-image-1.png" width="150" height="100"/>
+                    </div>
+                    <div style="text-align:center;">
+                        <img src="https://uc.ac.cr/wp-content/uploads/2022/09/MicrosoftTeams-image.png" width="300" height="100"/>
+                    </div>
+                    <div style="text-align:center;">
+                        <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                            Estimado(a)
+                            <br/><br/>
+                            Cursos virtuales del dia ${datosCorreo['hoy']} con Ausencia
+                            <br/><br/>
+                            Saludos cordiales.
+                        </p>
 
+                    </div>
+                    <div style="text-align:right;">
+                        <img src="https://uc.ac.cr/wp-content/uploads/2022/09/MicrosoftTeams-image-2.png" width="250" height="100"/>
+                    </div>
+                </div>
+            </field>
+        </record>
     </data>
 </odoo>

@@ -239,12 +239,18 @@ class PlanillaCuatrimestre(models.Model):
                             elif (data3.estadoCurso == "Tutoria" or data3.estadoCurso == "Tutoria Ext"):
                                 hastaSemana = self.env['configuraciones.tutorias.line'].search([('numeroEstudiantes', '=', data3.alumnos)])
                                 if self.pago == "Primer Pago":
-                                    horasContratoDocente += data3.cantiadadHoras
+                                    cant = self.env['configuraciones.tutorias.semana.line'].search_count(['&',('tutoria_id', '=', hastaSemana.id),('semanaMarca','<=',4)])
+                                    if cant == 2:
+                                        horasContratoDocente += data3.cantiadadHoras/cant
+                                    else:
+                                        horasContratoDocente += data3.cantiadadHoras
                                     cantidadCursosDocente += 1
                                 elif self.pago == "Segundo Pago":
+                                    cant = self.env['configuraciones.tutorias.semana.line'].search_count(['&', ('tutoria_id', '=', hastaSemana.id), ('semanaMarca', '>', 4),('semanaMarca', '<', 10)])
                                     horasContratoDocente += (data3.cantiadadHoras * (hastaSemana.semanasTutoria - 4)) / (float(self.semanasPago))
                                     cantidadCursosDocente += 1
                                 elif self.pago == "Tercer Pago" and hastaSemana.semanasTutoria > 9:
+                                    cant = self.env['configuraciones.tutorias.semana.line'].search_count(['&', ('tutoria_id', '=', hastaSemana.id), ('semanaMarca', '>=', 10)])
                                     horasContratoDocente += (data3.cantiadadHoras * (hastaSemana.semanasTutoria - 9)) / (float(self.semanasPago))
                                     cantidadCursosDocente += 1
                             else:
@@ -371,14 +377,11 @@ class PlanillaCuatrimestre(models.Model):
                 data.correoEnviado = True
 
     def createXLSXReport(self):
-        if self.miembrosPlanilla_id.search_count(['&',('totalDocente','>',0),('prePlanillaAceptada','=',True),('pagoEfectuado','=',False),('docentesLinea_id','=',self.id)]) > 0:
-            return {
-                'type': 'ir.actions.act_url',
-                'url': '/sale/excel_report/%s' % (self.id),
-                'target': 'new',
-            }
-        else:
-            raise ValidationError("No existen nuevos docentes para agregar al pago")
+        return {
+            'type': 'ir.actions.act_url',
+            'url': '/sale/excel_report/%s' % (self.id),
+            'target': 'new',
+        }
 
     def createXLSXReportDetallado(self):
         return {
@@ -414,6 +417,32 @@ class PlanillaCuatrimestre(models.Model):
             'view_type': 'form',
             'view_mode': 'form',
             'res_model': 'nomina.generar.reporte.marcas.wizard',
+            'target': 'new',
+        }
+
+    def descargar_reporte_docentes_falta_pago(self):
+        return {
+            'type': 'ir.actions.act_url',
+            'url': '/nomina/excel_docentes_falta_pago/%s' % (self.id),
+            'target': 'new',
+        }
+
+    def reenvio_descarga_colilla(self):
+        return {
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_model': 'nomina.reenvio.descarga.reporte.pago.docente.wizard',
+            'context': {
+                'default_planillaCuatrimestre_id': self.id,
+            },
+            'target': 'new',
+        }
+
+    def get_reporte_pago_UC(self):
+        return {
+            'type': 'ir.actions.act_url',
+            'url': '/nomina/get_reporte_pago_UC_report/%s' % (self.id),
             'target': 'new',
         }
 

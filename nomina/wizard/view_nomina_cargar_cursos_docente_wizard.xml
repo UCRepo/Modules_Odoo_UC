@@ -8,8 +8,8 @@
             <form string="Cargar Cursos Docente">
                 <group class="oe_title">
                     <group string="Info general">
-                        <field name="cuatrimestre_id"/>
-                        <field name="docente_ids"/>
+                        <field name="cuatrimestre_id" options="{'no_create': True, 'no_create_edit':True}"/>
+                        <field name="docente_ids" options="{'no_create': True, 'no_create_edit':True}" domain="[('department_id', '=', 'Docentes')]"/>
                     </group>
                     <group>
                     </group>

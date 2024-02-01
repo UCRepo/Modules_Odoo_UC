@@ -28,7 +28,7 @@ class CargarSuficienciaDocente(models.TransientModel):
         cantiadadHorasSemana = any
         planillaActual = any
         ICPSudo = self.env['ir.config_parameter'].sudo()
-        url = ICPSudo.get_param('nomina.urlWSOdoo')+'/api/CursosDocente/getSuficienciaDocente'
+        url = ICPSudo.get_param('nomina.urlWSOdoo')+'/api/CursosDocenteUC/getSuficienciaDocente'
         user_tz = pytz.timezone(self.env.user.tz)
         anno = pytz.utc.localize(datetime.today()).astimezone(user_tz)
         vals = {}

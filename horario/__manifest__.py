@@ -25,7 +25,11 @@
         'security/security.xml',
         'security/ir.model.access.csv',
 
+        # Data
+        'data/mail_template.xml',
+
         'wizard/view_horario_generacion_horario.xml',
+        'wizard/vew_horario_cargar_horario_empleado.xml',
 
         'views/view_horario_empleado.xml',
         'views/view_hr_employee.xml',

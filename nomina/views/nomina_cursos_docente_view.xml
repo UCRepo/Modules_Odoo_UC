@@ -36,8 +36,8 @@
                     </div>
                     <group>
                         <group>
-                            <field name="cuatrimestre_id" />
-                            <field name="docente_id" />
+                            <field name="cuatrimestre_id" options="{'no_create': True, 'no_create_edit':True}"/>
+                            <field name="docente_id" domain="[('department_id', '=', 'Docentes')]" options="{'no_create': True, 'no_create_edit':True}"/>
                         </group>
                         <group>
                         </group>

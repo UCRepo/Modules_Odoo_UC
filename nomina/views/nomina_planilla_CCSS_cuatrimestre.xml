@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<odoo>
+    <record id="view_nomina_planilla_ccss_cuatrimestre_form" model="ir.ui.view">
+        <field name="name">planilla.ccss.cuatrimestre.form</field>
+        <field name="model">planilla.ccss.cuatrimestre</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_done" string="Crear Pre Planilla" class="btn-primary" type="object"/>
+                    <button name="createCCSSReport" string="Reporte CCSS" class="btn-primary" type="object"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="cuatrimestrePlanilla_id" options="{'no_create': True, 'no_create_edit':True}"/>
+                            <field name="incluirTutotias"/>
+                            <field name="incluirAdicionales"/>
+                        </group>
+                        <group>
+                            <field name="fechaInicioPago" />
+                            <field name="fechaFinalPago"/>
+                            <field name="mes" />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Docentes">
+                            <field name="miembrosPlanilla_id">
+                                <tree editable="bottom" create="0" edit="false">
+                                    <field name="docentesLinea_id" invisible="1"/>
+                                    <field name="nombreDocente"/>
+                                    <field name="correoDocente" optional="hide"/>
+                                    <field name="cedulaDocente" optional="hide"/>
+                                    <field name="telefonoDocente" optional="hide"/>
+                                    <field name="horasDocente"/>
+                                    <field name="horasSemanaContratoDocente"/>
+                                    <field name="horasContratoDocente"/>
+                                    <field name="tarifaDocente"/>
+                                    <field name="cantidadCursosDocente" optional="hide"/>
+                                    <field name="brutoDocente"/>
+                                    <field name="totalDocente"/>
+                                    <field name="embargo" optional="hide"/>
+                                    <field name="rebajosNeto" optional="hide"/>
+                                    <field name="CCSSDocente" optional="hide"/>
+                                    <field name="rentaDocente" optional="hide"/>
+                                    <field name="deducionesEntradaTardia" optional="hide"/>
+                                    <field name="deducionesSalidaTemprana" optional="hide"/>
+                                    <field name="deducionesOmisionMarca" optional="hide"/>
+                                    <field name="deducionesAusencia" optional="hide"/>
+                                    <field name="totalDeduccionDocente" optional="hide"/>
+                                    <field name="adicionales" optional="hide"/>
+                                    <field name="aguinaldoDocente" optional="hide"/>
+                                    <field name="cesantiaDocente" optional="hide"/>
+                                    <field name="preavisoDocente" optional="hide"/>
+                                    <field name="vacacionesDocente" optional="hide"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_planilla_ccss_cuatrimestres_tree" model="ir.ui.view">
+        <field name="name">planilla.ccss.cuatrimestre.tree</field>
+        <field name="model">planilla.ccss.cuatrimestre</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="fechaInicioPago"/>
+                <field name="fechaFinalPago"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_planilla_ccss_cuatrimestre" model="ir.actions.act_window">
+        <field name="name">Planilla CCSS</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">planilla.ccss.cuatrimestre</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="nomina_planilla_ccss"
+              name="CCSS"
+              parent="nomina_planilla_root"
+              sequence="60"/>
+
+    <menuitem id="nomina_planilla_cursos_ccss_pago"
+              name="Planilla"
+              parent="nomina_planilla_ccss"
+              action="action_planilla_ccss_cuatrimestre"
+              sequence="70"/>
+</odoo>
+

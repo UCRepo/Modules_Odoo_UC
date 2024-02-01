@@ -109,6 +109,7 @@ class NominaCargarJustificacionMarcasDocenteWizard(models.TransientModel):
             asistencia = list(filter(lambda x: (x.docente_id.id == docente.id) and
                                                (x.cuatrimestre_id.id == cuatrimestre.id) and
                                                (x.cursoMarca == curso[0].codigoCurso) and
+                                               (x.horarioCurso == curso[0].horario) and
                                                (x.fechaCurso == record[4].date()), asistenciaLine))
 
             vals = {

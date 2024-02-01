@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="email_proceso_graduacion_Recibido" model="mail.template">
+            <field name="name">Estatus de proceso de graduación</field>
+            <field name="model_id" ref="sa_graduacion.model_sa_graduacion_estudiante"/>
+            <field name="body_html" type="html" >
+                <div style="margin: 0px; padding: 0px;">
+                    % set datosCorreo = ctx.get('datosCorreo', {})
+                    <div>
+                        <img src="http://download.uia.ac.cr/cobros/ComunicadoHeader.png" width="250" height="100"/>
+                    </div>
+                    <div style="text-align:center;">
+                        <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                            Estimado(a) ${datosCorreo['nombre']}
+                            <br/><br/>
+                            Estado del proceso:
+                            <br/><br/>
+                            ${datosCorreo['state']}
+                            <br/><br/>
+                            Saludos cordiales.
+                        </p>
+
+                    </div>
+                    <div style="text-align:center;">
+                        <img src="http://download.uia.ac.cr/cobros/ComunicadoLogoNegro.png" width="150" height="100"/>
+                        <p style="margin: 0px; padding: 0px; font-size: 13px;">Para mayor información: graduacion@uia.ac.cr</p>
+                    </div>
+                    <div style="text-align:right;">
+                        <img src="http://download.uia.ac.cr/cobros/ComunicadoFooter.png" width="250" height="100"/>
+                    </div>
+
+                </div>
+            </field>
+        </record>
+
+        <record id="email_proceso_graduacion_Aceptacion" model="mail.template">
+            <field name="name">Estatus de proceso de graduación</field>
+            <field name="model_id" ref="sa_graduacion.model_sa_graduacion_estudiante"/>
+            <field name="body_html" type="html" >
+                <div style="margin: 0px; padding: 0px;">
+                    % set datosCorreo = ctx.get('datosCorreo', {})
+                    <div>
+                        <img src="http://download.uia.ac.cr/cobros/ComunicadoHeader.png" width="250" height="100"/>
+                    </div>
+                    <div style="text-align:center;">
+                        <p style="margin: 0px; padding: 0px; font-size: 13px;">Estimado(a) ${datosCorreo['nombre']}</p>
+                        <br/><br/>
+						<strong>Opciones de Pago</strong>
+                        <p style="margin: 0px; padding: 0px; font-size: 13px;">-	Presencial: Dirigirse a cajas en cualquiera de nuestras sedes Aranjuez y Heredia y presentar el correo de aprobación de la inscripción de graduación. </p>
+                        <br/>
+                        <p style="margin: 0px; padding: 0px; font-size: 13px;">-	Digital: Podrás realizar el pago por medio de transferencia, depósito o SINPE y luego cargar el documento en el siguiente enlace <a>https://erp.uia.ac.cr/proceso_graduacion</a></p>
+                        <br/>
+                        <strong >A continuación, le detallamos los medios de pago digitales</strong>
+                        <p style="margin: 0px; padding: 0px; font-size: 13px;">Nombre:  <strong>Servicios Educativos Dakota II S.A.</strong></p>
+                        <p style="margin: 0px; padding: 0px; font-size: 13px;">Cédula Jurídica: <strong>3-101-642839</strong></p>
+                        <p style="margin: 0px; padding: 0px; font-size: 13px;"><strong>Transferencia – Depósito - BCR</strong></p>
+                        <p style="margin: 0px; padding: 0px; font-size: 13px;">Cuenta colones: CR22015201001030067004</p>
+                        <p style="margin: 0px; padding: 0px; font-size: 13px;">Cuenta dólares: CR49015201001030067197</p>
+                        <p style="margin: 0px; padding: 0px; font-size: 13px;"><strong>Transferencia – Depósito - BAC</strong></p>
+                        <p style="margin: 0px; padding: 0px; font-size: 13px;">Cuenta colones: CR46010200009191026241</p>
+                        <p style="margin: 0px; padding: 0px; font-size: 13px;"><strong>SINPE MÓVIL</strong></p>
+                        <p style="margin: 0px; padding: 0px; font-size: 13px;">6476-4825</p>
+
+                        <div style="text-align:center;" >
+                            <table style="justify-content: center;margin-left: auto;margin-right: auto; ">
+                                <tr>
+                                    <td>Detalle </td>
+                                    <td>Carreras Regulares</td>
+                                    <td>Carreras de Medicina y Cirugía</td>
+                                    <td>Carreras Farmacia </td>
+                                </tr>
+                                <tr>
+                                    <td>Aranceles de Graduación</td>
+                                    <td>₡381.940</td>
+                                    <td>₡381.940</td>
+                                    <td>₡381.940 </td>
+                                </tr>
+                                <tr>
+                                    <td>Título de Doctorado</td>
+                                    <td>N/A</td>
+                                    <td>₡111.983</td>
+                                    <td>₡53.675 </td>
+                                </tr>
+                                <tr>
+                                    <td>Total a Cancelar </td>
+                                    <td>₡381.940</td>
+                                    <td>₡493.923</td>
+                                    <td>₡435.615</td>
+                                </tr>
+                            </table>
+                        </div>
+
+
+                        <p style="margin: 0px; padding: 0px; font-size: 13px;"><strong>**Nota Aclaratoria: La graduación es un acto protocolario obligatorio, la ausencia al acto solo puede ser justificable en casos médicos debidamente comprobados. </strong></p>
+                    </div>
+                    <div style="text-align:center;">
+                        <img src="http://download.uia.ac.cr/cobros/ComunicadoLogoNegro.png" width="150" height="100"/>
+                        <p style="margin: 0px; padding: 0px; font-size: 13px;">Para mayor información: graduacion@uia.ac.cr</p>
+                    </div>
+                    <div style="text-align:right;">
+                        <img src="http://download.uia.ac.cr/cobros/ComunicadoFooter.png" width="250" height="100"/>
+                    </div>
+
+                </div>
+            </field>
+        </record>
+
+        <record id="email_proceso_graduacion_Rechazado" model="mail.template">
+            <field name="name">Estatus de proceso de graduación</field>
+            <field name="model_id" ref="sa_graduacion.model_sa_graduacion_estudiante"/>
+            <field name="body_html" type="html" >
+                <div style="margin: 0px; padding: 0px;">
+                    % set datosCorreo = ctx.get('datosCorreo', {})
+                    <div>
+                        <img src="http://download.uia.ac.cr/cobros/ComunicadoHeader.png" width="250" height="100"/>
+                    </div>
+                    <div style="text-align:center;">
+                        <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                            Estimado(a) ${datosCorreo['nombre']}
+                            <br/><br/>
+                            Por este medio se le notifica que su revisión fue rechazada se le detallan las observaciones para que nos pueda proporcionar la información
+                            <br/><br/>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Observaciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    % for line in datosCorreo['observaciones']:
+                                    <tr>
+                                        <td>
+                                            <t>${line}</t>
+                                        </td>
+
+                                    </tr>
+                                    % endfor
+                                </tbody>
+                            </table>
+
+                            <br/><br/>
+                            Saludos cordiales.
+                        </p>
+
+                    </div>
+                    <div style="text-align:center;">
+                        <img src="http://download.uia.ac.cr/cobros/ComunicadoLogoNegro.png" width="150" height="100"/>
+                        <p style="margin: 0px; padding: 0px; font-size: 13px;">Para mayor información: graduacion@uia.ac.cr</p>
+                    </div>
+                    <div style="text-align:right;">
+                        <img src="http://download.uia.ac.cr/cobros/ComunicadoFooter.png" width="250" height="100"/>
+                    </div>
+
+                </div>
+            </field>
+        </record>
+    </data>
+</odoo>

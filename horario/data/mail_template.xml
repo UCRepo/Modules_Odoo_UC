@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="email_empleado_no_encontrado" model="mail.template">
+            <field name="name">Horarios no Cargados</field>
+            <field name="model_id" ref="horario.model_horario_cargar_horario_empleado_wizard"/>
+            <field name="body_html" type="html" >
+                <div style="margin: 0px;padding: 0px;width:800px;height=200px;border: 2px solid grey;">
+                    % set datosCorreo = ctx.get('datosCorreo', [])
+                    <div>
+                        <img src="https://uc.ac.cr/wp-content/uploads/2022/09/MicrosoftTeams-image-1.png" width="150" height="100"/>
+                    </div>
+                    <div style="text-align:center;">
+                        <h1> No se encontraton los siguientes empleados</h1>
+
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Identificación</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                % for line in datosCorreo:
+                                <tr>
+                                    <td class="table-danger" >
+                                        <t>${line['identificacion']}</t>
+                                    </td>
+                                </tr>
+                                % endfor
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <div style="text-align:center;">
+                        <img src="http://download.uia.ac.cr/cobros/ComunicadoLogoNegro.png" width="150" height="100"/>
+                    </div>
+                    <div style="text-align:right;">
+
+
+                    </div>
+                </div>
+            </field>
+        </record>
+
+    </data>
+</odoo>

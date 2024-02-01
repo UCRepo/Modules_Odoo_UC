@@ -12,7 +12,10 @@
                         <field name="pago"/>
                         <field name="docente_ids" domain="[('department_id', '=', 'Docentes')]"/>
                     </group>
-                    <group>
+                    <group  string="Rango de Fechas">
+                        <field name="desde"/>
+                        <field name="hasta"/>
+                        <field name="incluirCursosPrecenciales"/>
                     </group>
                 </group>
                 <footer>

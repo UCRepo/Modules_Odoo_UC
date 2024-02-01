@@ -1,0 +1,39 @@
+@font-face {
+    font-family: 'Baguet-Bold-Italic';
+    src: local('Bold-Italic'),
+        url('Bold_Italic.ttf') format('truetype'),
+        url('Bold_Italic.otf') format('opentype'),
+        url('Bold_Italic.woff') format('woff'),
+        url('Bold_Italic.woff2') format('woff2'); 
+    font-weight: bold;
+    font-style: italic;
+}
+
+#contendio {
+    margin-top: 100px;
+    background-image: url('fondo.jpg');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+#texto {
+    font-family: 'Baguet-Bold-Italic', sans-serif;
+    font-weight: bold;
+    font-style: italic;
+    color: #FED141;
+    font-size: 40px;
+}
+
+@media (max-width: 767px) {
+    #contendio {
+        margin-top: 50px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+    #contendio {
+        margin-top: 150px;
+    }
+}

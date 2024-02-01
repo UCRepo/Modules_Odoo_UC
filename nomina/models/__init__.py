@@ -12,3 +12,4 @@ from . import planilla_tesis
 from . import periodo_cursos_libre
 from . import cursos_libre_docente
 from . import planilla_cursos_libres
+from . import planilla_CCSS

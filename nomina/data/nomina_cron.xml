@@ -55,5 +55,17 @@
             <field name="interval_type">days</field>
             <field name="numbercall">-1</field>
         </record>
+
+        <record id="ir_cron_generar_asistencia_diaria" model="ir.cron">
+            <field name="name">UC - Nomina Docente : Asistencia Diaria</field>
+            <field name="model_id" ref="model_nomina_cron"/>
+            <field name="type">ir.actions.server</field>
+            <field name="state">code</field>
+            <field name="code">model._generar_asistencia_diaria()</field>
+            <field name="active" eval="False"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+        </record>
     </data>
 </odoo>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="report_boleta_gradaucion" model="ir.actions.report">
+        <field name="name">Boleta de solicitud de graduación</field>
+        <field name="model">sa.graduacion.estudiante</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">sa_graduacion.report_boleta_gradaucion_id</field>
+        <field name="report_file">sa_graduacion.report_boleta_gradaucion_id</field>
+        <field name="binding_model_id" ref="model_sa_graduacion_estudiante"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="report_boleta_gradaucion_id">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <t t-set="docs" t-value="docs"/>
+                </div>
+                <div class="page">
+                    <div style="text-align:center;">
+                        <h1>Boleta de inscripción de  <t t-esc="docs.periodoGraduacion_id.name"/> </h1>
+                    </div>
+
+
+                    <h4 class="mt-3">Carnet: <t t-esc="docs.carnet"/></h4>
+                    <h4 class="mt-3">Estudiante: <t t-esc="docs.name"/></h4>
+                    <h4 class="mt-3">Identificación: <t t-esc="docs.identificacion"/></h4>
+                    <h4 class="mt-3">Correo: <t t-esc="docs.correo"/></h4>
+                    <h4 class="mt-3">Telefono: <t t-esc="docs.telefono"/></h4>
+                    <h4 class="mt-3">Grado académico: <t t-esc="docs.grado"/></h4>
+                    <h4 class="mt-3">Carrera: <t t-esc="docs.carrera"/></h4>
+
+                    <footer style="margin-top: 500px;">
+                        <div>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <td class="ml-5">
+                                            <div class="container">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <p style="font-size:10px"></p>
+                                                        <p style="font-size:15px"><t t-esc="docs.fecha_Solicitud"/></p>
+                                                        <hr class="style1"/>
+                                                        <p style="font-size:20px">Fecha de solicitud</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="container">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <p style="font-size:10px"></p>
+                                                        <p style="font-size:15px">.</p>
+                                                        <hr class="style1" style="width:250px"/>
+                                                        <p style="font-size:20px">Firma</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </footer>
+                </div>
+            </t>
+        </t>
+    </template>
+
+</odoo>

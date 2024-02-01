@@ -933,6 +933,10 @@ class AsistenciaClasesLine(models.Model):
         string="Pago",
         required=False,
     )
+    sede = fields.Char(
+        string="Sede",
+        required=False,
+    )
 
 #endregion
 

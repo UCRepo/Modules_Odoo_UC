@@ -222,6 +222,12 @@ class Configuraciones(models.Model):
         string="Tutorias",
         required=False,
     )
+    semanaMarcatutorias_ids = fields.One2many(
+        comodel_name = "configuraciones.tutorias.semana.line",
+        inverse_name = "configuracion_id",
+        string="Tutorias",
+        required=False,
+    )
 
     descripcionTutoria = fields.Char(
         string="Descripcion",
@@ -248,7 +254,7 @@ class Configuraciones(models.Model):
         """
         if not self.env['configuraciones.tutorias.line'].search(['&',('configuracion_id','=',self.id),('numeroEstudiantes','=',self.numeroEstudiantes)]):
             self.tutorias_ids = [(0, 0, {'configuracion_id': self.id,
-                                        'name': self.descripcionTutoria,
+                                        'name': self.descripcionTutoria +" - Estudiantes: "+str(self.numeroEstudiantes),
                                         'numeroEstudiantes': self.numeroEstudiantes,
                                         'semanasTutoria': self.semanasTutoria,
                                         'cantiadadHorasTutorias': self.cantiadadHorasTutorias,
@@ -689,6 +695,8 @@ class ConfiguracionesTutoriasLine(models.Model):
         string="Configuracion",
         ondelete="cascade"
     )
+
+
     name = fields.Char(
         string="Descripcion",
         required=True,
@@ -708,6 +716,30 @@ class ConfiguracionesTutoriasLine(models.Model):
         required=True,
     )
 
+
+class ConfiguracionesTutoriasSemanaLine(models.Model):
+    _name="configuraciones.tutorias.semana.line"
+    _inherit = ["mail.thread", "mail.activity.mixin"]
+    _description="Configuracion Tutorias"
+
+    configuracion_id = fields.Many2one(
+        comodel_name="configuraciones",
+        string="Configuracion",
+        ondelete="cascade"
+    )
+
+    tutoria_id = fields.Many2one(
+        comodel_name="configuraciones.tutorias.line",
+        string="Configuracion",
+        ondelete="cascade"
+    )
+
+    semanaMarca = fields.Integer(
+        string="Semana de Marca",
+        required=True,
+    )
+
+
 class ConfiguracionesAjustes(models.TransientModel):
     _inherit = 'res.config.settings'
 
@@ -715,6 +747,7 @@ class ConfiguracionesAjustes(models.TransientModel):
     correoEnvioHorarioErroneo = fields.Char(string="Correo de Envio Horarios Erroneos", required=False, )
     correoContactoPlanilla = fields.Char(string="Correo de Contacto de Planilla", required=False, )
     urlOdoo = fields.Char(string="Url de Aprobacion o Rechazo de Planilla", required=False, )
+    correoAusencias = fields.Char(string="Correo de Reporte de Ausencias", required=False, )
     urlWSOdoo = fields.Char(string="Url de WS de odoo", required=False, )
     empleadosEnvioFaltaMarcas_ids = fields.Many2many(comodel_name="hr.employee", readonly=False)
 
@@ -726,6 +759,7 @@ class ConfiguracionesAjustes(models.TransientModel):
         res = super(ConfiguracionesAjustes, self).set_values()
         self.env['ir.config_parameter'].set_param('nomina.correoEnvio', self.correoEnvio)
         self.env['ir.config_parameter'].set_param('nomina.correoContactoPlanilla', self.correoContactoPlanilla)
+        self.env['ir.config_parameter'].set_param('nomina.correoAusencias', self.correoAusencias)
         self.env['ir.config_parameter'].set_param('nomina.urlOdoo', self.urlOdoo)
         self.env['ir.config_parameter'].set_param('nomina.urlWSOdoo', self.urlWSOdoo)
         self.env['ir.config_parameter'].set_param('nomina.correoEnvioHorarioErroneo', self.correoEnvioHorarioErroneo)
@@ -742,12 +776,14 @@ class ConfiguracionesAjustes(models.TransientModel):
         ICPSudo = self.env['ir.config_parameter'].sudo()
         correoEnvio = ICPSudo.get_param('nomina.correoEnvio')
         correoContactoPlanilla = ICPSudo.get_param('nomina.correoContactoPlanilla')
+        correoAusencias = ICPSudo.get_param('nomina.correoAusencias')
         urlOdoo = ICPSudo.get_param('nomina.urlOdoo')
         urlWSOdoo = ICPSudo.get_param('nomina.urlWSOdoo')
         correoEnvioHorarioErroneo = ICPSudo.get_param('nomina.correoEnvioHorarioErroneo')
         res.update(
             correoEnvio = correoEnvio,
             correoContactoPlanilla = correoContactoPlanilla,
+            correoAusencias=correoAusencias,
             urlOdoo = urlOdoo,
             urlWSOdoo = urlWSOdoo,
             correoEnvioHorarioErroneo = correoEnvioHorarioErroneo,

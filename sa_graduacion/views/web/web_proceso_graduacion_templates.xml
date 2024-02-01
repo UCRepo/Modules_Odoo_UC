@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="proceso_graduacion" name="Proceso de graduación">
+        <t t-call="website.layout">
+            <div class="oe_structure">
+                <div class="container">
+                    <div class="proceso_graduacion_form">
+                        <div class="oe_structure" id="oe_structure_portal_my_home_1"/>
+                        <h3 t-esc="periodo_Graduacion" />
+                        <h5>Si la información desplegada no es la correcta por favor contactar con Registro.</h5>
+
+                        <div class="o_portal_docs list-group" id="proceso_graduacion_identificacion_container">
+                            <form>
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <label for="cedulaEstudiante">Identificación del Estudiante</label>
+                                        <input type="number" class="form-control" id="cedulaEstudiante" placeholder="0000000000"/>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <div class="col-sm-10">
+                                        <button type="button" id="btn_buscar_estudiante" class="btn btn-primary">Buscar</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="o_portal_docs list-group mb-5" id="proceso_graduacion_carreras_container" style="display: none">
+                            <form>
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <label for="telefono">Telefono</label>
+                                        <input type="number" class="form-control" id="telefono" placeholder="88888888"/>
+                                    </div>
+                                    <div class="col">
+                                        <label for="correo">Correo</label>
+                                        <input type="email" class="form-control" id="correo" placeholder="name@example.com"/>
+                                    </div>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline ">
+                                    <input type="radio" id="nacional" name="customRadioInline1" class="custom-control-input" />
+                                    <label class="custom-control-label" for="nacional">Nacional</label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" id="extranjero" name="customRadioInline1" class="custom-control-input" />
+                                    <label class="custom-control-label" for="extranjero">Extranjero</label>
+                                </div>
+                                <div class="form-group mt-3">
+                                    <label for="carrera">Carrera</label>
+                                    <select class="form-control" id="carrera">
+                                    </select>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="o_portal_docs list-group" id="proceso_graduacion_informacion_BN" style="display: none">
+                            <form class="was-validated mb-3">
+                                <div class="custom-file mb-4">
+                                    <input type="file" class="custom-file-input" id="identificacion" required="True" accept="application/pdf" />
+                                    <label class="custom-file-label" for="identificacion">Copia de cédula de identificación vigente</label>
+                                    <div class="invalid-feedback">Falta el Documento</div>
+                                </div>
+                                <div class="custom-file mb-4">
+                                    <input type="file" class="custom-file-input" id="titulo_Media" required="True" accept="application/pdf" />
+                                    <label class="custom-file-label" for="titulo_Media">Copia del título Educación Media</label>
+                                    <div class="invalid-feedback">Falta el Documento</div>
+                                </div>
+                                <div class="custom-file mb-4">
+                                    <input type="file" class="custom-file-input" id="TCU" required="True"  accept="application/pdf"/>
+                                    <label class="custom-file-label" for="TCU">Copia recibido TCU completo o certificación</label>
+                                    <div class="invalid-feedback">Falta el Documento</div>
+                                </div>
+                                <button type="button" id="btn_Enviar_Solicitud" class="btn btn-primary">Enviar Solicitud</button>
+                            </form>
+                        </div>
+
+                        <div class="o_portal_docs list-group" id="proceso_graduacion_informacion_BE" style="display: none">
+                            <form class="was-validated mb-3">
+                                <div class="custom-file mb-4">
+                                    <input type="file" class="custom-file-input" id="identificacion" required="True" accept="application/pdf" />
+                                    <label class="custom-file-label" for="identificacion">Copia de cédula de identificación vigente</label>
+                                    <div class="invalid-feedback">Falta el Documento</div>
+                                </div>
+                                <div class="custom-file mb-4">
+                                    <input type="file" class="custom-file-input" id="titulo_Diploma" required="True" accept="application/pdf" />
+                                    <label class="custom-file-label" for="titulo_Diploma">Copia del diploma</label>
+                                    <div class="invalid-feedback">Falta el Documento</div>
+                                </div>
+                                <div class="custom-file mb-4">
+                                    <input type="file" class="custom-file-input" id="titulo_Apostille" required="True" accept="application/pdf" />
+                                    <label class="custom-file-label" for="titulo_Apostille">Copia del Apostille del diploma</label>
+                                    <div class="invalid-feedback">Falta el Documento</div>
+                                </div>
+                                <div class="custom-file mb-4">
+                                    <input type="file" class="custom-file-input" id="titulo_Equiparacion" required="True" accept="application/pdf" />
+                                    <label class="custom-file-label" for="titulo_Equiparacion">Copia de la Equiparación del MEP</label>
+                                    <div class="invalid-feedback">Falta el Documento</div>
+                                </div>
+                                <div class="custom-file mb-4">
+                                    <input type="file" class="custom-file-input" id="TCU" required="True"  accept="application/pdf"/>
+                                    <label class="custom-file-label" for="TCU">Copia recibido TCU completo o certificación</label>
+                                    <div class="invalid-feedback">Falta el Documento</div>
+                                </div>
+                                <button type="button" id="btn_Enviar_Solicitud" class="btn btn-primary">Enviar Solicitud</button>
+                            </form>
+                        </div>
+
+                        <div class="o_portal_docs list-group" id="proceso_graduacion_informacion_LN" style="display: none">
+                            <form class="was-validated mb-3">
+                                <div class="custom-file mb-4">
+                                    <input type="file" class="custom-file-input" id="identificacion" required="True" accept="application/pdf" />
+                                    <label class="custom-file-label" for="identificacion">Copia de cédula de identificación vigente</label>
+                                    <div class="invalid-feedback">Falta el Documento</div>
+                                </div>
+                                <div class="custom-file mb-4">
+                                    <input type="file" class="custom-file-input" id="titulo_Media" required="True" accept="application/pdf" />
+                                    <label class="custom-file-label" for="titulo_Media">Copia del título Educación Media</label>
+                                    <div class="invalid-feedback">Falta el Documento</div>
+                                </div>
+                                <div class="custom-file mb-4">
+                                    <input type="file" class="custom-file-input" id="titulo_Bachillerato" required="True" accept="application/pdf" />
+                                    <label class="custom-file-label" for="titulo_Bachillerato">Título Universitario Bachillerato</label>
+                                    <div class="invalid-feedback">Falta el Documento</div>
+                                </div>
+                                <div class="custom-file mb-4">
+                                    <input type="file" class="custom-file-input" id="TCU" required="True"  accept="application/pdf"/>
+                                    <label class="custom-file-label" for="TCU">Copia recibido TCU completo o certificación</label>
+                                    <div class="invalid-feedback">Falta el Documento</div>
+                                </div>
+                                <button type="button" id="btn_Enviar_Solicitud" class="btn btn-primary">Enviar Solicitud</button>
+                            </form>
+                        </div>
+
+                        <div class="o_portal_docs list-group" id="proceso_graduacion_informacion_LE" style="display: none">
+                            <form class="was-validated mb-3">
+                                <div class="custom-file mb-4">
+                                    <input type="file" class="custom-file-input" id="identificacion" required="True" accept="application/pdf" />
+                                    <label class="custom-file-label" for="identificacion">Copia de cédula de identificación vigente</label>
+                                    <div class="invalid-feedback">Falta el Documento</div>
+                                </div>
+                                <div class="custom-file mb-4">
+                                    <input type="file" class="custom-file-input" id="titulo_Diploma" required="True" accept="application/pdf" />
+                                    <label class="custom-file-label" for="titulo_Diploma">Copia del diploma</label>
+                                    <div class="invalid-feedback">Falta el Documento</div>
+                                </div>
+                                <div class="custom-file mb-4">
+                                    <input type="file" class="custom-file-input" id="titulo_Apostille" required="True" accept="application/pdf" />
+                                    <label class="custom-file-label" for="titulo_Apostille">Copia del Apostille del diploma</label>
+                                    <div class="invalid-feedback">Falta el Documento</div>
+                                </div>
+                                <div class="custom-file mb-4">
+                                    <input type="file" class="custom-file-input" id="titulo_Equiparacion" required="True" accept="application/pdf" />
+                                    <label class="custom-file-label" for="titulo_Equiparacion">Copia de la Equiparación del MEP</label>
+                                    <div class="invalid-feedback">Falta el Documento</div>
+                                </div>
+                                <div class="custom-file mb-4">
+                                    <input type="file" class="custom-file-input" id="titulo_Bachillerato" required="True" accept="application/pdf" />
+                                    <label class="custom-file-label" for="titulo_Bachillerato">Título Universitario Bachillerato</label>
+                                    <div class="invalid-feedback">Falta el Documento</div>
+                                </div>
+                                <div class="custom-file mb-4">
+                                    <input type="file" class="custom-file-input" id="TCU" required="True"  accept="application/pdf"/>
+                                    <label class="custom-file-label" for="TCU">Copia recibido TCU completo o certificación</label>
+                                    <div class="invalid-feedback">Falta el Documento</div>
+                                </div>
+                                <button type="button" id="btn_Enviar_Solicitud" class="btn btn-primary">Enviar Solicitud</button>
+                            </form>
+                        </div>
+
+                        <div class="o_portal_docs list-group" id="proceso_graduacion_informacion_MN" style="display: none">
+                            <form class="was-validated mb-3">
+                                <div class="custom-file mb-4">
+                                    <input type="file" class="custom-file-input" id="identificacion" required="True" accept="application/pdf" />
+                                    <label class="custom-file-label" for="identificacion">Copia de cédula de identificación vigente</label>
+                                    <div class="invalid-feedback">Falta el Documento</div>
+                                </div>
+                                <div class="custom-file mb-4">
+                                    <input type="file" class="custom-file-input" id="titulo_Media" required="True" accept="application/pdf" />
+                                    <label class="custom-file-label" for="titulo_Media">Copia del título Educación Media</label>
+                                    <div class="invalid-feedback">Falta el Documento</div>
+                                </div>
+                                <div class="custom-file mb-4">
+                                    <input type="file" class="custom-file-input" id="titulo_Bachillerato_Licenciatura" required="True" accept="application/pdf" />
+                                    <label class="custom-file-label" for="titulo_Bachillerato">Títulos Universitarios Bachillerato Licenciatura</label>
+                                    <div class="invalid-feedback">Falta el Documento</div>
+                                </div>
+                            </form>
+                            <button type="button" id="btn_Enviar_Solicitud" class="btn btn-primary">Enviar Solicitud</button>
+                        </div>
+
+                        <div class="o_portal_docs list-group" id="proceso_graduacion_informacion_ME" style="display: none">
+                            <form class="was-validated mb-3">
+                                <div class="custom-file mb-4">
+                                    <input type="file" class="custom-file-input" id="identificacion" required="True" accept="application/pdf" />
+                                    <label class="custom-file-label" for="identificacion">Copia de cédula de identificación vigente</label>
+                                    <div class="invalid-feedback">Falta el Documento</div>
+                                </div>
+                                <div class="custom-file mb-4">
+                                    <input type="file" class="custom-file-input" id="titulo_Diploma" required="True" accept="application/pdf" />
+                                    <label class="custom-file-label" for="titulo_Diploma">Copia del diploma</label>
+                                    <div class="invalid-feedback">Falta el Documento</div>
+                                </div>
+                                <div class="custom-file mb-4">
+                                    <input type="file" class="custom-file-input" id="titulo_Apostille" required="True" accept="application/pdf" />
+                                    <label class="custom-file-label" for="titulo_Apostille">Copia del Apostille del diploma</label>
+                                    <div class="invalid-feedback">Falta el Documento</div>
+                                </div>
+                                <div class="custom-file mb-4">
+                                    <input type="file" class="custom-file-input" id="titulo_Equiparacion" required="True" accept="application/pdf" />
+                                    <label class="custom-file-label" for="titulo_Equiparacion">Copia de la Equiparación del MEP</label>
+                                    <div class="invalid-feedback">Falta el Documento</div>
+                                </div>
+                                <div class="custom-file mb-4">
+                                    <input type="file" class="custom-file-input" id="titulo_Bachillerato_Licenciatura" required="True" accept="application/pdf" />
+                                    <label class="custom-file-label" for="titulo_Bachillerato">Títulos Universitarios Bachillerato Licenciatura</label>
+                                    <div class="invalid-feedback">Falta el Documento</div>
+                                </div>
+                                <button type="button" id="btn_Enviar_Solicitud" class="btn btn-primary">Enviar Solicitud</button>
+                            </form>
+                        </div>
+
+                        <div class="o_portal_docs list-group" id="proceso_graduacion_informacion_PG" style="display: none">
+                            <form class="was-validated mb-3">
+                                <div class="custom-file mb-4">
+                                    <input type="file" class="custom-file-input" id="comprobante" required="True" accept="application/pdf" />
+                                    <label class="custom-file-label" for="comprobante">Comprobante de pago</label>
+                                    <div class="invalid-feedback">Falta el Documento</div>
+                                </div>
+                                <div class="custom-file mb-4">
+                                    <input type="file" class="custom-file-input" id="boleta" required="True" accept="application/pdf" />
+                                    <label class="custom-file-label" for="boleta">Boleta firmada</label>
+                                    <div class="invalid-feedback">Falta el Documento</div>
+                                </div>
+                            </form>
+                            <button type="button" id="btn_Enviar_PG" class="btn btn-primary">Enviar Solicitud</button>
+                        </div>
+
+                        <div class="o_portal_docs list-group" id="notificaciones_container">
+
+                        </div>
+                    </div>
+                    <div class="oe_structure" id="oe_structure_portal_my_home_2"/>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <menuitem id="uia_portal_root"
-              name="Portal"
+              name="Portal UIA"
               web_icon="nomina,static/description/icon.png"
               sequence="10"/>
+
     <menuitem id="uia_portal_configuraciones_root"
               name="Configuraciones"
               parent="uia_portal_root"
@@ -16,7 +17,7 @@
         <field name="inherit_id" ref="base.res_config_settings_view_form"/>
         <field name="arch" type="xml">
             <xpath expr="//div[hasclass('settings')]" position="inside">
-                <div class="app_settings_block" data-string="Portal" string="Portal" data-key="uia_portal">
+                <div class="app_settings_block" data-string="Portal UIA" string="Portal UIA" data-key="uia_portal">
                     <h2>Nomina</h2>
                     <div class="row mt16 o_settings_container">
                         <div class="o_settings_left_pane">
@@ -29,7 +30,7 @@
         </field>
     </record>
     <record id="action_uia_portal_configuraciones_config" model="ir.actions.act_window">
-        <field name="name">Ajustes de Portal </field>
+        <field name="name">Ajustes de Portal UIA</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">res.config.settings</field>
         <field name="view_id" ref="res_config_settings_view_form"/>

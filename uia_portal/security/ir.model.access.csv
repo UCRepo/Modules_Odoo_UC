@@ -1,1 +1,6 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+access_portal_user_permisos_lectura,access.portal.user.permisos,model_portal_user_permisos,portal_user_lectura,1,0,0,0
+access_portal_user_permisos_escritura,access.portal.user.permisos,model_portal_user_permisos,portal_user_escritura,0,1,0,0
+access_portal_user_permisos_ceacion,access.portal.user.permisos,model_portal_user_permisos,portal_user_creacion,0,0,1,0
+access_portal_user_permisos_eliminacion,access.portal.user.permisos,model_portal_user_permisos,portal_user_eliminacion,0,0,0,1

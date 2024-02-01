@@ -118,8 +118,7 @@ class NominaCargarAjustePagoDocenteWizard(models.TransientModel):
                 if float(record[2]) > 0:
                     total = float(record[2]) /  self.env['configuraciones'].search([]).factor
             else:
-                m = int(record[8])
-                total = (self.env['contrato.empleado'].search([('empleado_id','=',docente.id)]).salario / 60) * ((int(record[2]) + (m / 60)) * 60)
+                total = self.env['contrato.empleado'].search([('empleado_id','=',docente.id)]).salario * float(record[2])
 
             vals = {
                 'ajuste_id': ajuste.id,

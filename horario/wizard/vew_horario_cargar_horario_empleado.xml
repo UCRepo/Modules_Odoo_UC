@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--START [configuraicones de pagos adicionales]-->
+    <record id="vew_horario_cargar_horario_empleado_wizard_form" model="ir.ui.view">
+        <field name="name">horario.cargar.horario.empleado.wizard.form</field>
+        <field name="model">horario.cargar.horario.empleado.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Cargar Horario Empleados">
+                <group class="oe_title">
+                    <group string="Info general">
+                        <field name="documentoHorario"/>
+                    </group>
+                    <group>
+
+                    </group>
+                </group>
+                <footer>
+                    <button name="verificar_horario_empleado" string="Generar" type="object" class="btn-primary" />
+                    <button string="Cancelar" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="action_horario_cargar_horario_empleado_wizard" model="ir.actions.act_window">
+        <field name="name">Cargar Horario Empleado</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">horario.cargar.horario.empleado.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="vew_horario_cargar_horario_empleado_wizard_form"/>
+        <field name="target">new</field>
+    </record>
+    <!--    END [configuraicones de pagos adicionales]-->
+</odoo>

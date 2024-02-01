@@ -17,7 +17,7 @@
                 <div class="page">
                     <div class="oe_structure"/>
                     <h2>Acción de personal vacaciones</h2>
-                    <br/><br/><br/>
+                    <br/>
                     <table class="table table-sm">
                         <thead>
                         </thead>
@@ -74,17 +74,35 @@
                     </table>
 
                     <br/>
-
+                    <h2>Tabla de Vacaciones</h2>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th class="text-center" scope="col">Desde</th>
+                                <th class="text-center" scope="col">Hasta</th>
+                                <th class="text-center" scope="col">Medio día</th>
+                                <th class="text-center" scope="col">Jornada</th>
+                                <th class="text-center" scope="col">Cant Días</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="dataVacaciones['vacacionesList']" t-as="line">
+                                <td class="text-center"><t t-esc="line['dt_desde']" /></td>
+                                <td class="text-center"><t t-esc="line['dt_hasta']" /></td>
+                                <td class="text-center"><t t-esc="line['fechaMedioDia']" /></td>
+                                <td class="text-center"><t t-esc="line['tipoMedioDia']" /></td>
+                                <td class="text-center"><t t-esc="line['cantDias']" /></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br/>
                     <h2>OBSERVACIONES</h2>
                     <p class="text-break">
-                        SE AUTORIZA EL DISFRUTE DE VACACIONES <t t-esc="dataVacaciones['desdehasta']"/> REGRESANDO EL DIA <t t-esc="dataVacaciones['regreso']"/>
-                        TOTAL <t t-esc="dataVacaciones['diasVacaciones']"/> DIAS, QUEDANDOLE A LA FECHA PENDIENTES POR DISFRUTAR <t t-esc="dataVacaciones['restantes']"/> DIAS
+                        SE AUTORIZA EL DISFRUTE DE VACACIONES DE LOS DÍAS MOSTRADOS EN LA TABLA ANTERIOR, HACIENDO UN USO DE <t t-esc="dataVacaciones['diasVacaciones']"/> DÍAS, QUEDÁNDOLE A LA FECHA PENDIENTES POR DISFRUTAR <t t-esc="dataVacaciones['restantes']"/> DÍAS.
                     </p>
 
-                    <br/><br/><br/>
-                    <br/><br/><br/>
-
-                    <div>
+                    <footer>
+                        <div>
                         <table>
                             <thead>
                                 <tr>
@@ -137,6 +155,8 @@
                             </thead>
                         </table>
                     </div>
+                    </footer>
+
                 </div>
             </t>
         </t>

@@ -5,32 +5,25 @@
             <field name="name">Solicitud de vacaciones</field>
             <field name="model_id" ref="contrato.model_contrato_empleado_vacaciones_line"/>
             <field name="body_html" type="html" >
-                <div>
-                    % set vacacionesData = ctx.get('vacacionesData', {})
-                    <p>Sé ha solicitado una aprobación de vacaciones del empleado <strong>${vacacionesData['nombre']}</strong>.</p>
+                <div style="margin: 0px;padding: 0px;width:800px;height=200px;border: 2px solid grey;">
+                    % set datosCorreo = ctx.get('datosCorreo', {})
+                    <div>
+                        <img src="https://uc.ac.cr/wp-content/uploads/2022/09/MicrosoftTeams-image-1.png" width="150" height="100"/>
+                    </div>
+                    <div style="text-align:center;">
+                        <h1> Estimado(a) ${datosCorreo['jefatura']}</h1>
 
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">Empleado</th>
-                                <th scope="col">Razón</th>
-                                <th scope="col">Fechas</th>
-                                <th scope="col">Dias</th>
-                                <th scope="col">Acción</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>${vacacionesData['nombre']}</td>
-                                <td>${vacacionesData['razon']}</td>
-                                <td>${vacacionesData['fechasVacaciones']}</td>
-                                <td>${vacacionesData['totalVacaciones']}</td>
-                                <td><a href="${vacacionesData['link']}">
-                                    Ingrese Aqui !!
-                                </a></td>
-                            </tr>
-                        </tbody>
-                    </table>
+                        <p>Por este medio se le comunica la solicitud de vacaciones de ${datosCorreo['nombre']}.</p>
+                        <p>En el siguiente link podrá seguir el proceso.</p>
+                        <a href="${datosCorreo['link']}">Acceder</a>
+
+                    </div>
+                    <div style="text-align:center;">
+                       <img src="https://uc.ac.cr/wp-content/uploads/2022/09/MicrosoftTeams-image.png" width="300" height="100"/>
+                    </div>
+                    <div style="text-align:right;">
+                        <img src="https://uc.ac.cr/wp-content/uploads/2022/09/MicrosoftTeams-image-2.png" width="250" height="100"/>
+                    </div>
                 </div>
             </field>
         </record>
@@ -39,9 +32,36 @@
             <field name="name">Solicitud de tiempo acumulado</field>
             <field name="model_id" ref="contrato.model_contrato_empleado_tiempo_acumulado_line"/>
             <field name="body_html" type="html" >
+                <div style="margin: 0px;padding: 0px;width:800px;height=200px;border: 2px solid grey;">
+                    % set datosCorreo = ctx.get('datosCorreo', {})
+                    <div>
+                        <img src="https://uc.ac.cr/wp-content/uploads/2022/09/MicrosoftTeams-image-1.png" width="150" height="100"/>
+                    </div>
+                    <div style="text-align:center;">
+                        <h1> Estimado(a) ${datosCorreo['jefatura']}</h1>
+
+                        <p>Por este medio se le comunica la solicitud de tiempo acumuldo de ${datosCorreo['nombre']}.</p>
+                        <p>En el siguiente link podrá seguir el proceso.</p>
+                        <a href="${datosCorreo['link']}">Acceder</a>
+
+                    </div>
+                    <div style="text-align:center;">
+                       <img src="https://uc.ac.cr/wp-content/uploads/2022/09/MicrosoftTeams-image.png" width="300" height="100"/>
+                    </div>
+                    <div style="text-align:right;">
+                        <img src="https://uc.ac.cr/wp-content/uploads/2022/09/MicrosoftTeams-image-2.png" width="250" height="100"/>
+                    </div>
+                </div>
+            </field>
+        </record>
+
+        <record id="email_correo_aceptacion_licencia" model="mail.template">
+            <field name="name">Solicitud de Licencia</field>
+            <field name="model_id" ref="contrato.model_contrato_empleado_vacaciones_line"/>
+            <field name="body_html" type="html" >
                 <div>
-                    % set tiempoacumulado = ctx.get('tiempoacumulado', {})
-                    <p>Sé ha solicitado una aprobación de tiempo acumulado del empleado <strong>${tiempoacumulado['nombre']}</strong>.</p>
+                    % set emailData = ctx.get('emailData', {})
+                    <p>Sé ha solicitado una aprobación de tipo de  licencia: ${emailData['tipo_licencia']}  <strong>${emailData['nombre']}</strong>.</p>
 
                     <table class="table">
                         <thead>
@@ -49,17 +69,16 @@
                                 <th scope="col">Empleado</th>
                                 <th scope="col">Razón</th>
                                 <th scope="col">Fechas</th>
-                                <th scope="col">Tiempo en h</th>
                                 <th scope="col">Acción</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>${tiempoacumulado['nombre']}</td>
-                                <td>${tiempoacumulado['razon']}</td>
-                                <td>${tiempoacumulado['fechasVacaciones']}</td>
-                                <td>${tiempoacumulado['totalTiempoAcumulado']}</td>
-                                <td><a href="${tiempoacumulado['link']}">
+                                <td>${emailData['nombre']}</td>
+                                <td>${emailData['razon']}</td>
+                                <td>${emailData['fechaLicencia']}</td>
+
+                                <td><a href="${emailData['link']}">
                                     Ingrese Aqui !!
                                 </a></td>
                             </tr>
@@ -73,42 +92,55 @@
             <field name="name">Justificación de Marcas</field>
             <field name="model_id" ref="nomina.model_asistencia_docente_line"/>
             <field name="body_html" type="html" >
-                <div>
-                    % set datosCorreo = ctx.get('datosCorreo', [])
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">Docente</th>
-                                <th scope="col">Fecha de Justificación</th>
-                                <th scope="col">Curso</th>
-                                <th scope="col">Horario</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            % for line in datosCorreo:
-                            <tr>
-                                <td>
-                                    <t>${line['docenteNombre']}</t>
-                                </td>
-                                <td>
-                                    <t>${line['fechaJustificacion']}</t>
-                                </td>
-                                <td>
-                                    <t>${line['codigoCurso']}</t>
-                                </td>
-                                <td>
-                                    <t>${line['horarioCurso']}</t>
-                                </td>
-                            </tr>
-                            % endfor
-                        </tbody>
-                    </table>
+                <div style="margin: 0px; padding: 0px;">
+                    % set datosCorreo = ctx.get('datosCorreo', {})
+                    <div>
+                        <img src="https://uc.ac.cr/wp-content/uploads/2022/09/MicrosoftTeams-image-1.png" width="150" height="100"/>
+                    </div>
+                    <div style="text-align:center;">
+                        <p>SE NOTIFICA QUE SE REALIZÓ LA JUSTIFICACIÓN DE AUSENCIA</p>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Docente</th>
+                                    <th scope="col">Fecha de Justificación</th>
+                                    <th scope="col">Curso</th>
+                                    <th scope="col">Horario</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                % for line in datosCorreo:
+                                <tr>
+                                    <td>
+                                        <t>${line['docenteNombre']}</t>
+                                    </td>
+                                    <td>
+                                        <t>${line['fechaJustificacion']}</t>
+                                    </td>
+                                    <td>
+                                        <t>${line['codigoCurso']}</t>
+                                    </td>
+                                    <td>
+                                        <t>${line['horarioCurso']}</t>
+                                    </td>
+                                </tr>
+                                % endfor
+                            </tbody>
+                        </table>
+                    </div>
+                    <div style="text-align:center;">
+                       <img src="https://uc.ac.cr/wp-content/uploads/2022/09/MicrosoftTeams-image.png" width="300" height="100"/>
+                    </div>
+                    <div style="text-align:right;">
+                        <img src="https://uc.ac.cr/wp-content/uploads/2022/09/MicrosoftTeams-image-2.png" width="250" height="100"/>
+                    </div>
+
                 </div>
             </field>
         </record>
 
         <record id="email_correo_carga_adicionales" model="mail.template">
-            <field name="name">Justificación de Marcas</field>
+            <field name="name">UC: Correo Agregar Adicionales</field>
             <field name="model_id" ref="nomina.model_asistencia_docente_line"/>
             <field name="body_html" type="html" >
                 <div>
@@ -128,10 +160,10 @@
                                     <t>${datosCorreo['docenteNombre']}</t>
                                 </td>
                                 <td>
-                                    <t>${datosCorreo['fechaAjuste']}</t>
+                                    <t>${datosCorreo['fechaAdicional']}</t>
                                 </td>
                                 <td>
-                                    <t>${datosCorreo['monto']}</t>
+                                    <t>${datosCorreo['cantidad']}</t>
                                 </td>
                                 <td>
                                     <t>${datosCorreo['monto']}</t>
@@ -144,7 +176,7 @@
         </record>
 
         <record id="email_correo_carga_ajuste_pago" model="mail.template">
-            <field name="name">Justificación de Marcas</field>
+            <field name="name">UC: Correo Agregar Ajsute de Pago</field>
             <field name="model_id" ref="nomina.model_asistencia_docente_line"/>
             <field name="body_html" type="html" >
                 <div>
@@ -175,6 +207,99 @@
                             </tr>
                         </tbody>
                     </table>
+                </div>
+            </field>
+        </record>
+
+        <record id="email_correo_notificacion_licencia" model="mail.template">
+            <field name="name">Notificación de Acción de Personal Licencia</field>
+            <field name="model_id" ref="contrato.model_contrato_empleado_licencias_line"/>
+            <field name="body_html" type="html" >
+                <div style="margin: 0px; padding: 0px;">
+                    % set datosCorreo = ctx.get('datosCorreo', {})
+                    <div>
+                        <img src="https://uc.ac.cr/wp-content/uploads/2022/09/MicrosoftTeams-image-1.png" width="150" height="100"/>
+                    </div>
+                    <div style="text-align:center;">
+                        <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                            Estimado(a) ${datosCorreo['nombre']}
+                            <br/><br/>
+                            Por este medio se le comunica que la solicitud de licencia de tipo ${datosCorreo['tipoLicencia']} ha sido ${datosCorreo['accion']}
+                            <br/><br/>
+                            Por favor comunicarse con su jefatura para coordinar.
+                            <br/><br/>
+                            Saludos cordiales.
+                        </p>
+
+                    </div>
+                    <div style="text-align:center;">
+                       <img src="https://uc.ac.cr/wp-content/uploads/2022/09/MicrosoftTeams-image.png" width="300" height="100"/>
+                    </div>
+                    <div style="text-align:right;">
+                        <img src="https://uc.ac.cr/wp-content/uploads/2022/09/MicrosoftTeams-image-2.png" width="250" height="100"/>
+                    </div>
+                </div>
+            </field>
+        </record>
+
+        <record id="email_correo_notificacion_vacaciones" model="mail.template">
+            <field name="name">Notificación de Acción de Personal Vacaciones</field>
+            <field name="model_id" ref="contrato.model_contrato_empleado_vacaciones_line"/>
+            <field name="body_html" type="html" >
+                <div style="margin: 0px; padding: 0px;">
+                    % set datosCorreo = ctx.get('datosCorreo', {})
+                    <div>
+                        <img src="https://uc.ac.cr/wp-content/uploads/2022/09/MicrosoftTeams-image-1.png" width="150" height="100"/>
+                    </div>
+                    <div style="text-align:center;">
+                        <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                            Estimado(a) ${datosCorreo['nombre']}
+                            <br/><br/>
+                            Por este medio se le comunica que la solicitud de vacaciones ha sido ${datosCorreo['accion']}
+                            <br/><br/>
+                            Por favor comunicarse con su jefatura para coordinar.
+                            <br/><br/>
+                            Saludos cordiales.
+                        </p>
+
+                    </div>
+                    <div style="text-align:center;">
+                       <img src="https://uc.ac.cr/wp-content/uploads/2022/09/MicrosoftTeams-image.png" width="300" height="100"/>
+                    </div>
+                    <div style="text-align:right;">
+                        <img src="https://uc.ac.cr/wp-content/uploads/2022/09/MicrosoftTeams-image-2.png" width="250" height="100"/>
+                    </div>
+                </div>
+            </field>
+        </record>
+
+        <record id="email_correo_notificacion_tiempo_acumulado" model="mail.template">
+            <field name="name">Notificación de Acción de Personal Tiempo Acumulado </field>
+            <field name="model_id" ref="contrato.model_contrato_empleado_tiempo_acumulado_line"/>
+            <field name="body_html" type="html" >
+                <div style="margin: 0px; padding: 0px;">
+                    % set datosCorreo = ctx.get('datosCorreo', {})
+                    <div>
+                        <img src="https://uc.ac.cr/wp-content/uploads/2022/09/MicrosoftTeams-image-1.png" width="150" height="100"/>
+                    </div>
+                    <div style="text-align:center;">
+                        <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                            Estimado(a) ${datosCorreo['nombre']}
+                            <br/><br/>
+                            Por este medio se le comunica que la solicitud de tiempo acumulado ha sido ${datosCorreo['accion']}
+                            <br/><br/>
+                            Por favor comunicarse con su jefatura para coordinar.
+                            <br/><br/>
+                            Saludos cordiales.
+                        </p>
+
+                    </div>
+                    <div style="text-align:center;">
+                       <img src="https://uc.ac.cr/wp-content/uploads/2022/09/MicrosoftTeams-image.png" width="300" height="100"/>
+                    </div>
+                    <div style="text-align:right;">
+                        <img src="https://uc.ac.cr/wp-content/uploads/2022/09/MicrosoftTeams-image-2.png" width="250" height="100"/>
+                    </div>
                 </div>
             </field>
         </record>

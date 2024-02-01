@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_sa_periodo_graduacion_search" model="ir.ui.view">
+        <field name="name">sa.periodo.graduacion.search</field>
+        <field name="model">sa.periodo.graduacion</field>
+        <field name="arch" type="xml">
+            <search string="Periodo">
+                <field string="Nombre" name="name" filter_domain="[('name', 'ilike', self)]"/>
+                <field string="Activo" name="activo" filter_domain="[('activo', '=', True)]"/>
+                <separator/>
+                <group expand="1" string="Group By">
+                    <filter string="Año" name="year_buscar_filter" context="{'group_by':'year_buscar'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_sa_periodo_graduacion_tree" model="ir.ui.view">
+        <field name="name">sa.periodo.graduacion.tree</field>
+        <field name="model">sa.periodo.graduacion</field>
+        <field name="arch" type="xml">
+            <tree default_order="name desc">
+                <field name="activo"/>
+                <field name="name"/>
+                <field name="year_buscar"/>
+                <field name="fecha_incio"/>
+                <field name="fecha_incio"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_sa_periodo_graduacion_form" model="ir.ui.view">
+        <field name="name">sa.periodo.graduacion.form</field>
+        <field name="model">sa.periodo.graduacion</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <label for="name" readonly="1" force_save="1"/>
+                    <h1><field name="name" placeholder="e.j. Primera graduación 2024"/></h1>
+                    <group>
+                        <group string="Información General">
+                            <field name="activo" widget="boolean_toggle"/>
+                            <field name="year" widget="radio"/>
+                            <field name="year_buscar" invisible="1"/>
+                        </group>
+                            <group string="Fechas">
+                                <field name="fecha_incio" widget="daterange" string="Desde" class="oe_inline" options="{'related_end_date': 'fecha_final'}"/>
+                                <field name="fecha_final" widget="daterange" string="Hasta"  class="oe_inline" options="{'related_start_date': 'fecha_incio'}"/>
+                            </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_sa_periodo_graduacion" model="ir.actions.act_window">
+        <field name="name">Periodo de graduación</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sa.periodo.graduacion</field>
+        <field name="view_mode">tree,form</field>
+<!--        <field name="search_view_id" ref="sis.sa_graduacion.graduacion_search"/>-->
+        <field name="search_view_id" ref="sa_graduacion.view_sa_periodo_graduacion_search"/>
+        <field name="context">{'search_default_year_buscar_filter': 1,'search_default_activo': 'Activo'}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_sa_periodo_graduacion"
+              name="Periodos"
+              parent="periodo_graduacion_root"
+              action="action_sa_periodo_graduacion"
+              sequence="110"/>
+
+</odoo>

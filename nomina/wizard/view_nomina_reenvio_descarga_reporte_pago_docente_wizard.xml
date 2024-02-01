@@ -29,6 +29,7 @@
         <field name="res_model">nomina.reenvio.descarga.reporte.pago.docente.wizard</field>
         <field name="view_mode">form</field>
         <field name="view_id" ref="view_nomina_reenvio_descarga_reporte_pago_docente_wizard_form"/>
+        <field name="context">{'default_planillaCuatrimestre_id' : planillaCuatrimestre_id}</field>
         <field name="target">new</field>
     </record>
     <!--    END [configuraicones de pagos adicionales]-->

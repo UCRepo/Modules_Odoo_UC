@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <record id="nomina_docente" model="ir.module.category">
-            <field name="name">Nomina Docente</field>
+        <record id="portal_user" model="ir.module.category">
+            <field name="name">Portal User</field>
             <field name="sequence">9</field>
         </record>
-        <record id="nomina_docentes_lectura" model="res.groups">
+        <record id="portal_user_lectura" model="res.groups">
             <field name="name">Lectura</field>
-            <field name="category_id" ref="nomina_docente"/>
+            <field name="category_id" ref="portal_user"/>
         </record>
-        <record id="nomina_docentes_escritura" model="res.groups">
+        <record id="portal_user_escritura" model="res.groups">
             <field name="name">Escritura</field>
-            <field name="category_id" ref="nomina_docente"/>
+            <field name="category_id" ref="portal_user"/>
         </record>
-        <record id="nomina_docentes_ceacion" model="res.groups">
+        <record id="portal_user_creacion" model="res.groups">
             <field name="name">Creación</field>
-            <field name="category_id" ref="nomina_docente"/>
+            <field name="category_id" ref="portal_user"/>
         </record>
-        <record id="nomina_docentes_eliminacion" model="res.groups">
+        <record id="portal_user_eliminacion" model="res.groups">
             <field name="name">Eliminacion</field>
-            <field name="category_id" ref="nomina_docente"/>
+            <field name="category_id" ref="portal_user"/>
         </record>
     </data>
 </odoo>

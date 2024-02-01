@@ -24,6 +24,8 @@
     'data':[
 
         # Security
+        'security/security.xml',
+        'security/ir.model.access.csv',
 
         #Data
         'data/mail_template.xml',
@@ -32,6 +34,7 @@
 
         # Views
         'views/portal_templates.xml',
+        # 'views/portal_user_permisos.xml',
         'views/portal_configuraciones_view.xml',
         # Static
         'static/assets.xml',
@@ -39,6 +42,7 @@
         #reports
         'report/report_accion_personal_vacaciones.xml',
         'report/report_accion_personal_tiempo_acumulado.xml',
+        'report/report_accion_personal_licencias.xml',
 
     ],
 

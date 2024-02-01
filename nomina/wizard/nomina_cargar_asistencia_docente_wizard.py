@@ -1,14 +1,15 @@
 from datetime import *
 from odoo.http import request
+from odoo.tools.misc import xlsxwriter
 import requests
 import math
 import pytz
 import json
 import logging
+import base64
+import io
+import json
 from odoo import api, fields, models, _
-_logger = logging.getLogger(__name__)
-
-
 
 class NominaGenerarAsistenciaDocenteWizard(models.TransientModel):
     _name = "nomina.cargar.asistencia.docente.wizard"
@@ -37,6 +38,19 @@ class NominaGenerarAsistenciaDocenteWizard(models.TransientModel):
         readonly=False
     )
 
+    desde = fields.Date(
+        string="Desde",
+        required=False,
+    )
+    hasta = fields.Date(
+        string="Hasta",
+        required=False,
+    )
+    incluirCursosPrecenciales = fields.Boolean(
+        string="Incluir Cursos Presenciales",
+        default=False,
+    )
+
     def generar_asistencia(self):
         res = any
         cantiadadHoras = any
@@ -44,7 +58,7 @@ class NominaGenerarAsistenciaDocenteWizard(models.TransientModel):
         planillaActual = any
         ICPSudo = self.env['ir.config_parameter'].sudo()
         # url = ICPSudo.get_param('nomina.urlWSOdoo')+'/api/CursosDocente/getAsistenciaDocente'
-        url = ICPSudo.get_param('nomina.urlWSOdoo')+'/api/CursosDocente/getAsistenciaDocente'
+        url = ICPSudo.get_param('nomina.urlWSOdoo')+'/api/CursosDocenteUC/getAsistenciaDocente'
         user_tz = pytz.timezone(self.env.user.tz)
         anno = pytz.utc.localize(datetime.today()).astimezone(user_tz)
 
@@ -54,20 +68,25 @@ class NominaGenerarAsistenciaDocenteWizard(models.TransientModel):
         desde = any
         hasta = any
         inicioCuatrimestre = self.cuatrimestre_id.fechaInicioCuatrimestre
-        if self.pago == 'Primer Pago':
-            desde = self.cuatrimestre_id.fechaInicioPrimerPago
-            hasta = self.cuatrimestre_id.fechaFinPrimerPago
-        elif self.pago == 'Segundo Pago':
-            desde = self.cuatrimestre_id.fechaInicioSegundoPago
-            hasta = self.cuatrimestre_id.fechaFinSegundoPago
-        elif self.pago == 'Tercer Pago':
-            desde = self.cuatrimestre_id.fechaInicioTercerPago
-            hasta = self.cuatrimestre_id.fechaFinTercerPago
+        if self.desde == False or self.hasta == False:
+            if self.pago == 'Primer Pago':
+                desde = self.cuatrimestre_id.fechaInicioPrimerPago
+                hasta = self.cuatrimestre_id.fechaFinPrimerPago
+            elif self.pago == 'Segundo Pago':
+                desde = self.cuatrimestre_id.fechaInicioSegundoPago
+                hasta = self.cuatrimestre_id.fechaFinSegundoPago
+            elif self.pago == 'Tercer Pago':
+                desde = self.cuatrimestre_id.fechaInicioTercerPago
+                hasta = self.cuatrimestre_id.fechaFinTercerPago
+        else:
+            desde = self.desde
+            hasta = self.hasta
 
-
+        correoAusencias_list = []
         while desde <= hasta:
 
             cantidadDias = ((desde - inicioCuatrimestre).days + 7)
+            semana = int(math.ceil((((desde - self.cuatrimestre_id.fechaInicioPrimerPago).days + 1) / 7)))
             dia = any
             if desde.weekday() == 0 :
                 dia = 'L'
@@ -102,8 +121,8 @@ class NominaGenerarAsistenciaDocenteWizard(models.TransientModel):
 
                 if (curso.estadoCurso == "Tutoria" or curso.estadoCurso == "Tutoria Ext" ):
                     hastaSemana = self.env['configuraciones.tutorias.line'].search([('numeroEstudiantes','=',curso.alumnos)])
-
-                    if (cantidadDias / 7) > (hastaSemana.semanasTutoria + 1) :
+                    generaMarca = self.env['configuraciones.tutorias.semana.line'].sudo().search(['&',('tutoria_id','=',hastaSemana.id),('semanaMarca','=',semana)])
+                    if not generaMarca:
                         continue
 
                 if curso.fechaCambioCurso != False:
@@ -144,6 +163,8 @@ class NominaGenerarAsistenciaDocenteWizard(models.TransientModel):
                         'deduccionTotal': 0,
                         'marcaJustificada': False,
                         'pagoMarca': self.pago,
+                        'estado': 'OK',
+                        'sede': curso.sede
                     }
 
                     entradaClasesDB = any
@@ -320,7 +341,7 @@ class NominaGenerarAsistenciaDocenteWizard(models.TransientModel):
                                     })
                                 else:
                                     vals.update({
-                                        'tiempoClases': timepoClase,
+                                        'tiempoClases': curso.cantiadadHoras,
                                     })
                         asistenciaDocente = cursosDocente.asistencia_line_ids
 
@@ -354,4 +375,108 @@ class NominaGenerarAsistenciaDocenteWizard(models.TransientModel):
                         else:
                             cursosDocente.asistencia_line_ids = [(0, 0, vals)]
 
+                    if vals['estado'] not in ['OK','Ok',''] and (curso.sede == "VT" or self.incluirCursosPrecenciales):
+                        dict = {
+                            'identificacion': curso.docente_id.identification_id,
+                            'anno': str(desde.year),
+                            'periodo': str(self.cuatrimestre_id.decripcion.replace('Q', '')),
+                            'diaCurso': dia,
+                            'fechaCurso': str(desde),
+                            'horaInicio': curso.horaInicio,
+                            'minutoInicio': curso.minutoInicio,
+                            'horaFinal': curso.horaFinal,
+                            'minutoFinal': curso.minutoFinal,
+                            'docente': curso.docente_id.name,
+                            'curso': curso.codigoCurso,
+                            'horario': curso.horario,
+                            'sede': curso.sede,
+                            'tipo': curso.estadoCurso,
+                            'estado': vals['estado'],
+                        }
+                        correoAusencias_list.append(dict)
+
             desde += timedelta(days=1)
+
+        hoy = datetime.today()
+        if len(correoAusencias_list) > 0:
+            data_record = base64.b64encode(self.generar_excel_justificaciones(correoAusencias_list))
+            ir_values = {
+                'name': "Justificaciones.xlsx",
+                'type': 'binary',
+                'datas': data_record,
+                'store_fname': data_record,
+                'mimetype': 'application/vnd.ms-excel',
+            }
+            datosCorreo = {
+                'hoy': hoy.date(),
+            }
+            data_id = self.env['ir.attachment'].create(ir_values)
+            template_id = self.env.ref('nomina.email_correo_cursos_ausencia').id
+            template = self.env['mail.template'].browse(template_id)
+            template.attachment_ids = [(6, 0, [data_id.id])]
+            email_values = {'email_to': self.env.user.email,
+                            'subject': 'Reporte de Ausencias del '+str(hoy.date())
+                            }
+            template.with_context(datosCorreo=datosCorreo).send_mail(self.id, email_values=email_values, force_send=True)
+            template.attachment_ids = [(3, data_id.id)]
+
+
+    def generar_excel_justificaciones(self,dataAsistencia):
+        output = io.BytesIO()
+        workbook = xlsxwriter.Workbook(output, {'in_memory': True})
+
+        # create some style to set up the font type, the font size, the border, and the aligment
+        title_style = workbook.add_format({'font_name': 'Times', 'font_size': 14, 'bold': True, 'align': 'center'})
+        header_style = workbook.add_format(
+            {'font_name': 'Times', 'bold': True, 'left': 1, 'bottom': 1, 'right': 1, 'top': 1, 'align': 'center'})
+        text_style = workbook.add_format(
+            {'font_name': 'Times', 'left': 1, 'bottom': 1, 'right': 1, 'top': 1, 'align': 'left'})
+        number_style = workbook.add_format(
+            {'font_name': 'Times', 'left': 1, 'bottom': 1, 'right': 1, 'top': 1, 'align': 'right'})
+
+        sheet = workbook.add_worksheet('Planilla')
+        sheet.write(0, 0, 'Cedula')
+        sheet.write(0, 1, 'Año')
+        sheet.write(0, 2, 'Periodo')
+        sheet.write(0, 3, 'Dia curso')
+        sheet.write(0, 4, 'Fecha curso')
+        sheet.write(0, 5, 'Hora Inicio')
+        sheet.write(0, 6, 'Minuto Inicio')
+        sheet.write(0, 7, 'Hora Final')
+        sheet.write(0, 8, 'Minuto Final')
+        sheet.write(0, 9, 'Sede')
+        sheet.write(0, 10, 'Nombre')
+        sheet.write(0, 11, 'Curso')
+        sheet.write(0, 12, 'Horario')
+        sheet.write(0, 13, 'Tipo')
+        sheet.write(0, 14, 'Estado')
+
+        row = 1
+        # search the sales order
+
+        for data in dataAsistencia:
+            sheet.write(row, 0, data['identificacion'])
+            sheet.write(row, 1, data['anno'])
+            sheet.write(row, 2, data['periodo'])
+            sheet.write(row, 3, data['diaCurso'])
+            sheet.write(row, 4, data['fechaCurso'])
+            sheet.write(row, 5, data['horaInicio'])
+            sheet.write(row, 6, data['minutoInicio'])
+            sheet.write(row, 7, data['horaFinal'])
+            sheet.write(row, 8, data['minutoFinal'])
+            sheet.write(row, 9, data['sede'])
+            sheet.write(row, 10, data['docente'])
+            sheet.write(row, 11, data['curso'])
+            sheet.write(row, 12, data['horario'])
+            sheet.write(row, 13, data['tipo'])
+            sheet.write(row, 14, data['estado'])
+
+
+            row += 1
+
+        workbook.close()
+        output.seek(0)
+        datas = output.read()
+        output.close()
+
+        return datas

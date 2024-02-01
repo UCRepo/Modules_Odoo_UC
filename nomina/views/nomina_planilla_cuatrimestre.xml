@@ -9,12 +9,14 @@
                     <button name="action_done" string="Crear Pre Planilla" class="btn-primary" type="object"/>
                     <button name="action_create_report" string="Crear Reportes y Enviar Correo" class="btn-primary" type="object"/>
                     <button name="descargar_reporte_asistencia" string="Descargar Reporte de Asistencia" class="btn-primary" type="object"/>
-                    <button name="%(action_nomina_reenvio_descarga_reporte_pago_docente_wizard)d" string="Reenvio y Descarga de Reporte" class="btn-primary" type="action"/>
+                    <button name="reenvio_descarga_colilla" string="Reenvio y Descarga de Reporte" class="btn-primary" type="object"/>
                     <button name="createXLSXReport" string="Generar Excel de Pago" class="btn-primary" type="object"/>
                     <button name="createXLSXReportDetallado" string="Generar Excel de Pago Detallado" class="btn-primary" type="object"/>
                     <button name="createXLSXReportPrediccion" string="Predicción" class="btn-primary" type="object"/>
                     <button name="createXLSXReportJustificacionMarcas" string="Reporte Marcas Justificadas" class="btn-primary" type="object"/>
                     <button name="createXLSXReportComparativoPago" string="Comparativo de Pago" class="btn-primary" type="object"/>
+                    <button name="descargar_reporte_docentes_falta_pago" string="Docentes Sin Pago" class="btn-primary" type="object"/>
+                    <button name="get_reporte_pago_UC" string="Reporte Pago V2" class="btn-primary" type="object"/>
                 </header>
                 <sheet>
                     <div role="alert" class="alert alert-danger"

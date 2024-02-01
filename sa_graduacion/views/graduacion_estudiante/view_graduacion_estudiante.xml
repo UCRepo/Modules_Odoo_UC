@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_sa_graduacion_estudiante_search" model="ir.ui.view">
+        <field name="name">sa.graduacion.estudiante.search</field>
+        <field name="model">sa.graduacion.estudiante</field>
+        <field name="arch" type="xml">
+            <search string="Periodo">
+                <field string="Nombre" name="name" filter_domain="[('name', 'ilike', self)]"/>
+                <field string="Identificación" name="identificacion" filter_domain="[('identificacion', 'ilike', self)]"/>
+                <field string="Carnet" name="carnet" filter_domain="[('carnet', 'ilike', self)]"/>
+                <!--                <field string="Activo" name="activo" filter_domain="[('activo', '=', True)]"/>-->
+                <separator/>
+                <group expand="1" string="Group By">
+                    <filter string="Año" name="periodoGraduacion_id_filter" context="{'group_by':'periodoGraduacion_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_sa_graduacion_estudiante_tree" model="ir.ui.view">
+        <field name="name">sa.graduacion.estudiante.tree</field>
+        <field name="model">sa.graduacion.estudiante</field>
+        <field name="arch" type="xml">
+            <tree default_order="name desc">
+                <!--                <field name="activo"/>-->
+                <field name="periodoGraduacion_id"/>
+                <field name="name"/>
+                <field name="identificacion"/>
+                <field name="carnet"/>
+                <field name="carrera"/>
+                <field name="fecha_Solicitud"/>
+                <field name="fecha_Vencimiento" widget="remaining_days"/>
+                <field name="state"
+                       widget="badge"
+                       decoration-danger ="state == 'Recibido'"
+                       decoration-info ="state == 'En revisión'"
+                       decoration-success ="state == 'Aprobado'"
+                       decoration-warning  ="state == 'Rechazado'"
+                />
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_sa_graduacion_estudiante_form" model="ir.ui.view">
+        <field name="name">sa.graduacion.estudiante.form</field>
+        <field name="model">sa.graduacion.estudiante</field>
+        <field name="arch" type="xml">
+            <form>
+                <field name="filename_Identificacion" invisible="1"/>
+                <field name="filename_Titulo_Educacion" invisible="1"/>
+                <field name="filename_Diploma" invisible="1"/>
+                <field name="filename_Apostille" invisible="1"/>
+                <field name="filename_Equiparacion_MEP" invisible="1"/>
+                <field name="filename_Titulo_Bachillerato" invisible="1"/>
+                <field name="filename_Titulo_Bachillerato_Licenciatura" invisible="1"/>
+                <field name="filename_TCU_Certificacion" invisible="1"/>
+                <field name="filename_comprobande" invisible="1"/>
+                <field name="filename_Boleta" invisible="1"/>
+                <header>
+                    <button name="envio_Correo_Revision" string="En revisión" class="btn-primary" type="object" attrs="{'invisible': [('state','in','En revisión')]}"/>
+                    <button name="envio_Correo_Aprobado" string="Aprobado" class="btn-primary" type="object" attrs="{'invisible': [('state','in',('Recibido','Aprobado','Rechazado'))]}"/>
+                    <button name="envio_Correo_Rechazado" string="Rechazado" class="btn-primary" type="object" attrs="{'invisible': [('state','in',('Recibido','Rechazado','Aprobado'))]}"/>
+                    <field name="state" widget="statusbar"/>
+
+                </header>
+                <sheet>
+                    <label for="name" readonly="1" force_save="1"/>
+                    <h1><field name="name" placeholder="e.j. Greivin Gamboa Flroes" readonly="1" force_save="1"/></h1>
+                    <group>
+                        <group string="Información General">
+                            <field name="fecha_Solicitud"/>
+                            <field name="identificacion"/>
+                            <field name="carnet"/>
+                            <field name="correo"/>
+                            <field name="telefono"/>
+                            <field name="carrera"/>
+                            <field name="grado"/>
+                            <field name="estado_Migratorio"/>
+                        </group>
+                        <group string="Observaciones">
+                            <field name="observaciones" nolabel="1"  widget="text"/>
+                            <field name="copia_comprobande" readonly="1" force_save="1"  filename="filename_comprobande" attrs="{'invisible': [('state','!=','Aprobado')]}"/>
+                            <field name="copia_Boleta" readonly="1" force_save="1"  filename="filename_Boleta" attrs="{'invisible': [('state','!=','Aprobado')]}"/>
+                        </group>
+                    </group>
+                    <group string="Documentos">
+                        <field name="copia_Identificacion" readonly="1" force_save="1" nolabel="1" filename="filename_Identificacion" attrs="{'invisible': [('grado','=',True)]}"/>
+                        <field name="copia_Titulo_Educacion" readonly="1" force_save="1" nolabel="1" filename="filename_Titulo_Educacion" attrs="{'invisible': [('estado_Migratorio','=','Extranjero')]}"/>
+                        <field name="copia_Diploma" readonly="1" force_save="1" nolabel="1" filename="filename_Diploma" attrs="{'invisible': [('estado_Migratorio','=','Nacional')]}"/>
+                        <field name="copia_Apostille" readonly="1" force_save="1" nolabel="1" filename="filename_Apostille" attrs="{'invisible': [('estado_Migratorio','=','Nacional')]}"/>
+                        <field name="copia_Equiparacion_MEP" readonly="1" force_save="1" nolabel="1" filename="filename_Equiparacion_MEP" attrs="{'invisible': [('estado_Migratorio','=','Nacional')]}"/>
+                        <field name="copia_Titulo_Bachillerato" readonly="1" force_save="1" nolabel="1" filename="filename_Titulo_Bachillerato" attrs="{'invisible': [('grado','in',('BACHILLERATO','MAESTRIA'))]}"/>
+                        <field name="copia_Titulo_Bachillerato_Licenciatura" readonly="1" force_save="1" nolabel="1" filename="filename_Titulo_Bachillerato_Licenciatura" attrs="{'invisible': [('grado','in',('BACHILLERATO','LICENCIATURA'))]}"/>
+                        <field name="copia_TCU_Certificacion" readonly="1" force_save="1" nolabel="1" filename="filename_TCU_Certificacion" attrs="{'invisible': [('grado','=','MAESTRIA')]}"/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_sa_graduacion_estudiante" model="ir.actions.act_window">
+        <field name="name">Graduación del estudiante</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sa.graduacion.estudiante</field>
+        <field name="view_mode">tree,form</field>
+        <!--        <field name="search_view_id" ref="sis.sa_graduacion.graduacion_search"/>-->
+        <field name="search_view_id" ref="sa_graduacion.view_sa_graduacion_estudiante_search"/>
+        <field name="context">{'search_default_periodoGraduacion_id_filter': 1,'search_default_activo': 'Activo'}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_sa_graduacion_estudiante"
+              name="Solicitudes de graduación"
+              parent="solicitud_graduacion_root"
+              action="action_sa_graduacion_estudiante"
+              sequence="110"/>
+
+</odoo>

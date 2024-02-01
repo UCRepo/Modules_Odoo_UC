@@ -52,6 +52,7 @@
         'views/nomina_tesis_docente.xml',
         'views/nomina_planilla_tesis.xml',
         'views/nomina_planilla_cursos_libre_view.xml',
+        'views/nomina_planilla_CCSS_cuatrimestre.xml',
         # 'views/nomina_planilla_cuatrimestre_aceptados.xml',
         # 'views/nomina_planilla_cuatrimestre_rechazados.xml',
         'static/src/assets.xml',

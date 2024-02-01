@@ -33,7 +33,7 @@ class CargarCursoLibreDocente(models.TransientModel):
         cursosDict = {}
         cursosList = []
         ICPSudo = self.env['ir.config_parameter'].sudo()
-        url = ICPSudo.get_param('nomina.urlWSOdoo')+'/api/CursosDocente/getCursosDocente'
+        url = ICPSudo.get_param('nomina.urlWSOdoo')+'/api/CursosDocenteUC/getCursosDocente'
         user_tz = pytz.timezone(self.env.user.tz)
         anno = pytz.utc.localize(datetime.today()).astimezone(user_tz)
 

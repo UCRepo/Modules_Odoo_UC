@@ -144,4 +144,10 @@
               parent="horario_empleado_root"
               action="action_horario_generacion_horario_wizard"
               sequence="30"/>
+
+    <menuitem id="horario_empleado_cargar_horario"
+              name="Cargar horario"
+              parent="horario_empleado_root"
+              action="action_horario_cargar_horario_empleado_wizard"
+              sequence="40"/>
 </odoo>

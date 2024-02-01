@@ -17,6 +17,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\horario\security\ir.model.access.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\nomina\security\ir.model.access.csv">
           <value>
             <Attribute>

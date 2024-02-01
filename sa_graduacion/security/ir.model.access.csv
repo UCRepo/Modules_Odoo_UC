@@ -1,0 +1,11 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+access_sa_periodo_graduacion_lectura,access.sa.periodo.graduacion,model_sa_periodo_graduacion,sa_proceso_graduacion_lectura,1,0,0,0
+access_sa_periodo_graduacion_escritura,access.sa.periodo.graduacion,model_sa_periodo_graduacion,sa_proceso_graduacion_escritura,0,1,0,0
+access_sa_periodo_graduacion_ceacion,access.sa.periodo.graduacion,model_sa_periodo_graduacion,sa_proceso_graduacion_creacion,0,0,1,0
+access_sa_periodo_graduacion_eliminacion,access.sa.periodo.graduacion,model_sa_periodo_graduacion,sa_proceso_graduacion_eliminacion,0,0,0,1
+
+access_sa_graduacion_estudiante_lectura,access.sa.graduacion.estudiante,model_sa_graduacion_estudiante,sa_proceso_graduacion_lectura,1,0,0,0
+access_sa_graduacion_estudiante_escritura,access.sa.graduacion.estudiante,model_sa_graduacion_estudiante,sa_proceso_graduacion_escritura,0,1,0,0
+access_sa_graduacion_estudiante_ceacion,access.sa.graduacion.estudiante,model_sa_graduacion_estudiante,sa_proceso_graduacion_creacion,0,0,1,0
+access_sa_graduacion_estudiante_eliminacion,access.sa.graduacion.estudiante,model_sa_graduacion_estudiante,sa_proceso_graduacion_eliminacion,0,0,0,1
