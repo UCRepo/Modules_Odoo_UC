@@ -66,11 +66,6 @@
                                     <label class="custom-file-label" for="titulo_Media">Copia del título Educación Media</label>
                                     <div class="invalid-feedback">Falta el Documento</div>
                                 </div>
-                                <div class="custom-file mb-4">
-                                    <input type="file" class="custom-file-input" id="TCU" required="True"  accept="application/pdf"/>
-                                    <label class="custom-file-label" for="TCU">Copia recibido TCU completo o certificación</label>
-                                    <div class="invalid-feedback">Falta el Documento</div>
-                                </div>
                                 <button type="button" id="btn_Enviar_Solicitud" class="btn btn-primary">Enviar Solicitud</button>
                             </form>
                         </div>
@@ -95,11 +90,6 @@
                                 <div class="custom-file mb-4">
                                     <input type="file" class="custom-file-input" id="titulo_Equiparacion" required="True" accept="application/pdf" />
                                     <label class="custom-file-label" for="titulo_Equiparacion">Copia de la Equiparación del MEP</label>
-                                    <div class="invalid-feedback">Falta el Documento</div>
-                                </div>
-                                <div class="custom-file mb-4">
-                                    <input type="file" class="custom-file-input" id="TCU" required="True"  accept="application/pdf"/>
-                                    <label class="custom-file-label" for="TCU">Copia recibido TCU completo o certificación</label>
                                     <div class="invalid-feedback">Falta el Documento</div>
                                 </div>
                                 <button type="button" id="btn_Enviar_Solicitud" class="btn btn-primary">Enviar Solicitud</button>

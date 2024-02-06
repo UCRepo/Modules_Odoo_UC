@@ -8,7 +8,34 @@ from odoo import http
 from odoo.http import content_disposition, request
 from datetime import date, timedelta, datetime
 
-class ProcesoTCUPrimeraFase(http.Controller):
+class ProcesoGraduacion(http.Controller):
+
+    @http.route('/get_estudiante_carreras', type='json', auth="public", website=True)
+    def get_estudiante_carreras(self,cedulaEstudiante=None):
+        ICPSudo = request.env['ir.config_parameter'].sudo()
+        url = ICPSudo.get_param('sa_graduacion.procesoGraduacionURLAPI') + '/api/Estudiante/getCarrerasEstudiante'
+
+        dataJSon = {
+            "cedulaEstudiante": cedulaEstudiante,
+        }
+        header = {
+            'Content-Type': 'application/json',
+            'Accept': 'text/plain'
+        }
+
+        response = requests.post(url, headers=header, json=dataJSon, verify=False)
+
+        if response.status_code == 200:
+            carreras = ['Seleccioné la Carrera']
+            carreras = carreras + response.json()['data']
+            return {
+                'tiene': True,
+                'carreras': carreras
+            }
+        else:
+            return {
+                'tiene': False
+            }
 
     @http.route('/proceso_graduacion', type='http', auth="public", website=True)
     def proceso_graduacion(self,valsJS=None ):

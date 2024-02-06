@@ -40,6 +40,7 @@
         'views/periodo_graduacion/view_periodo_graduacion.xml',
         'views/graduacion_estudiante/view_graduacion_estudiante.xml',
         'views/web/web_proceso_graduacion_templates.xml',
+        'views/config/view_sa_model_config.xml',
 
 
         'static/assets.xml',

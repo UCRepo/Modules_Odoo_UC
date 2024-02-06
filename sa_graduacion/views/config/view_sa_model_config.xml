@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.graduacion</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="10"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('settings')]" position="inside">
+                <div class="app_settings_block" data-string="Proceso TCU" string="Proceso TCU" data-key="proceso_tcu">
+                    <h2>Nomina</h2>
+                    <div class="row mt16 o_settings_container">
+                        <div class="o_settings_left_pane">
+                            <label string="Correo de envio de notificaciones" for="procesoGraduacioncorreoEnvioNotificaciones"/>
+                            <field name="procesoGraduacioncorreoEnvioNotificaciones"/>
+                            <label string="API" for="procesoGraduacionURLAPI"/>
+                            <field name="procesoGraduacionURLAPI"/>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

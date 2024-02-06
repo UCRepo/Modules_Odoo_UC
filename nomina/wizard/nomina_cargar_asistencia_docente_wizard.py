@@ -119,7 +119,7 @@ class NominaGenerarAsistenciaDocenteWizard(models.TransientModel):
                                                                    ('marcaJustificada','=',True)]):
                     continue
 
-                if (curso.estadoCurso == "Tutoria" or curso.estadoCurso == "Tutoria Ext" ):
+                if (curso.estadoCurso == "Tutoria" or curso.estadoCurso == "Tutoria Ext"):
                     hastaSemana = self.env['configuraciones.tutorias.line'].search([('numeroEstudiantes','=',curso.alumnos)])
                     generaMarca = self.env['configuraciones.tutorias.semana.line'].sudo().search(['&',('tutoria_id','=',hastaSemana.id),('semanaMarca','=',semana)])
                     if not generaMarca:
